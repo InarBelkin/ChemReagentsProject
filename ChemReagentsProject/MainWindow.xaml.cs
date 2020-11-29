@@ -26,7 +26,7 @@ namespace ChemReagentsProject
     /// </summary>
     public partial class MainWindow : Window, IMainWin
     {
-        public MainWindow()
+        public MainWindow()//
         {
             InitializeComponent();
             var kernel = new StandardKernel(new NinjectRegistrations(), new ServiceModule("DBConnection"));
