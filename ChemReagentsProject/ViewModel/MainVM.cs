@@ -3,7 +3,7 @@ using ChemReagentsProject.Interfaces;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace ChemReagentsProject.ViewModel
+namespace ChemReagentsProject.ViewModel //Типа изменил
 {
     partial class MainVM : INotifyPropertyChanged
     {
@@ -24,7 +24,7 @@ namespace ChemReagentsProject.ViewModel
         }
 
         private RelayCommand tabCommand;
-        public RelayCommand TabCommand
+        public RelayCommand TabCommand      //
         {
             get
             {
