@@ -28,7 +28,9 @@ namespace ChemReagentsProject.ViewModel
         {
             get
             {
-                return dbOp.Reagents.GetList();
+                dbOp.Supplies.GetList();
+                List<ReagentM> a = dbOp.Reagents.GetList();
+                return a;/*dbOp.Reagents.GetList();*/
             }
         }
 

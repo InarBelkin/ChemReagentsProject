@@ -19,14 +19,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ChemReagentsProject   //может пойму когда-нибудь?
+namespace ChemReagentsProject  
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window, IMainWin
     {
-        public MainWindow()//ну что да блин
+        public MainWindow()
         {
             InitializeComponent();
             var kernel = new StandardKernel(new NinjectRegistrations(), new ServiceModule("DBConnection"));

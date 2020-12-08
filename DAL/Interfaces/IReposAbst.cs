@@ -37,7 +37,8 @@ namespace DAL.Interfaces
 
         public virtual List<T> GetList()
         {
-            return db2.ToList();
+            List <T> a = db2.ToList();
+            return a;
         }
 
         /// <summary>
