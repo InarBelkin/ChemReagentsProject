@@ -22,6 +22,7 @@
         </StackPanel>
 
         <Frame x:Name="FrameRight" Grid.Column="1" NavigationUIVisibility="Hidden"  ></Frame>
+        
 
     </Grid>
 </Window>
