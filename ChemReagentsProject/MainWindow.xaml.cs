@@ -19,7 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ChemReagentsProject
+namespace ChemReagentsProject   //короче опять не понимаю гит
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
