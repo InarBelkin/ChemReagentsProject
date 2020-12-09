@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,9 +45,15 @@ namespace BLL.Services
             return new SupplyM (db.Supplies.GetItem(id));
         }
 
-        public List<SupplyM> GetList()
+        public ObservableCollection<SupplyM> GetList()
         {
-            return db.Supplies.GetList().Select(i => new SupplyM(i)).ToList();
+            ObservableCollection<SupplyM> ret = new ObservableCollection<SupplyM>();
+            foreach (Supply s in db.Supplies.GetList())
+            {
+                ret.Add(new SupplyM(s));
+            }
+            return ret;
+            //return db.Supplies.GetList().Select(i => new SupplyM(i)).ToList();
         }
 
         public void Update(SupplyM item)

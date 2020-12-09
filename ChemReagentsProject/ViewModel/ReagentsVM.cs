@@ -11,13 +11,15 @@ using System.Threading.Tasks;
 
 namespace ChemReagentsProject.ViewModel
 {
-    class ReagentsVM: INotifyPropertyChanged
+    class ReagentsVM : INotifyPropertyChanged
     {
         IDbCrud dbOp;
+        IReportServ rep;
 
-        public ReagentsVM(IDbCrud cr)
+        public ReagentsVM(IDbCrud cr, IReportServ report)
         {
             dbOp = cr;
+            rep = report;
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
@@ -30,23 +32,35 @@ namespace ChemReagentsProject.ViewModel
         {
             get
             {
-                reagentlist = new ObservableCollection<ReagentM>();
-                List<ReagentM> a = dbOp.Reagents.GetList();
-                foreach(ReagentM r in a )
-                {
-                    reagentlist.Add(r);
-                }
+                reagentlist = dbOp.Reagents.GetList();
                 reagentlist.CollectionChanged += Reagents_CollectionChanged;
-                return reagentlist;/*dbOp.Reagents.GetList();*/
+                
+
+                return reagentlist;
             }
         }
 
         private void Reagents_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-
+            switch(e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                     ReagentM newreag = e.NewItems[0] as ReagentM;
+                    //ReagentM newreag = new ReagentM();
+                    //newreag.Name = "NaCl";
+                    //newreag.Units = "mm";
+                    dbOp.Reagents.Create(newreag);
+                    break;
+                case NotifyCollectionChangedAction.Reset: // если замена
+                    ReagentM newreagr = e.NewItems[0] as ReagentM;
+                    dbOp.Reagents.Update(newreagr);
+                    break;
+                    
+                   
+            }
         }
 
-        public object SelectReag
+        public object SelectReag        //выделили строку
         {
             get
             {
@@ -54,22 +68,28 @@ namespace ChemReagentsProject.ViewModel
             }
             set
             {
-                if(value is ReagentM r)
+                if (value is ReagentM r)
                 {
-                    Console.WriteLine();
+                    if (r.Id != 0) //костыль
+                    {
+                        SuppliesList = rep.SupplyByReag(r.Id);
+                    }
+
                 }
             }
         }
 
-        public List<SupplyM> SuppliesList
+        private ObservableCollection<SupplyM> suppliesList;
+        public ObservableCollection<SupplyM> SuppliesList
         {
             get
             {
-                return dbOp.Supplies.GetList();
+                return suppliesList;
             }
             set
             {
-                   
+                suppliesList = value;
+                OnPropertyChanged("SuppliesList");
             }
 
         }

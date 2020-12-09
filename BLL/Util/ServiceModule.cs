@@ -19,6 +19,7 @@ namespace BLL.Util
         public override void Load()
         {
             Bind<IDbRepos>().To<DbReposSQL>().InSingletonScope().WithConstructorArgument(connectionString);
+
         }
     }
 }

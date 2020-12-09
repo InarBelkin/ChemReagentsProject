@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    interface IReportRepos
+    public interface IReportRepos
     {
         List<Supply> SupplyByReag(int reagId);
     }

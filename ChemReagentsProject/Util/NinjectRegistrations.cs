@@ -13,7 +13,7 @@ namespace ChemReagentsProject.Util
         public override void Load()
         {
             Bind<IDbCrud>().To<DbDataOperation>();
-            //Bind<IReportService>().To<ReportService>();
+             Bind<IReportServ>().To<ReportService>();
         }
     }
 }

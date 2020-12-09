@@ -31,5 +31,9 @@ namespace DAL.Repository
             List<Supply> supl = db.Supplies.ToList();
             return a;
         }
+        public override void Create(Reagent item)
+        {
+            db.Reagents.Add(item);
+        }
     }
 }

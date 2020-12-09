@@ -16,7 +16,7 @@ namespace ChemReagentsProject.ViewModel
         {
             get
             {
-                return pReag ?? (pReag = new PageReagents(dbOp));
+                return pReag ?? (pReag = new PageReagents(dbOp, rep));
             }
             set
             {

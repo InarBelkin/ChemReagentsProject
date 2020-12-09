@@ -4,6 +4,7 @@ using DAL.Interfaces;
 using DAL.Tables;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace BLL.Services
@@ -25,6 +26,7 @@ namespace BLL.Services
                 Name = item.Name,
                 units = item.Units
             });
+            Save();
             
         }
 
@@ -39,9 +41,16 @@ namespace BLL.Services
             return new ReagentM(db.Reagents.GetItem(id));
         }
 
-        public List<ReagentM> GetList()
+        public ObservableCollection<ReagentM> GetList()
         {
-            return db.Reagents.GetList().Select(i => new ReagentM(i)).ToList();
+            // List<Reagent> l = db.Reagents.GetList();
+            ObservableCollection<ReagentM> ret = new ObservableCollection<ReagentM>();
+            foreach(Reagent r in db.Reagents.GetList())
+            {
+                ret.Add(new ReagentM(r));
+            }
+            return ret;
+            //return db.Reagents.GetList().Select(i => new ReagentM(i)).ToList();
         }
 
         public void Update(ReagentM item)
@@ -50,6 +59,7 @@ namespace BLL.Services
             r.Id = item.Id;
             r.Name = item.Name;
             r.units = item.Units;
+            Save();
         }
 
         public bool Save()

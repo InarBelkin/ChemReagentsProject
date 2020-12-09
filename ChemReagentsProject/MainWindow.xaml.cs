@@ -31,8 +31,9 @@ namespace ChemReagentsProject
             InitializeComponent();
             var kernel = new StandardKernel(new NinjectRegistrations(), new ServiceModule("DBConnection"));
             IDbCrud crudServ = kernel.Get<IDbCrud>();
+            IReportServ RepServ = kernel.Get<IReportServ>();
             
-            MainVM a = new MainVM( this, crudServ);
+            MainVM a = new MainVM( this, crudServ,RepServ);
             DataContext = a;
         }
 

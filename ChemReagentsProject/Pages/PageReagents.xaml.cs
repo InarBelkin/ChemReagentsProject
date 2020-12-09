@@ -22,10 +22,10 @@ namespace ChemReagentsProject.Pages
     /// </summary>
     public partial class PageReagents : Page
     {
-        public PageReagents(IDbCrud cr)
+        public PageReagents(IDbCrud cr, IReportServ report)
         {
             InitializeComponent();
-            DataContext = new ReagentsVM(cr);
+            DataContext = new ReagentsVM(cr,report);
             
             //this.ShortSupplDG.ItemsSource = cr.Supplies.GetList();
             //this.ReagentGrid.ItemsSource = cr.Reagents.GetList();

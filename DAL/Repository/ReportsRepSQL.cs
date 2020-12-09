@@ -8,7 +8,7 @@ using DAL.Tables;
 
 namespace DAL.Repository
 {
-    class ReportsRepSQL : IReportRepos
+    public class ReportsRepSQL : IReportRepos
     {
         private ChemContext db;
 

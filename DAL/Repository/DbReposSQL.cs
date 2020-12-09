@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace DAL.Repository
 {
@@ -14,9 +15,11 @@ namespace DAL.Repository
         private ChemContext db;
         private SuppliesRepSQL SupplyRepos;
         private ReagentsRepSQL ReagentsRepos;
+        private ReportsRepSQL Report;
         public DbReposSQL()
         {
             db = new ChemContext();
+            //MessageBox.Show("adsf");
         }
 
         public IRepository<Supply> Supplies
@@ -35,7 +38,13 @@ namespace DAL.Repository
             }
         }
 
-
+        public IReportRepos Reports
+        {
+            get
+            {
+                return Report ?? (Report = new ReportsRepSQL(db));
+            }
+        }
 
         public int Save()
         {
