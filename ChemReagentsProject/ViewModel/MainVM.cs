@@ -45,6 +45,8 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
             }
         }
 
+       
+
 
     }
 }

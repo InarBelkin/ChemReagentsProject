@@ -26,8 +26,15 @@ namespace ChemReagentsProject.Pages
         {
             InitializeComponent();
             DataContext = new ReagentsVM(cr);
+            
             //this.ShortSupplDG.ItemsSource = cr.Supplies.GetList();
             //this.ReagentGrid.ItemsSource = cr.Reagents.GetList();
         }
+
+
+
+
+
+
     }
 }

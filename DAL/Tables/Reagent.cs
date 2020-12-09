@@ -12,7 +12,7 @@ namespace DAL.Tables
         public string Name { get; set; }
         public string units { get; set; }
        
-        public virtual ICollection<Supply> Supplies { get; set; }
+        public virtual List<Supply> Supplies { get; set; }
        
     }
 }

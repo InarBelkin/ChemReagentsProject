@@ -17,12 +17,18 @@ namespace DAL.Repository
 
         public override List<Reagent> GetList()
         {
-            ChemContext db2 = new ChemContext();
-            db2.Supplies.Load();
-            List<Reagent> d = db2.Reagents.ToList();
+            //ChemContext db2 = new ChemContext();
+            
+            //List<Supply> s =  db2.Supplies.ToList();
+            //List<Reagent> d = db2.Reagents.ToList();
 
-            db.Supplies.Load();
+           // db.Supplies.Load();
+           
             List<Reagent> a = db.Reagents.ToList();
+            
+            Supply s = a[0].Supplies[0];
+            s.count = 999;
+            List<Supply> supl = db.Supplies.ToList();
             return a;
         }
     }

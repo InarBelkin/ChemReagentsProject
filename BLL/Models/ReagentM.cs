@@ -19,10 +19,13 @@ namespace BLL.Models
             Id = r.Id;
             Name = r.Name;
             Units = r.units;
-            foreach(Supply n in r.Supplies)
-            {
-                Supplies.Add(new SupplyM(n));
-            }
+            Supply s = r.Supplies[0];   //говноь
+            //SupplyM sm = new SupplyM(s);
+            
+
+
+            Console.WriteLine();
+            
         }
     }
 }

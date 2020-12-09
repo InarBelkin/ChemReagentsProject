@@ -2,6 +2,8 @@
 using BLL.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -23,14 +25,39 @@ namespace ChemReagentsProject.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private List<ReagentM> reagentlist;
-        public List<ReagentM> ReagentList
+        private ObservableCollection<ReagentM> reagentlist;
+        public ObservableCollection<ReagentM> ReagentList
         {
             get
             {
-                dbOp.Supplies.GetList();
+                reagentlist = new ObservableCollection<ReagentM>();
                 List<ReagentM> a = dbOp.Reagents.GetList();
-                return a;/*dbOp.Reagents.GetList();*/
+                foreach(ReagentM r in a )
+                {
+                    reagentlist.Add(r);
+                }
+                reagentlist.CollectionChanged += Reagents_CollectionChanged;
+                return reagentlist;/*dbOp.Reagents.GetList();*/
+            }
+        }
+
+        private void Reagents_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+
+        }
+
+        public object SelectReag
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                if(value is ReagentM r)
+                {
+                    Console.WriteLine();
+                }
             }
         }
 
@@ -40,6 +67,11 @@ namespace ChemReagentsProject.ViewModel
             {
                 return dbOp.Supplies.GetList();
             }
+            set
+            {
+                   
+            }
+
         }
     }
 }
