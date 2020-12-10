@@ -23,7 +23,12 @@ namespace BLL.Services
         public ObservableCollection<SupplyM> SupplyByReag(int reagId)
         {
             ObservableCollection<SupplyM> ret = new ObservableCollection<SupplyM>();
-            foreach (Supply r in db.Reports.SupplyByReag(reagId))
+
+            //List<Reagent> reag = db.Reagents.GetList();
+            //Console.WriteLine();
+            List<Supply> s = db.Reports.SupplyByReag(reagId);
+           
+            foreach (Supply r in s)
             {
                 ret.Add(new SupplyM(r));
             }

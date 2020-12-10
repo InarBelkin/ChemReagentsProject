@@ -34,37 +34,49 @@ namespace ChemReagentsProject.ViewModel
             {
                 reagentlist = dbOp.Reagents.GetList();
                 reagentlist.CollectionChanged += Reagents_CollectionChanged;
-                
+                foreach (ReagentM r in reagentlist)
+                {
+                    r.PropertyChanged += Reag_PropCh;
+                }
 
                 return reagentlist;
             }
         }
 
+        private void Reag_PropCh(object sender, PropertyChangedEventArgs e)
+        {
+            ReagentM r = sender as ReagentM;
+            dbOp.Reagents.Update(r);
+        }
+
         private void Reagents_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch(e.Action)
+            switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                     ReagentM newreag = e.NewItems[0] as ReagentM;
-                    //ReagentM newreag = new ReagentM();
-                    //newreag.Name = "NaCl";
-                    //newreag.Units = "mm";
+                    ReagentM newreag = e.NewItems[0] as ReagentM;
+                    if (newreag.Name == null) newreag.Name = "";
+                    if (newreag.Units == null) newreag.Units = "";
                     dbOp.Reagents.Create(newreag);
+                    OnPropertyChanged("ReagentList");
                     break;
-                case NotifyCollectionChangedAction.Reset: // если замена
-                    ReagentM newreagr = e.NewItems[0] as ReagentM;
-                    dbOp.Reagents.Update(newreagr);
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (ReagentM oldreag in e.OldItems)
+                    {
+                        dbOp.Reagents.Delete(oldreag.Id);
+                    }
+                    OnPropertyChanged("ReagentList");
                     break;
-                    
-                   
             }
         }
+
+
 
         public object SelectReag        //выделили строку
         {
             get
             {
-                return null;
+                return new object();
             }
             set
             {

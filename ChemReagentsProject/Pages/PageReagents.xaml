@@ -15,17 +15,17 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Column="1" Width="5" Background="Black" ResizeBehavior="PreviousAndNext" />
-        <ScrollViewer Grid.Column="0">
-            <DataGrid x:Name="ReagentDG" AutoGenerateColumns="False" ItemsSource="{Binding ReagentList}"  SelectedItem="{Binding SelectReag}" >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="№Реактива" Binding="{Binding Id}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Единицы измерения" Binding="{Binding Units}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Полка"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Синонимы"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </ScrollViewer>
+
+        <DataGrid x:Name="ReagentDG" AutoGenerateColumns="False" ItemsSource="{Binding ReagentList}"  SelectedItem="{Binding SelectReag}" Grid.Column="0" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№Реактива" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Единицы измерения" Binding="{Binding Units}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Полка"></DataGridTextColumn>
+                <DataGridTextColumn Header="Синонимы"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
