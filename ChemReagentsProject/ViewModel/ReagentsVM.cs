@@ -1,5 +1,6 @@
 ﻿using BLL.Interfaces;
 using BLL.Models;
+using ChemReagentsProject.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -41,6 +42,7 @@ namespace ChemReagentsProject.ViewModel
 
                 return reagentlist;
             }
+
         }
 
         private void Reag_PropCh(object sender, PropertyChangedEventArgs e)
@@ -65,18 +67,20 @@ namespace ChemReagentsProject.ViewModel
                     {
                         dbOp.Reagents.Delete(oldreag.Id);
                     }
-                    OnPropertyChanged("ReagentList");
+                   // OnPropertyChanged("ReagentList");
                     break;
+                case NotifyCollectionChangedAction.Replace:
+                    break;
+                 
             }
         }
-
-
 
         public object SelectReag        //выделили строку
         {
             get
             {
-                return new object();
+                ReagentM reagent = dbOp.Reagents.GetItem(2);
+                return reagent;
             }
             set
             {
@@ -104,6 +108,21 @@ namespace ChemReagentsProject.ViewModel
                 OnPropertyChanged("SuppliesList");
             }
 
+        }
+
+        private RelayCommand addSuppl;
+        private WinEditSupplies winSuppl;
+        public RelayCommand AddSuppl      //
+        {
+            get
+            {
+                return addSuppl ?? (addSuppl = new RelayCommand(obj =>
+                {
+                    winSuppl = new WinEditSupplies(dbOp, rep, -2);
+                    winSuppl.Show();
+
+                }));
+            }
         }
     }
 }

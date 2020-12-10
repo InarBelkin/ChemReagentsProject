@@ -84,7 +84,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Interfaces\IMainWin.cs" />
+    <Compile Include="Pages\Styles.xaml.cs">
+      <DependentUpon>Styles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\WinEditSupplies.xaml.cs">
+      <DependentUpon>WinEditSupplies.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Util\NinjectRegistrations.cs" />
+    <Compile Include="ViewModel\EditSuppliesVM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\MainVMP.cs" />
     <Compile Include="ViewModel\ReagentsVM.cs" />
@@ -106,6 +113,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PageSolutionRecipe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\WinEditSupplies.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
