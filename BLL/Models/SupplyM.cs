@@ -15,7 +15,15 @@ namespace BLL.Models
         public DateTime Date_End { get; set; }
         public float Count { get; set; }
 
-        public SupplyM() { }
+        public SupplyM() 
+        {
+            //Id = -2;
+            ReagentId = -2;
+            SupplierId = -2;
+            //Date_Begin = new DateTime(1800, 1, 1);
+            //Date_End = new DateTime(1800, 1, 1);
+            //Count = 0;
+        }
         public SupplyM(Supply s)
         {
             Id = s.Id;

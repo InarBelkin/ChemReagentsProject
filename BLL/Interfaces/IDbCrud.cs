@@ -11,5 +11,6 @@ namespace BLL.Interfaces
     {
         ICrudRepos<SupplyM> Supplies { get; }
         ICrudRepos<ReagentM> Reagents { get; }
+        ICrudRepos<SupplierM> Suppliers { get; }
     }
 }

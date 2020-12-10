@@ -31,6 +31,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock Text="id" VerticalAlignment="Center"   />
             <TextBlock  Grid.Row="0" Grid.Column="1" Text="{Binding SupId}"/>
@@ -39,23 +40,31 @@
             <TextBox Grid.Row="1" Grid.Column="1" Text="30" />
 
 
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="Название"/>
-            <TextBox Grid.Row="2" Grid.Column="1"  Margin="10" Width="177" Height="33"  />
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Название реактива"/>
+            <!--<TextBox Grid.Row="2" Grid.Column="1"  Margin="10" Width="177" Height="33"  />-->
+            <ComboBox  Name="Bombobox" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding ListReag}"  SelectedItem="{Binding SelectReag}" DisplayMemberPath="Name" />
 
             <TextBlock Grid.Row="3" Grid.Column="0" Text="Поставщик"/>
-            <TextBox Grid.Row="3" Grid.Column="1"  Margin="10" Width="177" Height="33" />
+            <!--<TextBox Grid.Row="3" Grid.Column="1"  Margin="10" Width="177" Height="33" />-->
+            <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding ListSuppliers}"  SelectedItem="{Binding SelectSupplier}" DisplayMemberPath="Name"/>
 
             <TextBlock Grid.Row="4" Grid.Column="0" Text="Дата поставки"/>
-            <TextBox Grid.Row="4" Grid.Column="1"  Margin="10" Width="177" Height="33" />
+            <!--<TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SupDTBeg}" Margin="10" Width="177" Height="33" />-->
+            <DatePicker x:Name="CalendB" Grid.Row="4" Grid.Column="1"  SelectedDate="{Binding SupDTBeg}"  />
+
 
             <TextBlock Grid.Row="5" Grid.Column="0" Text="Годен до"/>
-            <TextBox Grid.Row="5" Grid.Column="1"  Margin="10" Width="177" Height="33" />
+            <!--<TextBox Grid.Row="5" Grid.Column="1"  Text="{Binding SupDTEnd}" Margin="10" Width="177" Height="33" />-->
+            <DatePicker x:Name="Calend" Grid.Row="5" Grid.Column="1"  SelectedDate="{Binding SupDTEnd}" />
 
             <TextBlock Grid.Row="6" Grid.Column="0" Text="Количество"/>
-            <TextBox Grid.Row="6" Grid.Column="1"  Margin="10" Width="177" Height="33" />
+            <TextBox Grid.Row="6" Grid.Column="1"  Margin="10" Width="177" Height="33" Text="{Binding SupAmount}"/>
             
             <TextBlock Grid.Row="7" Grid.Column="0" Text="Остаток"/>
             <TextBox Grid.Row="7" Grid.Column="1"  Margin="10" Width="177" Height="33" />
+
+            <Button Grid.Row="8" Grid.Column="0" Margin="10" Content="Сохранить" Command="{Binding ComButton}" CommandParameter="Save"/>
+            <Button x:Name="butto" Grid.Row="8" Grid.Column="1" Margin="10" Content="Отмена"  Command="{Binding ComButton}" CommandParameter="Cancel" />
 
 
 

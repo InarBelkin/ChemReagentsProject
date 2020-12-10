@@ -83,6 +83,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interfaces\IEditSupplWin.cs" />
     <Compile Include="Interfaces\IMainWin.cs" />
     <Compile Include="Pages\Styles.xaml.cs">
       <DependentUpon>Styles.xaml</DependentUpon>

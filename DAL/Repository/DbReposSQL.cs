@@ -16,6 +16,7 @@ namespace DAL.Repository
         private SuppliesRepSQL SupplyRepos;
         private ReagentsRepSQL ReagentsRepos;
         private ReportsRepSQL Report;
+        private SupplierRepSQL Supplier;
         public DbReposSQL()
         {
             db = new ChemContext();
@@ -46,8 +47,17 @@ namespace DAL.Repository
             }
         }
 
+        public IRepository<Supplier> Suppliers
+        {
+            get
+            {
+                return Supplier ?? (Supplier = new SupplierRepSQL(db));
+            }
+        }
+
         public int Save()
         {
+            
             return db.SaveChanges();
         }
     }

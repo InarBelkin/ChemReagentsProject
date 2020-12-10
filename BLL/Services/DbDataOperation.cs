@@ -34,6 +34,15 @@ namespace BLL.Services
             }
         }
 
+        public SupplierCrud suppliers;
+        public ICrudRepos<SupplierM> Suppliers
+        {
+            get
+            {
+                return suppliers ?? (suppliers = new SupplierCrud(db));
+            }
+        }
+
         public bool Save()
         {
             //if (db.Save() > 0) return true;

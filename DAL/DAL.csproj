@@ -66,6 +66,7 @@
     <Compile Include="Repository\DbReposSQL.cs" />
     <Compile Include="Repository\ReagentsRepSQL.cs" />
     <Compile Include="Repository\ReportsRepSQL.cs" />
+    <Compile Include="Repository\SupplierRepSQL.cs" />
     <Compile Include="Repository\SuppliesRepSQL.cs" />
     <Compile Include="Tables\ChemContext.cs" />
     <Compile Include="Tables\Reagent.cs" />

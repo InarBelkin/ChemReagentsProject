@@ -118,8 +118,19 @@ namespace ChemReagentsProject.ViewModel
             {
                 return addSuppl ?? (addSuppl = new RelayCommand(obj =>
                 {
-                    winSuppl = new WinEditSupplies(dbOp, rep, -2);
-                    winSuppl.Show();
+                    switch (obj as string)
+                    {
+                        case "Edit":
+                            winSuppl = new WinEditSupplies(dbOp, rep, 1);
+                            break;
+                        case "Add":
+                            winSuppl = new WinEditSupplies(dbOp, rep, -2);
+                            break;
+                        default:
+                            break;
+                    }
+                   
+                    winSuppl.ShowDialog();
 
                 }));
             }
