@@ -5,18 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ChemReagentsProject.Pages.PageReagents;
 
 namespace ChemReagentsProject.ViewModel
 {
     partial class MainVM
     {
-        public IMainWin MainWin;
-        private PageReagents pReag;
-        public PageReagents PReag
+        private PageReag pReag;
+        public PageReag PReag
         {
             get
             {
-                return pReag ?? (pReag = new PageReagents(dbOp, rep));
+                return pReag ?? (pReag = new PageReag(dbOp, rep));
             }
             set
             {

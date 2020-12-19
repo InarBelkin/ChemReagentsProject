@@ -15,26 +15,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ChemReagentsProject.Pages
+namespace ChemReagentsProject.Pages.PageReagents
 {
     /// <summary>
-    /// Логика взаимодействия для PageReagents.xaml
+    /// Логика взаимодействия для PageReag.xaml
     /// </summary>
-    public partial class PageReagents : Page
+    public partial class PageReag : UserControl
     {
-        public PageReagents(IDbCrud cr, IReportServ report)
+        public PageReag(IDbCrud cr, IReportServ report)
         {
             InitializeComponent();
-            DataContext = new ReagentsVM(cr,report);
-            
-            //this.ShortSupplDG.ItemsSource = cr.Supplies.GetList();
-            //this.ReagentGrid.ItemsSource = cr.Reagents.GetList();
+            DataContext = new ReagentsVM(cr, report);
+
         }
-
-
-
-
-
-
     }
 }

@@ -1,14 +1,18 @@
 ﻿using BLL.Interfaces;
 using ChemReagentsProject.Interfaces;
+using ChemReagentsProject.Pages.PageReagents;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 
+
 namespace ChemReagentsProject.ViewModel //Типа изменил
 {
-    partial class MainVM : INotifyPropertyChanged
+    partial class MainVM : INotifyPropertyChanged, IRecognizable
     {
         IDbCrud dbOp;
         IReportServ rep;
+        Guid ThisGuid;
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -16,12 +20,24 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public MainVM(IMainWin w, IDbCrud cr,IReportServ repserv)
+        public Guid GetGuid() => ThisGuid;
+
+        public MainVM(IDbCrud cr, IReportServ repserv)
         {
-            MainWin = w;
+            //MainWin = w;
             dbOp = cr;
             rep = repserv;
-            MainWin.ChangePage(PReag);
+            ThisGuid = Guid.NewGuid();
+            
+            NavService.Navigation.LoadDone += Navigation_LoadDone;
+        }
+
+        private void Navigation_LoadDone(object sender, IRecognizable e)
+        {
+            if(e.GetGuid() == ThisGuid)
+            {
+                NavService.Navigation.Navigate(ThisGuid, new PageReag(dbOp, rep));
+            }
 
         }
 
@@ -35,10 +51,12 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
                     switch (obj as string)
                     {
                         case "Reagent":
-                            MainWin.ChangePage(PReag);
+                            NavService.Navigation.Navigate(ThisGuid, new PageReag(dbOp, rep));
+                            //MainWin.ChangePage(PReag);
                             break;
                         case "Reziepe":
-                            MainWin.ChangePage(PSolutRec);
+
+                            //MainWin.ChangePage(PSolutRec);
                             break;
                         default:
                             break;
@@ -47,7 +65,7 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
             }
         }
 
-       
+
 
 
     }
