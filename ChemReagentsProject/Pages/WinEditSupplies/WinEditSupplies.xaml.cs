@@ -1,4 +1,5 @@
 ﻿using BLL.Interfaces;
+using BLL.Models;
 using ChemReagentsProject.Interfaces;
 using ChemReagentsProject.ViewModel;
 using System;
@@ -20,20 +21,17 @@ namespace ChemReagentsProject.Pages
     /// <summary>
     /// Логика взаимодействия для WinEditSupplies.xaml
     /// </summary>
-    public partial class WinEditSupplies : Window, IEditSupplWin
+    public partial class WinEditSupplies : Window
     {
-        public WinEditSupplies(IDbCrud cr, IReportServ report, int SupplyId)
+        public WinEditSupplies(IDbCrud cr, IReportServ report, SupplyM supply)
         {
             InitializeComponent();
-            DataContext = new EditSuppliesVM(this,cr, report, SupplyId);
+            DataContext = new EditSuppliesVM(cr, report, supply);
             //CalendB.SelectedDate = DateTime.Now;
             //CalendB.DisplayDate = DateTime.Now;
            
         }
 
-        public void DialogRez(bool rez)
-        {
-            DialogResult = rez;
-        }
+       
     }
 }

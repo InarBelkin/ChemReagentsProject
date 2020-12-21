@@ -17,12 +17,9 @@ namespace BLL.Models
 
         public SupplyM() 
         {
-            //Id = -2;
-            ReagentId = -2;
-            SupplierId = -2;
-            //Date_Begin = new DateTime(1800, 1, 1);
-            //Date_End = new DateTime(1800, 1, 1);
-            //Count = 0;
+            Id = -2;
+            ReagentId = -2; //да просто чтобы по умолчанию был неверный вариант
+            SupplierId = -2;    
         }
         public SupplyM(Supply s)
         {
@@ -32,6 +29,12 @@ namespace BLL.Models
             Date_Begin = s.Date_Begin;
             Date_End = s.Date_End;
             Count = s.count;
+        }
+
+        public bool Validate()
+        {
+            if (ReagentId != -2 && SupplierId != -2) return true;
+            else return false;
         }
     }
 }

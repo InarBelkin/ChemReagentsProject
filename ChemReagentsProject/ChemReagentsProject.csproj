@@ -65,6 +65,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -84,16 +86,24 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Interfaces\IEditSupplWin.cs" />
-    <Compile Include="Interfaces\IMainWin.cs" />
     <Compile Include="Additional\Styles.xaml.cs">
       <DependentUpon>Styles.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IRecognizable.cs" />
     <Compile Include="NavService\InarService.cs" />
     <Compile Include="NavService\Navigation.cs" />
+    <Compile Include="NavService\WindowService.cs" />
     <Compile Include="Pages\PageReagents\PageReag.xaml.cs">
       <DependentUpon>PageReag.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageReagents\QuestVM.cs" />
+    <Compile Include="Pages\PageReagents\QuestWin.xaml.cs">
+      <DependentUpon>QuestWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageReziepe\PageReziepe.xaml.cs">
+      <DependentUpon>PageReziepe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageReziepe\ReziepeVM.cs" />
     <Compile Include="Pages\WinEditSupplies\WinEditSupplies.xaml.cs">
       <DependentUpon>WinEditSupplies.xaml</DependentUpon>
     </Compile>
@@ -104,6 +114,14 @@
     <Compile Include="Pages\PageReagents\ReagentsVM.cs" />
     <Compile Include="Additional\RelayCommand.cs" />
     <Page Include="Pages\PageReagents\PageReag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageReagents\QuestWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageReziepe\PageReziepe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

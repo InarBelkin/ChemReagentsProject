@@ -35,5 +35,15 @@ namespace DAL.Repository
         {
             db.Reagents.Add(item);
         }
+        public override void Delete(int id)
+        {
+            Reagent sup = db2.Find(id);
+            if (sup != null)
+            {
+                db2.Remove(sup);
+            }
+            base.Delete(id);
+
+        }
     }
 }

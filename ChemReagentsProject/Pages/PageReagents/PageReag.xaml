@@ -30,7 +30,7 @@
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
             <ScrollViewer Grid.Row="0">
-                <DataGrid x:Name="ShortSupplDG" ItemsSource="{Binding SuppliesList}" AutoGenerateColumns="False" >
+                <DataGrid x:Name="ShortSupplDG" ItemsSource="{Binding SuppliesList}" SelectedItem="{Binding SelectSuppl, Mode=OneWayToSource}" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Дата поставки" Binding="{Binding Date_Begin}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Дата конца" Binding="{Binding Date_End}"></DataGridTextColumn>

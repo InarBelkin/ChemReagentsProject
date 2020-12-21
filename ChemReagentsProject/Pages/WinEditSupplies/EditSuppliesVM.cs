@@ -1,6 +1,7 @@
 ﻿using BLL.Interfaces;
 using BLL.Models;
 using ChemReagentsProject.Interfaces;
+using ChemReagentsProject.NavService;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,54 +9,64 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ChemReagentsProject.ViewModel
 {
-    class EditSuppliesVM : INotifyPropertyChanged
+    class EditSuppliesVM : INotifyPropertyChanged, IRecognizable
     {
         IDbCrud dbOp;
         IReportServ rep;
         SupplyM EditSuppl;
-        IEditSupplWin win;
-        public EditSuppliesVM(IEditSupplWin interf,IDbCrud cr, IReportServ report, int SupplyId)
+        Guid ThisGuid;
+        public EditSuppliesVM(IDbCrud cr, IReportServ report, SupplyM isupl)
         {
-            win = interf;
+            ThisGuid = Guid.NewGuid();
+
             dbOp = cr;
             rep = report;
             listReag = dbOp.Reagents.GetList();
             listSuppliers = dbOp.Suppliers.GetList();
-            if (SupplyId == -2)
+            if (isupl.Id<0)
             {
                 EditSuppl = new SupplyM()
                 {
                     Id = -1,
+                    ReagentId = isupl.ReagentId,
                     Date_Begin = DateTime.Now,
                     Date_End = DateTime.Now,
                     Count = 0,
                 };
-            }
-            else
-            {
-                EditSuppl = dbOp.Supplies.GetItem(SupplyId);
-                Console.WriteLine();
                 foreach (ReagentM reag in listReag)
                 {
-                    if(reag.Id == EditSuppl.ReagentId)
+                    if (reag.Id == EditSuppl.ReagentId)
                     {
                         selectreag = reag;
                         break;
                     }
                 }
-                foreach(SupplierM sur in listSuppliers)
+            }
+            else
+            {
+                EditSuppl = dbOp.Supplies.GetItem(isupl.Id);
+                foreach (ReagentM reag in listReag)
                 {
-                    if(sur.Id == EditSuppl.SupplierId )
+                    if (reag.Id == EditSuppl.ReagentId)
+                    {
+                        selectreag = reag;
+                        break;
+                    }
+                }
+                foreach (SupplierM sur in listSuppliers)
+                {
+                    if (sur.Id == EditSuppl.SupplierId)
                     {
                         selectSupplier = sur;
                         break;
                     }
                 }
-                
-                
+
+
             }
         }
 
@@ -63,6 +74,11 @@ namespace ChemReagentsProject.ViewModel
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public Guid GetGuid()
+        {
+            return ThisGuid;
         }
 
         public int SupId
@@ -148,20 +164,34 @@ namespace ChemReagentsProject.ViewModel
                     switch (obj as string)
                     {
                         case "Save":
-                            if(EditSuppl.Id==-1)
+                            if (EditSuppl.Validate())
                             {
-                                dbOp.Supplies.Create(EditSuppl);
+                                if (EditSuppl.Id == -1)    // если создаётся заново
+                                {
+                                    dbOp.Supplies.Create(EditSuppl);
+                                }
+                                else
+                                {
+                                    dbOp.Supplies.Update(EditSuppl);
+                                }
+                                WindowService.CloseWindow(ThisGuid, true);
                             }
-                            win.DialogRez(true);
+                            else
+                            {
+                                MessageBox.Show("Что-то не довведено");
+                            }
+
+
+
                             break;
                         case "Cancel":
-                            win.DialogRez(false);
+                            WindowService.CloseWindow(ThisGuid, false);
                             break;
                         default:
                             break;
                     }
 
-                  
+
 
                 }));
             }

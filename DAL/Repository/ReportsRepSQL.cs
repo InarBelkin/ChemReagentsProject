@@ -18,8 +18,15 @@ namespace DAL.Repository
         }
         public List<Supply> SupplyByReag(int reagId)
         {
-           // Reagent d = db.Reagents.Find(reagId);
-            List < Supply > a = db.Reagents.Find(reagId).Supplies;
+            // Reagent d = db.Reagents.Find(reagId);
+            Reagent r = db.Reagents.Find(reagId);
+            List<Supply> a= null;
+            if (r!=null)
+            {
+               a = r.Supplies;
+            }
+         
+
             return a ?? new List<Supply>();
         }
     }

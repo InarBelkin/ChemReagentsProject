@@ -1,6 +1,7 @@
 ﻿using BLL.Interfaces;
 using ChemReagentsProject.Interfaces;
 using ChemReagentsProject.Pages.PageReagents;
+using ChemReagentsProject.Pages.PageReziepe;
 using System;
 using System.ComponentModel;
 using System.Globalization;
@@ -55,7 +56,7 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
                             //MainWin.ChangePage(PReag);
                             break;
                         case "Reziepe":
-
+                            NavService.Navigation.Navigate(ThisGuid, new PageReziepe(dbOp, rep));
                             //MainWin.ChangePage(PSolutRec);
                             break;
                         default:

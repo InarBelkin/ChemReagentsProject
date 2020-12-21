@@ -1,6 +1,7 @@
 ﻿using BLL.Interfaces;
 using BLL.Models;
 using ChemReagentsProject.Pages;
+using ChemReagentsProject.Pages.PageReagents;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ChemReagentsProject.ViewModel
 {
@@ -65,16 +67,34 @@ namespace ChemReagentsProject.ViewModel
                 case NotifyCollectionChangedAction.Remove:
                     foreach (ReagentM oldreag in e.OldItems)
                     {
-                        dbOp.Reagents.Delete(oldreag.Id);
+                        ObservableCollection<SupplyM> s = rep.SupplyByReag(oldreag.Id);
+                        if (rep.SupplyByReag(oldreag.Id)!=null && rep.SupplyByReag(oldreag.Id).Count!=0)
+                        {
+                            QuestWin quest = new QuestWin();
+                            if(quest.ShowDialog()==true)
+                            {
+                                dbOp.Reagents.Delete(oldreag.Id);
+                            }
+                            else
+                            {
+                                OnPropertyChanged("ReagentList");
+                            }
+                           
+                        }
+                        else
+                        {
+                            dbOp.Reagents.Delete(oldreag.Id);
+                        }
+                       
                     }
-                   // OnPropertyChanged("ReagentList");
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     break;
-                 
+
             }
         }
 
+        private ReagentM selectreag;
         public object SelectReag        //выделили строку
         {
             get
@@ -88,7 +108,12 @@ namespace ChemReagentsProject.ViewModel
                 {
                     if (r.Id != 0) //костыль
                     {
+                        selectreag = r;
                         SuppliesList = rep.SupplyByReag(r.Id);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ну что-то с ид");
                     }
 
                 }
@@ -100,14 +125,30 @@ namespace ChemReagentsProject.ViewModel
         {
             get
             {
-                return suppliesList;
+                if (selectreag != null)
+                {
+                    return rep.SupplyByReag(selectreag.Id);
+                }
+                // return suppliesList;
+                return null;
             }
             set
             {
-                suppliesList = value;
+                //suppliesList = value;
                 OnPropertyChanged("SuppliesList");
             }
 
+        }
+
+
+        private SupplyM selectSuppl;
+        public object SelectSuppl
+        {
+            set
+            {
+                selectSuppl = value as SupplyM;
+
+            }
         }
 
         private RelayCommand addSuppl;
@@ -121,17 +162,37 @@ namespace ChemReagentsProject.ViewModel
                     switch (obj as string)
                     {
                         case "Edit":
-                            winSuppl = new WinEditSupplies(dbOp, rep, 1);
+                            //rep.SupplyByReag(100);
+                            if (selectSuppl != null)
+                            {
+                                winSuppl = new WinEditSupplies(dbOp, rep, selectSuppl);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Сначала выберите поставку для редактирования");
+                                return;
+                            }
                             break;
                         case "Add":
-                            winSuppl = new WinEditSupplies(dbOp, rep, -2);
+                            if (selectreag != null)
+                            {
+                                winSuppl = new WinEditSupplies(dbOp, rep, new SupplyM() { ReagentId = selectreag.Id });
+                            }
+                            else
+                            {
+                                winSuppl = new WinEditSupplies(dbOp, rep, new SupplyM());
+                            }
+
                             break;
                         default:
                             break;
                     }
-                   
                     winSuppl.ShowDialog();
+                    if (winSuppl.DialogResult == true) //как-то обновить
+                    {
+                        OnPropertyChanged("SuppliesList");
 
+                    }
                 }));
             }
         }
