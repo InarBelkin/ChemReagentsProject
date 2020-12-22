@@ -1,6 +1,9 @@
 ﻿using BLL.Interfaces;
+using BLL.Models;
+using ChemReagentsProject.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,14 +22,22 @@ namespace ChemReagentsProject.Pages.PageReziepe
     /// <summary>
     /// Логика взаимодействия для PageReziepe.xaml
     /// </summary>
-    public partial class PageReziepe : UserControl
+    public partial class PageReziepe : UserControl, IPageRezipe
     {
         public PageReziepe(IDbCrud cr, IReportServ report)
         {
-            DataContext = new ReziepeVM(cr, report);
-            InitializeComponent();
            
+            InitializeComponent();
+            DataContext = new ReziepeVM(cr, report, this);
+            // ReactiveDG.IsSynchronizedWithCurrentItem; //проверить
+
             //column.ItemsSource = cr.Reagents.GetList();
+        }
+
+        public void SetItemSource(ObservableCollection<ReagentM> PageList)
+        {
+
+            column.ItemsSource = PageList ;
         }
     }
 }

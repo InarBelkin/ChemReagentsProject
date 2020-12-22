@@ -13,6 +13,7 @@ namespace DAL.Tables
         public string units { get; set; }
        
         public virtual List<Supply> Supplies { get; set; }
+        //public virtual List<Solution_recipe_line> SolutRecipeLines { get; set; }
        
     }
 }

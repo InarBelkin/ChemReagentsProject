@@ -17,10 +17,7 @@ namespace BLL.Models
         public int Id { get { return id; } set { id = value; } }
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get => name;
             set
             {
                 name = value;
@@ -56,12 +53,47 @@ namespace BLL.Models
         }
     }
 
-    public class SolutRezLineM
+    public class SolutRezLineM : INotifyPropertyChanged
     {
-        public int Id { get; set; }
-        public int ReagentId { get; set; }
-        public int SolutionRecipeId { get; set; }
-        public float Count { get; set; }
+        private int id;
+        public int Id
+        {
+            get => id;
+            set
+            {
+                id = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int reagentid;
+        public int ReagentId
+        {
+            get => reagentid;
+            set { reagentid = value; OnPropertyChanged(); }
+        }
+
+        private int solutionRecipeId;
+        public int SolutionRecipeId
+        {
+            get => solutionRecipeId;
+            set { solutionRecipeId = value; OnPropertyChanged(); }
+        }
+        private float сount;
+        public float Count
+        {
+            get => сount;
+            set { сount = value; OnPropertyChanged(); }
+        }
+
+        private string units;
+        public string Units
+        {
+            get => units;
+            set { units = value;OnPropertyChanged(); }
+        }
+
+
 
         public SolutRezLineM() { }
         public SolutRezLineM(Solution_recipe_line s)
@@ -70,7 +102,19 @@ namespace BLL.Models
             ReagentId = s.ReagentId;
             SolutionRecipeId = s.SolutionRecipeId;
             Count = s.Count;
+            if (s.Reagent != null)
+            {
+                Units = s.Reagent.units;
+            }
+
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         internal Solution_recipe_line getDal()
         {
             Solution_recipe_line a = new Solution_recipe_line();

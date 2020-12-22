@@ -16,16 +16,20 @@ namespace ChemReagentsProject.Pages.PageReziepe
     {
         IDbCrud dbOp;
         IReportServ rep;
-        public ReziepeVM(IDbCrud cr, IReportServ report)
+        IPageRezipe page;
+        public ReziepeVM(IDbCrud cr, IReportServ report, IPageRezipe pg)
         {
             dbOp = cr;
             rep = report;
+            page = pg;
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         }
 
         public Guid GetGuid()
@@ -76,7 +80,7 @@ namespace ChemReagentsProject.Pages.PageReziepe
         {
             get
             {
-                return null;
+                return selectRecipe;
             }
             set
             {
@@ -84,24 +88,34 @@ namespace ChemReagentsProject.Pages.PageReziepe
                 {
                     if (s.Id != 0)
                     {
+                        //var a = dbOp.Reagents.GetList();
+                        page.SetItemSource(ReagentList);
                         selectRecipe = s;
                         OnPropertyChanged("RecipeLineList");
+
                     }
 
                 }
             }
         }
 
-        //private SolutRezLineM recipeLineList;
+        private ObservableCollection<SolutRezLineM> recipeLineList;
         public ObservableCollection<SolutRezLineM> RecipeLineList
         {
             get
             {
                 if (selectRecipe != null)
                 {
-                    ObservableCollection<SolutRezLineM> recipeLineList = rep.GetRecipeLine(selectRecipe.Id);
+
+                    recipeLineList = rep.GetRecipeLine(selectRecipe.Id);
+                    foreach (SolutRezLineM s in recipeLineList)
+                    {
+                        s.PropertyChanged += RecLine_PropertyChanged;
+                    }
                     recipeLineList.CollectionChanged += RecipeLine_CollectionChanged;
+
                     return recipeLineList;
+
                 }
                 else return null;
 
@@ -112,14 +126,24 @@ namespace ChemReagentsProject.Pages.PageReziepe
             }
         }
 
+        private void RecLine_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is SolutRezLineM L)
+            {
+                dbOp.SolutRecLines.Update(L);
+            }
+        }
+
         private void RecipeLine_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    SolutRezLineM newline = new SolutRezLineM();
+
+                    SolutRezLineM newline = new SolutRezLineM() { ReagentId = dbOp.Reagents.GetList()[0].Id, SolutionRecipeId = selectRecipe.Id };
                     dbOp.SolutRecLines.Create(newline);
                     OnPropertyChanged("RecipeLineList");
+
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     dbOp.SolutRecLines.Delete((e.OldItems[0] as SolutRezLineM).Id);
@@ -127,12 +151,6 @@ namespace ChemReagentsProject.Pages.PageReziepe
             }
         }
 
-        public ObservableCollection<ReagentM> ReagentList
-        {
-            get
-            {
-                return dbOp.Reagents.GetList();
-            }
-        }
+        public ObservableCollection<ReagentM> ReagentList => dbOp.Reagents.GetList();
     }
 }

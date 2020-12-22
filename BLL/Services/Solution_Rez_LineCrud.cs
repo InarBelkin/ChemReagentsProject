@@ -42,9 +42,26 @@ namespace BLL.Services
             ObservableCollection<SolutRezLineM> ret = new ObservableCollection<SolutRezLineM>();
             foreach (Solution_recipe_line s in db.Solution_Rezipe_Line.GetList())
             {
-                ret.Add(new SolutRezLineM(s));
+                SolutRezLineM sM = new SolutRezLineM(s);
+                sM.PropertyChanged += SRL_PropertyChanged;
+                ret.Add(sM);
             }
             return ret;
+        }
+
+        private void SRL_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ReagentId")
+            {
+                if (sender is SolutRezLineM s)
+                {
+                    Reagent r = db.Reagents.GetItem(s.ReagentId);
+                    if(r!=null)
+                    {
+                        s.Units = r.units;
+                    }
+                }
+            }
         }
 
         public void Update(SolutRezLineM item)
