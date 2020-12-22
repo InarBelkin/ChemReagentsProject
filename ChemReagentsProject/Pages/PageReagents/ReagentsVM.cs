@@ -111,10 +111,10 @@ namespace ChemReagentsProject.ViewModel
                         selectreag = r;
                         SuppliesList = rep.SupplyByReag(r.Id);
                     }
-                    else
-                    {
-                        MessageBox.Show("Ну что-то с ид");
-                    }
+                    //else
+                    //{
+                    //    MessageBox.Show("Ну что-то с ид");
+                    //}
 
                 }
             }

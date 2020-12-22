@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace DAL.Repository
 {
-    
+
     public class DbReposSQL : IDbRepos
     {
         private ChemContext db;
@@ -17,6 +17,8 @@ namespace DAL.Repository
         private ReagentsRepSQL ReagentsRepos;
         private ReportsRepSQL Report;
         private SupplierRepSQL Supplier;
+        private SolutionRezipeRepSQL rezipe;
+        private SolutRezLineRepSQl rezipeLine;
         public DbReposSQL()
         {
             db = new ChemContext();
@@ -55,9 +57,25 @@ namespace DAL.Repository
             }
         }
 
+        public IRepository<Solution_recipe> Solution_Recipes
+        {
+            get
+            {
+                return rezipe ?? (rezipe = new SolutionRezipeRepSQL(db));
+            }
+        }
+
+        public IRepository<Solution_recipe_line> Solution_Rezipe_Line
+        {
+            get
+            {
+                return rezipeLine ?? (rezipeLine = new SolutRezLineRepSQl(db));
+            }
+        }
+
         public int Save()
         {
-            
+
             return db.SaveChanges();
         }
     }

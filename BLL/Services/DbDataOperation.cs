@@ -17,31 +17,19 @@ namespace BLL.Services
         }
 
         private SupplyCrud supplies;
-        public ICrudRepos<SupplyM> Supplies
-        {
-            get
-            {
-                return supplies ?? (supplies = new SupplyCrud(db));
-            }
-        }
+        public ICrudRepos<SupplyM> Supplies => supplies ?? (supplies = new SupplyCrud(db));
 
         private ReagentCrud reagents;
-        public ICrudRepos<ReagentM> Reagents
-        {
-            get
-            {
-                return reagents?? (reagents = new ReagentCrud(db));
-            }
-        }
+        public ICrudRepos<ReagentM> Reagents => reagents ?? (reagents = new ReagentCrud(db));
 
         public SupplierCrud suppliers;
-        public ICrudRepos<SupplierM> Suppliers
-        {
-            get
-            {
-                return suppliers ?? (suppliers = new SupplierCrud(db));
-            }
-        }
+        public ICrudRepos<SupplierM> Suppliers => suppliers ?? (suppliers = new SupplierCrud(db));
+
+        private Solution_RezipeCrud solutRecipes;
+        public ICrudRepos<SolutionRezipeM> SolutRecipes => solutRecipes ?? (solutRecipes = new Solution_RezipeCrud(db));
+
+        private Solution_Rez_LineCrud solutRecLines;
+        public ICrudRepos<SolutRezLineM> SolutRecLines => solutRecLines ?? (solutRecLines = new Solution_Rez_LineCrud(db));
 
         public bool Save()
         {

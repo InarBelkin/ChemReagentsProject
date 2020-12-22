@@ -23,9 +23,10 @@ namespace ChemReagentsProject.Pages.PageReziepe
     {
         public PageReziepe(IDbCrud cr, IReportServ report)
         {
-            InitializeComponent();
             DataContext = new ReziepeVM(cr, report);
-
+            InitializeComponent();
+           
+            //column.ItemsSource = cr.Reagents.GetList();
         }
     }
 }

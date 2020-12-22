@@ -5,7 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChemReagentsProject.Pages.PageReziepe"
              mc:Ignorable="d" 
+             Name="ThisPage"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <!--<ObjectDataProvider x:Key="myEnum" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type Type="local:OrderStatus"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>-->
+    </UserControl.Resources>
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -13,24 +23,29 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Column="1" Width="8" Background="Black" ResizeBehavior="PreviousAndNext" />
-        <DataGrid x:Name="ReziepeDG"  >
-            <DataGrid.Columns>
-                
-                <DataGridTextColumn Header="Id"></DataGridTextColumn>
-                <DataGridTextColumn Header="Название"></DataGridTextColumn>
-                <DataGridTextColumn Header="ГОСТ"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        
-        <DataGrid x:Name="ReactiveDG" Grid.Column="2" >
+
+
+        <DataGrid x:Name="ReziepeDG" ItemsSource="{Binding RecipeList}" SelectedItem="{Binding SelectRecipe,Mode=OneWayToSource}"  AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ГОСТ"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid x:Name="ReactiveDG" Grid.Column="2" ItemsSource="{Binding RecipeLineList}" AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"></DataGridTextColumn>
+                <!--<DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>-->
+                <DataGridComboBoxColumn x:Name="column" ItemsSource="{Binding ElementName=ThisPage, Path=DataContext.ReagentList}" SelectedValueBinding="{Binding ReagentId }" Header="Реактив" DisplayMemberPath="Name" SelectedValuePath="Id" >
+                    
+                </DataGridComboBoxColumn>
                 <DataGridTextColumn Header="Количество" Binding="{Binding Count}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Единицы измерения" Binding="{Binding Units}"></DataGridTextColumn>
+                <!--<DataGridTextColumn Header="Единицы измерения" Binding="{Binding Units}"></DataGridTextColumn>-->
                 <!--<DataGridTextColumn Header="Полка"></DataGridTextColumn>
                 <DataGridTextColumn Header="Синонимы"></DataGridTextColumn>-->
             </DataGrid.Columns>
         </DataGrid>
+        <!--<ComboBox x:Name="ItemS" Visibility="Visible" Grid.Column="2" ItemsSource="{Binding ElementName=ThisPage, Path=DataContext.ReagentList}"/>-->
     </Grid>
 </UserControl>

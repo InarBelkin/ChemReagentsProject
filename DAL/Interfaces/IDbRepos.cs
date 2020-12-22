@@ -12,6 +12,8 @@ namespace DAL.Interfaces
         IRepository<Supply> Supplies { get; }
         IRepository<Reagent> Reagents { get; }
         IRepository<Supplier> Suppliers { get; }
+        IRepository<Solution_recipe> Solution_Recipes { get; }
+        IRepository<Solution_recipe_line> Solution_Rezipe_Line { get; }
         IReportRepos Reports { get; }
         int Save();
     }

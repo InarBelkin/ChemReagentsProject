@@ -29,6 +29,7 @@ namespace BLL.Services
             };
 
             db.Suppliers.Create(s);
+            Save();
         }
 
         public void Delete(int id)

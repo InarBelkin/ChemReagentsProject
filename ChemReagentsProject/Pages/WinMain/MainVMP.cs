@@ -23,18 +23,18 @@ namespace ChemReagentsProject.ViewModel
                 pReag = value;
             }
         }
-        private PageSolutionRecipe pSolutRec;
-        public PageSolutionRecipe PSolutRec
-        {
-            get
-            {
-                return pSolutRec ?? (pSolutRec = new PageSolutionRecipe());
-            }
-            set
-            {
-                pSolutRec = value;
-            }
-        }
+        //private PageSolutionRecipe pSolutRec;
+        //public PageSolutionRecipe PSolutRec
+        //{
+        //    get
+        //    {
+        //        return pSolutRec ?? (pSolutRec = new PageSolutionRecipe());
+        //    }
+        //    set
+        //    {
+        //        pSolutRec = value;
+        //    }
+        //}
 
     }
 }

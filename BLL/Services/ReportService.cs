@@ -27,10 +27,21 @@ namespace BLL.Services
             //List<Reagent> reag = db.Reagents.GetList();
             //Console.WriteLine();
             List<Supply> s = db.Reports.SupplyByReag(reagId);
-           
+
             foreach (Supply r in s)
             {
                 ret.Add(new SupplyM(r));
+            }
+            return ret;
+        }
+
+        public ObservableCollection<SolutRezLineM> GetRecipeLine(int RecipeId)
+        {
+            ObservableCollection<SolutRezLineM> ret = new ObservableCollection<SolutRezLineM>();
+
+            foreach (Solution_recipe_line s in db.Reports.GetReciepeLine(RecipeId))
+            {
+                ret.Add(new SolutRezLineM(s));
             }
             return ret;
         }

@@ -29,5 +29,17 @@ namespace DAL.Repository
 
             return a ?? new List<Supply>();
         }
+
+        public List<Solution_recipe_line> GetReciepeLine(int RecipeId)
+        {
+            Solution_recipe s = db.Solution_Recipes.Find(RecipeId);
+            List<Solution_recipe_line> a = null;
+            if(s!=null)
+            {
+                a = s.Lines;
+            }
+
+            return a ?? new List<Solution_recipe_line>();
+        }
     }
 }

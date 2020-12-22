@@ -26,9 +26,9 @@ namespace DAL.Repository
            
             List<Reagent> a = db.Reagents.ToList();
             
-            Supply s = a[0].Supplies[0];
-            s.count = 999;
-            List<Supply> supl = db.Supplies.ToList();
+            //Supply s = a[0].Supplies[0];
+            //s.count = 999;
+            //List<Supply> supl = db.Supplies.ToList();
             return a;
         }
         public override void Create(Reagent item)

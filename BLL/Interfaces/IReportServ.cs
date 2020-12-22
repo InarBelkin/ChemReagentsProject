@@ -11,5 +11,6 @@ namespace BLL.Interfaces
     public interface IReportServ
     {
         ObservableCollection<SupplyM> SupplyByReag(int reagId);
+        ObservableCollection<SolutRezLineM> GetRecipeLine(int RecipeId);
     }
 }
