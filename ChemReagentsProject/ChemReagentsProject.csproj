@@ -97,16 +97,16 @@
     <Compile Include="Pages\PageReagents\PageReag.xaml.cs">
       <DependentUpon>PageReag.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PageReagents\QuestVM.cs" />
-    <Compile Include="Pages\PageReagents\QuestWin.xaml.cs">
-      <DependentUpon>QuestWin.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\PageReziepe\PageReziepe.xaml.cs">
       <DependentUpon>PageReziepe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageReziepe\ReziepeVM.cs" />
     <Compile Include="Pages\WinEditSupplies\WinEditSupplies.xaml.cs">
       <DependentUpon>WinEditSupplies.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\WinQuestion\QuestVM.cs" />
+    <Compile Include="Pages\WinQuestion\QuestWin.xaml.cs">
+      <DependentUpon>QuestWin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\NinjectRegistrations.cs" />
     <Compile Include="Pages\WinEditSupplies\EditSuppliesVM.cs" />
@@ -115,10 +115,6 @@
     <Compile Include="Pages\PageReagents\ReagentsVM.cs" />
     <Compile Include="Additional\RelayCommand.cs" />
     <Page Include="Pages\PageReagents\PageReag.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\PageReagents\QuestWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -143,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\WinEditSupplies\WinEditSupplies.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\WinQuestion\QuestWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -192,7 +192,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Pages\PageSolutions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

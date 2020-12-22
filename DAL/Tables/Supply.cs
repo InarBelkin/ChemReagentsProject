@@ -21,6 +21,7 @@ namespace DAL.Tables
 
         public DateTime Date_Begin { get; set; }
         public DateTime Date_End { get; set; }
+        public byte State { get; set; }
         public float count { get; set; }
     }
 }

@@ -7,21 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChemReagentsProject.Pages.PageReagents
+namespace ChemReagentsProject.Pages.WinQuestion
 {
-    class QuestVM: IRecognizable
+    class QuestVM : IRecognizable
     {
         Guid ThisGuid;
-        public QuestVM()
+        string text;
+        public QuestVM( string str)
         {
             ThisGuid = Guid.NewGuid();
+            text = str;
         }
 
         public string InText
         {
             get
             {
-                return "Вы хотите удалить реагент, у которого есть поставки, вы уверены?";
+                return text;
             }
         }
 

@@ -12,17 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ChemReagentsProject.Pages.PageReagents
+namespace ChemReagentsProject.Pages.WinQuestion
 {
     /// <summary>
     /// Логика взаимодействия для QuestWin.xaml
     /// </summary>
     public partial class QuestWin : Window
     {
-        public QuestWin()
+        public QuestWin( string str)
         {
             InitializeComponent();
-            DataContext = new QuestVM();
+            DataContext = new QuestVM(str);
         }
     }
 }

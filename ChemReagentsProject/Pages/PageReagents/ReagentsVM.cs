@@ -68,10 +68,10 @@ namespace ChemReagentsProject.ViewModel
                     foreach (ReagentM oldreag in e.OldItems)
                     {
                         ObservableCollection<SupplyM> s = rep.SupplyByReag(oldreag.Id);
-                        if (rep.SupplyByReag(oldreag.Id)!=null && rep.SupplyByReag(oldreag.Id).Count!=0)
+                        if (rep.SupplyByReag(oldreag.Id) != null && rep.SupplyByReag(oldreag.Id).Count != 0)
                         {
-                            QuestWin quest = new QuestWin();
-                            if(quest.ShowDialog()==true)
+                            Pages.WinQuestion.QuestWin win = new Pages.WinQuestion.QuestWin("Вы хотите удалить реагент, у которого есть поставки, вы уверены?");
+                            if (win.ShowDialog() == true)
                             {
                                 dbOp.Reagents.Delete(oldreag.Id);
                             }
@@ -79,13 +79,11 @@ namespace ChemReagentsProject.ViewModel
                             {
                                 OnPropertyChanged("ReagentList");
                             }
-                           
                         }
                         else
                         {
                             dbOp.Reagents.Delete(oldreag.Id);
                         }
-                       
                     }
                     break;
                 case NotifyCollectionChangedAction.Replace:
@@ -182,7 +180,6 @@ namespace ChemReagentsProject.ViewModel
                             {
                                 winSuppl = new WinEditSupplies(dbOp, rep, new SupplyM());
                             }
-
                             break;
                         default:
                             break;

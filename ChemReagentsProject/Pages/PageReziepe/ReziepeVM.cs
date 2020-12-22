@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.Models;
 using System.Collections.Specialized;
+using System.Windows;
 
 namespace ChemReagentsProject.Pages.PageReziepe
 {
@@ -70,7 +71,23 @@ namespace ChemReagentsProject.Pages.PageReziepe
                     OnPropertyChanged("RecipeList");
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    dbOp.SolutRecipes.Delete((e.OldItems[0] as SolutionRezipeM).Id);
+                    var s = rep.GetRecipeLine((e.OldItems[0] as SolutionRezipeM).Id);
+                    if(s.Count>0)
+                    {
+                        WinQuestion.QuestWin win = new WinQuestion.QuestWin("Вы действительно хотите удалить рецепт?");
+                        if(win.ShowDialog() == true)
+                        {
+                            dbOp.SolutRecipes.Delete((e.OldItems[0] as SolutionRezipeM).Id);
+                        }
+                        else
+                        {
+                            OnPropertyChanged("RecipeList");
+                        }
+                    }
+                    else
+                    {
+                        dbOp.SolutRecipes.Delete((e.OldItems[0] as SolutionRezipeM).Id);
+                    }
                     break;
             }
         }
@@ -139,11 +156,17 @@ namespace ChemReagentsProject.Pages.PageReziepe
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-
-                    SolutRezLineM newline = new SolutRezLineM() { ReagentId = dbOp.Reagents.GetList()[0].Id, SolutionRecipeId = selectRecipe.Id };
-                    dbOp.SolutRecLines.Create(newline);
-                    OnPropertyChanged("RecipeLineList");
-
+                    var ReagentList = dbOp.Reagents.GetList();
+                    if(ReagentList.Count>0)
+                    {
+                        SolutRezLineM newline = new SolutRezLineM() { ReagentId = dbOp.Reagents.GetList()[0].Id, SolutionRecipeId = selectRecipe.Id };
+                        dbOp.SolutRecLines.Create(newline);
+                        OnPropertyChanged("RecipeLineList");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Добавьте хотя бы один реактив");
+                    }
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     dbOp.SolutRecLines.Delete((e.OldItems[0] as SolutRezLineM).Id);
