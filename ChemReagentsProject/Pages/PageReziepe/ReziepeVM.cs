@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using BLL.Models;
 using System.Collections.Specialized;
 using System.Windows;
+using ChemReagentsProject.Pages.WinQuestion;
 
 namespace ChemReagentsProject.Pages.PageReziepe
 {
@@ -23,7 +24,6 @@ namespace ChemReagentsProject.Pages.PageReziepe
             dbOp = cr;
             rep = report;
             page = pg;
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,6 +37,7 @@ namespace ChemReagentsProject.Pages.PageReziepe
             throw new NotImplementedException();
         }
 
+        #region RecipeList
         private ObservableCollection<SolutionRezipeM> recipeList;
         public ObservableCollection<SolutionRezipeM> RecipeList
         {
@@ -71,10 +72,10 @@ namespace ChemReagentsProject.Pages.PageReziepe
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     var s = rep.GetRecipeLine((e.OldItems[0] as SolutionRezipeM).Id);
-                    if(s.Count>0)
+                    if (s.Count > 0)
                     {
                         WinQuestion.QuestWin win = new WinQuestion.QuestWin("Вы действительно хотите удалить рецепт?");
-                        if(win.ShowDialog() == true)
+                        if (win.ShowDialog() == true)
                         {
                             dbOp.SolutRecipes.Delete((e.OldItems[0] as SolutionRezipeM).Id);
                         }
@@ -105,25 +106,102 @@ namespace ChemReagentsProject.Pages.PageReziepe
                     if (s.Id != 0)
                     {
                         //var a = dbOp.Reagents.GetList();
-                        page.SetItemSource(ReagentList);
+                        //page.SetItemSource(ReagentList);
                         selectRecipe = s;
-                        OnPropertyChanged("RecipeLineList");
+                        //OnPropertyChanged("RecipeLineList");
+                        OnPropertyChanged("ConcentrList");
 
                     }
 
                 }
             }
         }
+        #endregion
+
+        #region Concentration   
+        private ObservableCollection<ConcentrationM> concentrList;
+        public ObservableCollection<ConcentrationM> ConcentrList
+        {
+            get
+            {
+                if (selectRecipe != null)
+                {
+                    concentrList = rep.ConcentrbyRecipe(selectRecipe.Id);
+                    foreach (ConcentrationM c in concentrList)
+                    {
+                        c.PropertyChanged += Concentr_PropertyChanged;
+                    }
+                    concentrList.CollectionChanged += ConcentrList_CollectionChanged;
+                    return concentrList;
+                }
+                else return null;
+            }
+            set { OnPropertyChanged("ConcentrList"); }
+        }
+
+        private void ConcentrList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    ConcentrationM newconc = new ConcentrationM() { SolutionRecipeId = selectRecipe.Id };
+                    dbOp.Concentrations.Create(newconc);
+                    OnPropertyChanged("ConcentrList");
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    QuestWin win = new QuestWin("Вы точно хотите удалить эту концетрацию?");
+                    if(win.ShowDialog()==true)
+                    {
+                        dbOp.Concentrations.Delete((e.OldItems[0] as ConcentrationM).Id);
+                    }
+                    else
+                    {
+                        OnPropertyChanged("ConcentrList");
+                    }
+                    break;
+            }
+        }
+
+        private void Concentr_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is ConcentrationM c)
+            {
+                dbOp.Concentrations.Update(c);
+            }
+        }
+
+        private ConcentrationM selectConcentr;
+        public ConcentrationM SelectConcentr
+        {
+            get
+            {
+                return selectConcentr;
+            }
+            set
+            {
+                if(value is ConcentrationM c)
+                {
+                    if(c.Id!=0)
+                    {
+                        page.SetItemSource(ReagentList);
+                        selectConcentr = c;
+                        OnPropertyChanged("RecipeLineList");
+                    }
+                }
+            }
+        }
+
+        #endregion
 
         private ObservableCollection<SolutRezLineM> recipeLineList;
         public ObservableCollection<SolutRezLineM> RecipeLineList
         {
             get
             {
-                if (selectRecipe != null)
+                if (selectConcentr != null)
                 {
 
-                    recipeLineList = rep.GetRecipeLine(selectRecipe.Id);
+                    recipeLineList = rep.GetRecipeLine(selectConcentr.Id);
                     foreach (SolutRezLineM s in recipeLineList)
                     {
                         s.PropertyChanged += RecLine_PropertyChanged;
@@ -155,8 +233,8 @@ namespace ChemReagentsProject.Pages.PageReziepe
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    var ReagentList = dbOp.Reagents.GetList();
-                    if(ReagentList.Count>0)
+                    var ReagentList = dbOp.Reagents.GetList();  //если никто не вводил реактивы, это сработает
+                    if (ReagentList.Count > 0)
                     {
                         SolutRezLineM newline = new SolutRezLineM() { ReagentId = dbOp.Reagents.GetList()[0].Id, ConcentrationId = selectRecipe.Id };
                         dbOp.SolutRecLines.Create(newline);

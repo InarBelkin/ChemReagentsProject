@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    class ConcentrationCrud: ICrudRepos<ConcentrationM>
+    public class ConcentrationCrud: ICrudRepos<ConcentrationM>
     {
         IDbRepos db;
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    class ConcentrationM : INotifyPropertyChanged
+    public class ConcentrationM : INotifyPropertyChanged
     {
         private int id;
         private int solutionRecipeId;

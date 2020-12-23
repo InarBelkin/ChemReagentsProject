@@ -37,6 +37,9 @@ namespace BLL.Services
         private SolutionLineCrud solutLines;
         public ICrudRepos<SolutionLineM> SolutLines => solutLines ?? (solutLines = new SolutionLineCrud(db));
 
+        private ConcentrationCrud concentration;
+        public ICrudRepos<ConcentrationM> Concentrations => concentration ?? (concentration = new ConcentrationCrud(db));
+
         public bool Save()
         {
             //if (db.Save() > 0) return true;

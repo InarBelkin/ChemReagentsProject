@@ -38,10 +38,11 @@
                     <DataGridTextColumn Header="ГОСТ"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid Grid.Column="1" ItemsSource="{Binding ConcentrList}" AutoGenerateColumns="False">
+
+            <DataGrid x:Name="ConcentrDG" Grid.Column="1" ItemsSource="{Binding ConcentrList}" SelectedItem="{Binding SelectConcentr,Mode=OneWayToSource}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Концентрация" Binding="{Binding Сoncentration}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Концентрация" Binding="{Binding Name}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
 

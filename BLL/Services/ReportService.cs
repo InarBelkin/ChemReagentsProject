@@ -56,11 +56,21 @@ namespace BLL.Services
             return ret;
         }
 
-        public ObservableCollection<SolutRezLineM> GetRecipeLine(int RecipeId)
+        public ObservableCollection<ConcentrationM> ConcentrbyRecipe(int RecipeId)
+        {
+            ObservableCollection<ConcentrationM> ret = new ObservableCollection<ConcentrationM>();
+            foreach(Concentration c in db.Reports.ConcentrbyRecipe(RecipeId))
+            {
+                ret.Add(new ConcentrationM(c));
+            }
+            return ret;
+        }
+
+        public ObservableCollection<SolutRezLineM> GetRecipeLine(int ConcentrId)
         {
             ObservableCollection<SolutRezLineM> ret = new ObservableCollection<SolutRezLineM>();
 
-            foreach (Solution_recipe_line s in db.Reports.GetReciepeLine(RecipeId))
+            foreach (Solution_recipe_line s in db.Reports.GetReciepeLine(ConcentrId))
             {
                 SolutRezLineM sM = new SolutRezLineM(s);
                 sM.PropertyChanged += SML_PropertyChanged;

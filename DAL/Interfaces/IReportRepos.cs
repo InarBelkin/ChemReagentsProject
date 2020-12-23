@@ -10,6 +10,7 @@ namespace DAL.Interfaces
     public interface IReportRepos
     {
         List<Supply> SupplyByReag(int reagId);
-        List<Solution_recipe_line> GetReciepeLine(int RecipeId);
+        List<Solution_recipe_line> GetReciepeLine(int ConcentrId);
+        List<Concentration> ConcentrbyRecipe(int RecipeId);
     }
 }
