@@ -56,8 +56,11 @@
   <ItemGroup>
     <Compile Include="Interfaces\ICrudRepos.cs" />
     <Compile Include="Interfaces\IDbCrud.cs" />
+    <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\IReportServ.cs" />
     <Compile Include="Models\ReagentM.cs" />
+    <Compile Include="Models\SolutionLineCrud.cs" />
+    <Compile Include="Models\SolutionM.cs" />
     <Compile Include="Models\SolutionRezipeM.cs" />
     <Compile Include="Models\SupplierM.cs" />
     <Compile Include="Models\SupplyM.cs" />
@@ -65,6 +68,7 @@
     <Compile Include="Services\DbDataOperation.cs" />
     <Compile Include="Services\ReagentCrud.cs" />
     <Compile Include="Services\ReportService.cs" />
+    <Compile Include="Services\SolutionCrud.cs" />
     <Compile Include="Services\Solution_RezipeCrud.cs" />
     <Compile Include="Services\Solution_Rez_LineCrud.cs" />
     <Compile Include="Services\SupplierCrud.cs" />

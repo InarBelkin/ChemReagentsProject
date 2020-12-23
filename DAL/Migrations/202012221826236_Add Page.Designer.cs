@@ -7,13 +7,13 @@ namespace DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class IDontknowwhatitis : IMigrationMetadata
+    public sealed partial class AddPage : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(IDontknowwhatitis));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddPage));
         
         string IMigrationMetadata.Id
         {
-            get { return "202012081859057_IDon't know what it is"; }
+            get { return "202012221826236_Add Page"; }
         }
         
         string IMigrationMetadata.Source

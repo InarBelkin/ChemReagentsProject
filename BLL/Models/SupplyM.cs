@@ -13,13 +13,34 @@ namespace BLL.Models
         public int SupplierId { get; set; }
         public DateTime Date_Begin { get; set; }
         public DateTime Date_End { get; set; }
+        private SupplStates state;
+        public SupplStates State
+        {
+            get => state;
+            set
+            {
+                state = value;
+                string str;
+                switch (state)
+                {
+                    case SupplStates.Active: str = "Активно"; break;
+                    case SupplStates.SoonToWriteOff: str = "Скоро протухнет"; break;
+                    case SupplStates.ToWriteOff: str = "На списание"; break;
+                    case SupplStates.WriteOff: str = "Списано"; break;
+                    default: str = "Ошибка"; break;
+                }
+                RusState = str;
+            }
+        }
+        public string RusState { get; set; }
         public float Count { get; set; }
 
-        public SupplyM() 
+        public SupplyM()
         {
             Id = -2;
             ReagentId = -2; //да просто чтобы по умолчанию был неверный вариант
-            SupplierId = -2;    
+            SupplierId = -2;
+            State = SupplStates.Active;
         }
         public SupplyM(Supply s)
         {
@@ -28,6 +49,7 @@ namespace BLL.Models
             SupplierId = s.SupplierId;
             Date_Begin = s.Date_Begin;
             Date_End = s.Date_End;
+            State = (SupplStates)s.State;
             Count = s.count;
         }
 
@@ -37,4 +59,14 @@ namespace BLL.Models
             else return false;
         }
     }
+
+    public enum SupplStates : byte
+    {
+        Active = 1,
+        SoonToWriteOff = 2,
+        ToWriteOff = 3,
+        WriteOff = 4
+    }
+
+
 }

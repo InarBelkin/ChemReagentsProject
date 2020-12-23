@@ -15,7 +15,7 @@ namespace BLL.Services
     {
         IDbRepos db;
 
-        public SupplyCrud(IDbRepos dbRepos )
+        public SupplyCrud(IDbRepos dbRepos)
         {
             db = dbRepos;
         }
@@ -29,8 +29,9 @@ namespace BLL.Services
                 SupplierId = s.SupplierId,
                 Date_Begin = s.Date_Begin,
                 Date_End = s.Date_End,
+                State = (byte)s.State,
                 count = s.Count
-            });
+            });;
             Save();
         }
 
@@ -42,16 +43,31 @@ namespace BLL.Services
 
         public SupplyM GetItem(int id)
         {
-            return new SupplyM (db.Supplies.GetItem(id));
+            SupplyM s = new SupplyM(db.Supplies.GetItem(id));
+            if (s.State == SupplStates.Active && DateTime.Now > s.Date_End)
+            {
+                s.State = SupplStates.ToWriteOff;
+                Update(s);
+            }
+
+            return s;
+
         }
 
         public ObservableCollection<SupplyM> GetList()
         {
             ObservableCollection<SupplyM> ret = new ObservableCollection<SupplyM>();
-            foreach (Supply s in db.Supplies.GetList())
+            foreach (Supply sold in db.Supplies.GetList())
             {
-                ret.Add(new SupplyM(s));
+                SupplyM s = new SupplyM(sold);
+                if (s.State == SupplStates.Active && DateTime.Now > s.Date_End)
+                {
+                    s.State = SupplStates.ToWriteOff;
+                    Update(s);
+                }
+                ret.Add(s);
             }
+
             return ret;
             //return db.Supplies.GetList().Select(i => new SupplyM(i)).ToList();
         }
@@ -63,6 +79,7 @@ namespace BLL.Services
             sup.SupplierId = item.SupplierId;
             sup.Date_Begin = item.Date_Begin;
             sup.Date_End = item.Date_End;
+            sup.State = (byte)item.State;
             sup.count = item.Count;
             db.Supplies.Update(sup);
             Save();
@@ -71,7 +88,7 @@ namespace BLL.Services
 
         public bool Save()
         {
-           return db.Save() > 0;
+            return db.Save() > 0;
         }
     }
 }

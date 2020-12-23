@@ -24,13 +24,34 @@ namespace BLL.Services
         {
             ObservableCollection<SupplyM> ret = new ObservableCollection<SupplyM>();
 
-            //List<Reagent> reag = db.Reagents.GetList();
-            //Console.WriteLine();
-            List<Supply> s = db.Reports.SupplyByReag(reagId);
+            List<Supply> ss = db.Reports.SupplyByReag(reagId);
 
-            foreach (Supply r in s)
+            bool ischange = false;
+            foreach (Supply r in ss)
             {
-                ret.Add(new SupplyM(r));
+                SupplyM s = new SupplyM(r);
+
+     
+                if ((s.State == SupplStates.SoonToWriteOff || s.State==SupplStates.Active) && DateTime.Now > s.Date_End)
+                {
+                    s.State = SupplStates.ToWriteOff;
+                    r.State = (byte)SupplStates.ToWriteOff;
+                    db.Supplies.Update(r);
+                    ischange = true;
+                }
+                if(s.State == SupplStates.Active && DateTime.Now > s.Date_End.AddMonths(-1))
+                {
+                    s.State = SupplStates.SoonToWriteOff;
+                    r.State = (byte)SupplStates.SoonToWriteOff;
+                    db.Supplies.Update(r);
+                    ischange = true;
+                }
+
+                if (ischange) db.Save();
+
+
+                ret.Add(s);
+
             }
             return ret;
         }

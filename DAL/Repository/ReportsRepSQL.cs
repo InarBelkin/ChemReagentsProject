@@ -25,6 +25,8 @@ namespace DAL.Repository
             {
                a = r.Supplies;
             }
+
+          
          
 
             return a ?? new List<Supply>();

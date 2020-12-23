@@ -19,59 +19,29 @@ namespace DAL.Repository
         private SupplierRepSQL Supplier;
         private SolutionRezipeRepSQL rezipe;
         private SolutRezLineRepSQl rezipeLine;
+        private SolutionRepSQL solution;
+        private SolutionLineRepSQL solutionLine;
         public DbReposSQL()
         {
             db = new ChemContext();
             //MessageBox.Show("adsf");
         }
 
-        public IRepository<Supply> Supplies
-        {
-            get
-            {
-                return SupplyRepos ?? (SupplyRepos = new SuppliesRepSQL(db));
-            }
-        }
+        public IReportRepos Reports => Report ?? (Report = new ReportsRepSQL(db));
 
-        public IRepository<Reagent> Reagents
-        {
-            get
-            {
-                return ReagentsRepos ?? (ReagentsRepos = new ReagentsRepSQL(db));
-            }
-        }
+        public IRepository<Supply> Supplies => SupplyRepos ?? (SupplyRepos = new SuppliesRepSQL(db));
 
-        public IReportRepos Reports
-        {
-            get
-            {
-                return Report ?? (Report = new ReportsRepSQL(db));
-            }
-        }
+        public IRepository<Reagent> Reagents => ReagentsRepos ?? (ReagentsRepos = new ReagentsRepSQL(db));
 
-        public IRepository<Supplier> Suppliers
-        {
-            get
-            {
-                return Supplier ?? (Supplier = new SupplierRepSQL(db));
-            }
-        }
+        public IRepository<Supplier> Suppliers => Supplier ?? (Supplier = new SupplierRepSQL(db));
 
-        public IRepository<Solution_recipe> Solution_Recipes
-        {
-            get
-            {
-                return rezipe ?? (rezipe = new SolutionRezipeRepSQL(db));
-            }
-        }
+        public IRepository<Solution_recipe> Solution_Recipes => rezipe ?? (rezipe = new SolutionRezipeRepSQL(db));
 
-        public IRepository<Solution_recipe_line> Solution_Rezipe_Line
-        {
-            get
-            {
-                return rezipeLine ?? (rezipeLine = new SolutRezLineRepSQl(db));
-            }
-        }
+        public IRepository<Solution_recipe_line> Solution_Rezipe_Line => rezipeLine ?? (rezipeLine = new SolutRezLineRepSQl(db));
+
+        public IRepository<Solution> Solutions => solution ?? (solution = new SolutionRepSQL(db));
+
+        public IRepository<Solution_line> Solution_Lines => solutionLine ?? (solutionLine = new SolutionLineRepSQL(db));
 
         public int Save()
         {

@@ -125,7 +125,8 @@ namespace ChemReagentsProject.ViewModel
             {
                 if (selectreag != null)
                 {
-                    return rep.SupplyByReag(selectreag.Id);
+                    var a = rep.SupplyByReag(selectreag.Id);
+                    return a;
                 }
                 // return suppliesList;
                 return null;

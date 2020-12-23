@@ -29,14 +29,34 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
-            <ScrollViewer Grid.Row="0">
-                <DataGrid x:Name="ShortSupplDG" ItemsSource="{Binding SuppliesList}" SelectedItem="{Binding SelectSuppl, Mode=OneWayToSource}" AutoGenerateColumns="False" >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Дата поставки" Binding="{Binding Date_Begin}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Дата конца" Binding="{Binding Date_End}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </ScrollViewer>
+
+            <DataGrid x:Name="ShortSupplDG" ItemsSource="{Binding SuppliesList}" SelectedItem="{Binding SelectSuppl, Mode=OneWayToSource}" AutoGenerateColumns="False" >
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding State}" Value="1">
+                                <Setter Property="Background" Value="#6495ED"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State}" Value="2">
+                                <Setter Property="Background" Value="#F4A460"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State}" Value="3">
+                                <Setter Property="Background" Value="#DC143C"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State}" Value="4">
+                                <Setter Property="Background" Value="#C0C0C0"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Дата поставки" Binding="{Binding Date_Begin}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата конца" Binding="{Binding Date_End}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Состояние" Binding="{Binding RusState}" IsReadOnly="True"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
             <Grid  Grid.Row="1">
                 <Button x:Name="button" Content="Изменить/посмотреть" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="180" Height="39" Command="{Binding AddSuppl}" CommandParameter="Edit" />
                 <Button x:Name="button1" Content="Добавить" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Width="180" Height="36" Command="{Binding AddSuppl}" CommandParameter="Add" />
