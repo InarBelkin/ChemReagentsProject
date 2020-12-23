@@ -31,6 +31,12 @@ namespace BLL.Services
         private Solution_Rez_LineCrud solutRecLines;
         public ICrudRepos<SolutRezLineM> SolutRecLines => solutRecLines ?? (solutRecLines = new Solution_Rez_LineCrud(db));
 
+        private SolutionCrud solutions;
+        public ICrudRepos<SolutionM> Solutions => solutions ?? (solutions = new SolutionCrud(db));
+
+        private SolutionLineCrud solutLines;
+        public ICrudRepos<SolutionLineM> SolutLines => solutLines ?? (solutLines = new SolutionLineCrud(db));
+
         public bool Save()
         {
             //if (db.Save() > 0) return true;

@@ -25,15 +25,28 @@
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Column="1" Width="8" Background="Black" ResizeBehavior="PreviousAndNext" />
 
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="ReziepeDG" ItemsSource="{Binding RecipeList}" SelectedItem="{Binding SelectRecipe,Mode=OneWayToSource}"  AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
 
-        <DataGrid x:Name="ReziepeDG" ItemsSource="{Binding RecipeList}" SelectedItem="{Binding SelectRecipe,Mode=OneWayToSource}"  AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
-               
-                <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="ГОСТ"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ГОСТ"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid Grid.Column="1" ItemsSource="{Binding ConcentrList}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Концентрация" Binding="{Binding Сoncentration}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
+      
 
         <DataGrid x:Name="ReactiveDG" Grid.Column="2" ItemsSource="{Binding RecipeLineList}" AutoGenerateColumns="False"    >
             <DataGrid.Columns>

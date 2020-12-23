@@ -15,9 +15,9 @@ namespace DAL.Tables
         [ForeignKey("ReagentId")]
         public Reagent Reagent { get; set; }
         
-        public int SolutionRecipeId { get; set; }
-        [ForeignKey("SolutionRecipeId")]
-        public Solution_recipe Solution_Recipe { get; set; }
+        public int ConcentracionId { get; set; }
+        [ForeignKey("ConcentracionId")]
+        public Сoncentration Сoncentration { get; set; }
 
         public float Count { get; set; }
     }

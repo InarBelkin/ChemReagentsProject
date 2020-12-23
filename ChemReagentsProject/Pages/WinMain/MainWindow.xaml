@@ -17,7 +17,7 @@
             <Button Content="Рецепты" Command="{Binding TabCommand}" CommandParameter="Reziepe"  />
             <Button Content="Поставщики"/>
             <Button Content="Поставки"/>
-            <Button Content="Растворы"/>
+            <Button Content="Растворы"  Command="{Binding TabCommand}" CommandParameter="Solution"/>
             <Button Content="Отчёты"/>
         </StackPanel>
 

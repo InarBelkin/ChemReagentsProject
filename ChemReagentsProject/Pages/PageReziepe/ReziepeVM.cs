@@ -30,7 +30,6 @@ namespace ChemReagentsProject.Pages.PageReziepe
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
         }
 
         public Guid GetGuid()

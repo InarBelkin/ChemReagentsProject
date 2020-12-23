@@ -36,7 +36,6 @@ namespace ChemReagentsProject.Pages.PageReziepe
 
         public void SetItemSource(ObservableCollection<ReagentM> PageList)
         {
-
             column.ItemsSource = PageList ;
         }
     }

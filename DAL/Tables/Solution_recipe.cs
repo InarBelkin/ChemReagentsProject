@@ -10,6 +10,6 @@ namespace DAL.Tables
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual List<Solution_recipe_line> Lines { get; set; }
+        public virtual List<Сoncentration> Lines { get; set; }
     }
 }

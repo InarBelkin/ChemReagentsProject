@@ -57,13 +57,9 @@
     <Compile Include="Interfaces\IReportRepos.cs" />
     <Compile Include="Interfaces\IReposAbst.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Migrations\202012221826236_Add Page.cs" />
-    <Compile Include="Migrations\202012221826236_Add Page.designer.cs">
-      <DependentUpon>202012221826236_Add Page.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012231037247_AddNullable.cs" />
-    <Compile Include="Migrations\202012231037247_AddNullable.designer.cs">
-      <DependentUpon>202012231037247_AddNullable.cs</DependentUpon>
+    <Compile Include="Migrations\202012231338039_AddConcentracion.cs" />
+    <Compile Include="Migrations\202012231338039_AddConcentracion.designer.cs">
+      <DependentUpon>202012231338039_AddConcentracion.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,17 +78,15 @@
     <Compile Include="Tables\Solution_recipe_line.cs" />
     <Compile Include="Tables\Supplier.cs" />
     <Compile Include="Tables\Supply.cs" />
+    <Compile Include="Tables\Сoncentration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202012221826236_Add Page.resx">
-      <DependentUpon>202012221826236_Add Page.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012231037247_AddNullable.resx">
-      <DependentUpon>202012231037247_AddNullable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012231338039_AddConcentracion.resx">
+      <DependentUpon>202012231338039_AddConcentracion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,6 +2,7 @@
 using ChemReagentsProject.Interfaces;
 using ChemReagentsProject.Pages.PageReagents;
 using ChemReagentsProject.Pages.PageReziepe;
+using ChemReagentsProject.Pages.PageSolutions;
 using System;
 using System.ComponentModel;
 using System.Globalization;
@@ -29,13 +30,13 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
             dbOp = cr;
             rep = repserv;
             ThisGuid = Guid.NewGuid();
-            
+
             NavService.Navigation.LoadDone += Navigation_LoadDone;
         }
 
         private void Navigation_LoadDone(object sender, IRecognizable e)
         {
-            if(e.GetGuid() == ThisGuid)
+            if (e.GetGuid() == ThisGuid)
             {
                 NavService.Navigation.Navigate(ThisGuid, new PageReag(dbOp, rep));
             }
@@ -59,6 +60,10 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
                             NavService.Navigation.Navigate(ThisGuid, new PageReziepe(dbOp, rep));
                             //MainWin.ChangePage(PSolutRec);
                             break;
+                        case "Solution":
+                            NavService.Navigation.Navigate(ThisGuid, new PageSolution(dbOp, rep));
+                            break;
+
                         default:
                             break;
                     }
