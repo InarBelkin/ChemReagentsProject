@@ -25,23 +25,30 @@ namespace DAL.Repository
             {
                a = r.Supplies;
             }
-
-          
-         
-
             return a ?? new List<Supply>();
         }
 
-        public List<Solution_recipe_line> GetReciepeLine(int RecipeId)
+        public List<Solution_recipe_line> GetReciepeLine(int ConcentrId)
         {
-            Solution_recipe s = db.Solution_Recipes.Find(RecipeId);
+            Concentration c = db.Concentration.Find(ConcentrId);
             List<Solution_recipe_line> a = null;
-            if(s!=null)
+            if(c!=null)
             {
-                //a = s.Lines;
+                a = c.Line;
             }
 
             return a ?? new List<Solution_recipe_line>();
+        }
+
+        public List<Concentration> ConcentrbyRecipe(int RecipeId)
+        {
+            Solution_recipe s = db.Solution_Recipes.Find(RecipeId);
+            List<Concentration> a = null;
+            if(s!=null)
+            {
+                a = s.Lines;
+            }
+            return a ?? new List<Concentration>();
         }
     }
 }

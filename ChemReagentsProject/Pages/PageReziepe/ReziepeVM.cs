@@ -158,7 +158,7 @@ namespace ChemReagentsProject.Pages.PageReziepe
                     var ReagentList = dbOp.Reagents.GetList();
                     if(ReagentList.Count>0)
                     {
-                        SolutRezLineM newline = new SolutRezLineM() { ReagentId = dbOp.Reagents.GetList()[0].Id, SolutionRecipeId = selectRecipe.Id };
+                        SolutRezLineM newline = new SolutRezLineM() { ReagentId = dbOp.Reagents.GetList()[0].Id, ConcentrationId = selectRecipe.Id };
                         dbOp.SolutRecLines.Create(newline);
                         OnPropertyChanged("RecipeLineList");
                     }

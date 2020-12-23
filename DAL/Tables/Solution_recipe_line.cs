@@ -17,7 +17,7 @@ namespace DAL.Tables
         
         public int ConcentracionId { get; set; }
         [ForeignKey("ConcentracionId")]
-        public Сoncentration Сoncentration { get; set; }
+        public Concentration Сoncentration { get; set; }
 
         public float Count { get; set; }
     }

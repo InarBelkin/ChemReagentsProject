@@ -18,7 +18,7 @@ namespace DAL.Tables
 
         public DbSet<Solution_recipe> Solution_Recipes { get; set; }
         public DbSet<Solution_recipe_line> Solution_Recipe_Lines { get; set; }
-        public DbSet<Сoncentration> Сoncentrations { get; set; }
+        public DbSet<Concentration> Concentration { get; set; }
         
         public DbSet<Solution> Solutions { get; set; }
         public DbSet<Solution_line> Solution_Lines { get; set; }

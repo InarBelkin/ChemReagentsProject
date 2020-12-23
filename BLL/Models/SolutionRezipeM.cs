@@ -74,11 +74,11 @@ namespace BLL.Models
             set { reagentid = value; OnPropertyChanged(); }
         }
 
-        private int solutionRecipeId;
-        public int SolutionRecipeId
+        private int concentrationId;
+        public int ConcentrationId
         {
-            get => solutionRecipeId;
-            set { solutionRecipeId = value; OnPropertyChanged(); }
+            get => concentrationId;
+            set { concentrationId = value; OnPropertyChanged(); }
         }
         private float сount;
         public float Count
@@ -101,7 +101,7 @@ namespace BLL.Models
         {
             Id = s.Id;
             ReagentId = s.ReagentId;
-            SolutionRecipeId = s.ConcentracionId;
+            ConcentrationId = s.ConcentracionId;
             Count = s.Count;
             if (s.Reagent != null)
             {
@@ -121,7 +121,7 @@ namespace BLL.Models
             Solution_recipe_line a = new Solution_recipe_line();
             a.Id = Id;
             a.ReagentId = ReagentId;
-            a.ConcentracionId = SolutionRecipeId;
+            a.ConcentracionId = ConcentrationId;
             a.Count = Count;
             return a;
 
@@ -130,7 +130,7 @@ namespace BLL.Models
         {
             l.Id = Id;
             l.ReagentId = ReagentId;
-            l.ConcentracionId = SolutionRecipeId;
+            l.ConcentracionId = ConcentrationId;
             l.Count = Count;
         }
     }

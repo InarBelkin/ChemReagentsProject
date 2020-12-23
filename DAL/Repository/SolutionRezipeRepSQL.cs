@@ -24,4 +24,12 @@ namespace DAL.Repository
             //db = dbcontext;
         }
     }
+
+    public class ConcentracionsRepSQL:IReposAbstract<Concentration>
+    {
+        public ConcentracionsRepSQL(ChemContext dbcontext) : base(dbcontext.Concentration, dbcontext)
+        {
+
+        }
+    }
 }

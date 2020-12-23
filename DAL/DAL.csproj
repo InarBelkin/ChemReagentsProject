@@ -78,7 +78,7 @@
     <Compile Include="Tables\Solution_recipe_line.cs" />
     <Compile Include="Tables\Supplier.cs" />
     <Compile Include="Tables\Supply.cs" />
-    <Compile Include="Tables\Сoncentration.cs" />
+    <Compile Include="Tables\Concentration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
