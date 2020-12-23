@@ -57,15 +57,6 @@
     <Compile Include="Interfaces\IReportRepos.cs" />
     <Compile Include="Interfaces\IReposAbst.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Migrations\202012231338039_AddConcentracion.cs" />
-    <Compile Include="Migrations\202012231338039_AddConcentracion.designer.cs">
-      <DependentUpon>202012231338039_AddConcentracion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012231528407_AddConcentracionV2.cs" />
-    <Compile Include="Migrations\202012231528407_AddConcentracionV2.designer.cs">
-      <DependentUpon>202012231528407_AddConcentracionV2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\DbReposSQL.cs" />
     <Compile Include="Repository\ReagentsRepSQL.cs" />
@@ -89,12 +80,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202012231338039_AddConcentracion.resx">
-      <DependentUpon>202012231338039_AddConcentracion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012231528407_AddConcentracionV2.resx">
-      <DependentUpon>202012231528407_AddConcentracionV2.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

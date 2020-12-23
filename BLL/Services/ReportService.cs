@@ -76,6 +76,7 @@ namespace BLL.Services
                 sM.PropertyChanged += SML_PropertyChanged;
                 ret.Add(sM);
             }
+
             return ret;
         }
 

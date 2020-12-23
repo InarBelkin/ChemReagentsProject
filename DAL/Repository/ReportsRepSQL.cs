@@ -34,7 +34,7 @@ namespace DAL.Repository
             List<Solution_recipe_line> a = null;
             if(c!=null)
             {
-                a = c.Line;
+                a = c.LineList;
             }
 
             return a ?? new List<Solution_recipe_line>();
@@ -46,7 +46,7 @@ namespace DAL.Repository
             List<Concentration> a = null;
             if(s!=null)
             {
-                a = s.Lines;
+                a = s.Concentrations;
             }
             return a ?? new List<Concentration>();
         }
