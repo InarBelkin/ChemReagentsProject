@@ -2,6 +2,7 @@
 using BLL.Models;
 using ChemReagentsProject.Interfaces;
 using ChemReagentsProject.NavService;
+using ChemReagentsProject.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,44 +19,12 @@ namespace ChemReagentsProject.Pages.PageSolutions
         IDbCrud dbOp;
         IReportServ rep;
         IPageSolution page;
-        public bool close;
         public SolutionVM(IDbCrud cr, IReportServ report, IPageSolution pg)
         {
             dbOp = cr;
             rep = report;
             page = pg;
-            InarService.ChangeSelectRez += InarService_ChangeSelectRez;
-            InarService.ChangeSelectConcentr += InarService_ChangeSelectConcentr;
-            close = false;
-            InarService.closesolutEv += InarService_closesolutEv;
 
-        }
-
-        private void InarService_closesolutEv(object sender, bool e)
-        {
-            close = true;
-        }
-
-        private void InarService_ChangeSelectRez(object sender, SolutionRezipeM e)
-        {
-            if (selectSolution != null)
-            {
-                if (e != null)
-                {
-                    var a = rep.ConcentrbyRecipe(e.Id);
-                    selectSolution.ConcentList = a;
-                    selectSolution.SolutionRecipeId = e.Id;
-                }
-
-            }
-        }
-
-        private void InarService_ChangeSelectConcentr(object sender, ConcentrationM e)
-        {
-            if (selectSolution != null && e != null)
-            {
-                selectSolution.ConcentrationId = e.Id;
-            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -78,30 +47,6 @@ namespace ChemReagentsProject.Pages.PageSolutions
                 var recipelist = dbOp.SolutRecipes.GetList();
                 foreach (SolutionM s in solutionList)
                 {
-
-                    s.RecipeList = recipelist;
-                    if (s.ConcentrationId != null)
-                    {
-                        int recid = dbOp.Concentrations.GetItem((int)s.ConcentrationId).SolutionRecipeId;
-                        foreach (SolutionRezipeM r in recipelist)
-                        {
-                            if (r.Id == recid)
-                            {
-                                s.SelectRecipe = r;
-                                s.SolutionRecipeId = recid;
-                                var a = rep.ConcentrbyRecipe(recid);
-                                s.ConcentList = a;
-                                foreach (ConcentrationM c in s.ConcentList)
-                                {
-                                    if (c.Id == s.ConcentrationId)
-                                    {
-                                        s.Selectconcent = c;
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                    }
                     s.PropertyChanged += Solution_PropertyChanged;
                 }
                 solutionList.CollectionChanged += SolutionList_CollectionChanged;
@@ -136,19 +81,31 @@ namespace ChemReagentsProject.Pages.PageSolutions
 
         private void Solution_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (!close)
+
+            SolutionM s = sender as SolutionM;
+            switch (e.PropertyName)
             {
-                SolutionM s = sender as SolutionM;
-                switch (e.PropertyName)
-                {
-                    case "ConcentrationId":
-                    case "Date_Begin":
-                        dbOp.Solutions.Update(s);
-                        break;
-                }
+                case "ConcentrationId":
+                case "Date_Begin":
+                    dbOp.Solutions.Update(s);
+                    break;
             }
+
         }
 
+
+        private RelayCommand clickChangeRec;
+        public RelayCommand ClickChangeRec      //
+        {
+            get
+            {
+                return clickChangeRec ?? (clickChangeRec = new RelayCommand(obj =>
+                {
+                    Console.Beep(100, 100);
+
+                }));
+            }
+        }
 
     }
 }

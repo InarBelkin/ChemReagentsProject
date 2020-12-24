@@ -28,9 +28,9 @@ namespace ChemReagentsProject.Pages.PageSolutions
         public PageSolution(IDbCrud cr, IReportServ report)
         {
             InitializeComponent();
-            
+
             DataContext = new SolutionVM(cr, report, this);
-          
+
 
         }
 
@@ -45,27 +45,9 @@ namespace ChemReagentsProject.Pages.PageSolutions
             //RecipClmn.ItemsSource = recipes;
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ChangeRec_Click(object sender, RoutedEventArgs e)
         {
-            // var a = e.AddedItems;
-            if (e.AddedItems.Count != 0)
-            {
-                InarService.ChangeSelectInv(e.AddedItems[0] as SolutionRezipeM);
-            }
-
-        }
-
-        private void Concentr_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(e.AddedItems.Count!=0)
-            {
-                InarService.ChangeConcent(e.AddedItems[0] as ConcentrationM);
-            }
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            (DataContext as SolutionVM).close = true;
+            InarService.ClickChangeInv();
         }
     }
 }
