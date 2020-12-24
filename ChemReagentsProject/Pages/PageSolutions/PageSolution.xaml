@@ -20,13 +20,13 @@
                 <DataGridTextColumn  Header="Концентрация"/>
                 <DataGridTextColumn Header="Дата изготовления" Binding="{Binding Date_Begin}"/>
                 <DataGridTextColumn Header="Годен до" />
-                <!--<DataGridTemplateColumn Header="Изменить рецепт">
+                <DataGridTemplateColumn Header="Изменить рецепт">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button x:Name="ChangeRec" Content="Сменить рецепт" Click="ChangeRec_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>-->
+                </DataGridTemplateColumn>
 
             </DataGrid.Columns>
         </DataGrid>
