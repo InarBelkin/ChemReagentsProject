@@ -36,13 +36,13 @@ namespace ChemReagentsProject.Pages.PageSolutions
 
         public void SetConcentrations(ObservableCollection<ConcentrationM> concentrations)
         {
-            //ConcClmn.ItemsSource = concentrations;
+            ConcClmn.ItemsSource = concentrations;
 
         }
 
         public void SetRecipes(ObservableCollection<SolutionRezipeM> recipes)
         {
-            //RecipClmn.ItemsSource = recipes;
+            RecipClmn.ItemsSource = recipes;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

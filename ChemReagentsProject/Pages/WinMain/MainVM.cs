@@ -51,7 +51,9 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
             {
                 return tabCommand ?? (tabCommand = new RelayCommand(obj =>
                 {
-                    InarService.closeSolut();
+                   
+                    //GC.Collect();
+                    //GC.WaitForPendingFinalizers();
                     switch (obj as string)
                     {
                         case "Reagent":

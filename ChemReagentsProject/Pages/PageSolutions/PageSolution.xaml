@@ -16,25 +16,8 @@
         <DataGrid x:Name="SolutionsDG" ItemsSource="{Binding SolutionList}"  SelectedItem="{Binding SelectSolution,Mode=OneWayToSource}"  AutoGenerateColumns="False"  >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                <!--<DataGridComboBoxColumn x:Name="RecipClmn" Header="Рецепт"  SelectedValueBinding="{Binding SolutionRecipeId}" DisplayMemberPath="Name" SelectedValuePath="Id" />
-                <DataGridComboBoxColumn x:Name="ConcClmn" Header="Концентрация"   ItemsSource="{Binding ConcentList}"  SelectedValueBinding="{Binding ConcentrationId}" DisplayMemberPath="Name" SelectedValuePath="Id"/>-->
-                <DataGridTemplateColumn x:Name="Temp" Header="Рецепт">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ComboBox Name="Combine" ItemsSource="{Binding RecipeList}" SelectionChanged="ComboBox_SelectionChanged"  SelectedItem="{Binding SelectRecipe}" DisplayMemberPath="Name" >
-                            </ComboBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn x:Name="Temp2" Header="Концентрация">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ComboBox Name="Combine" ItemsSource="{Binding ConcentList}" SelectionChanged="Concentr_SelectionChanged" SelectedItem="{Binding Selectconcent}" DisplayMemberPath="Name" >
-                            </ComboBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGridComboBoxColumn x:Name="RecipClmn" Header="Рецепт"  SelectedValueBinding="{Binding SolutionRecipeId}" DisplayMemberPath="Name" SelectedValuePath="Id" />
+                <DataGridComboBoxColumn x:Name="ConcClmn" Header="Концентрация"   ItemsSource="{Binding ConcentList}"  SelectedValueBinding="{Binding ConcentrationId}" DisplayMemberPath="Name" SelectedValuePath="Id"/>
 
                 <DataGridTextColumn Header="Дата изготовления" Binding="{Binding Date_Begin}"/>
                 <DataGridTextColumn Header="Годен до" />
@@ -50,6 +33,6 @@
                 <DataGridTextColumn Header="Ед.Изм."/>
             </DataGrid.Columns>
         </DataGrid>
-       
+
     </Grid>
 </UserControl>
