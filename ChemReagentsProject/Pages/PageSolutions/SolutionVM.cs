@@ -2,6 +2,7 @@
 using BLL.Models;
 using ChemReagentsProject.Interfaces;
 using ChemReagentsProject.NavService;
+using ChemReagentsProject.Pages.WinQuestion;
 using ChemReagentsProject.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -31,10 +32,10 @@ namespace ChemReagentsProject.Pages.PageSolutions
         {
             if (selectSolution != null)
             {
-                WinEditRecInSuppl win = new WinEditRecInSuppl( dbOp, rep, selectSolution);
-                if(win.ShowDialog()== true)
+                WinEditRecInSuppl win = new WinEditRecInSuppl(dbOp, rep, selectSolution);
+                if (win.ShowDialog() == true)
                 {
-
+                    OnPropertyChanged("SolutionList");
                 }
 
             }
@@ -57,7 +58,6 @@ namespace ChemReagentsProject.Pages.PageSolutions
             get
             {
                 solutionList = dbOp.Solutions.GetList();
-                //var recipelist = dbOp.SolutRecipes.GetList();
                 foreach (SolutionM s in solutionList)
                 {
                     s.PropertyChanged += Solution_PropertyChanged;
@@ -75,6 +75,7 @@ namespace ChemReagentsProject.Pages.PageSolutions
             get => selectSolution;
             set
             {
+
                 selectSolution = value;
             }
         }
@@ -88,6 +89,17 @@ namespace ChemReagentsProject.Pages.PageSolutions
                     SolutionM s = new SolutionM() { Date_Begin = DateTime.Now };
                     dbOp.Solutions.Create(s);
                     OnPropertyChanged("SolutionList");
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    QuestWin win = new QuestWin("Вы точно хотите удалить этот раствор?");
+                    if (win.ShowDialog() == true)
+                    {
+                        dbOp.Solutions.Delete((e.OldItems[0] as SolutionM).Id);
+                    }
+                    else
+                    {
+                        OnPropertyChanged("ConcentrList");
+                    }
                     break;
             }
         }
@@ -105,6 +117,19 @@ namespace ChemReagentsProject.Pages.PageSolutions
             }
 
         }
+
+        private ObservableCollection<SolutionLineM> solutLineList;
+        public ObservableCollection<SolutionLineM> SolutLineList
+        {
+            get => solutLineList;
+            set
+            {
+                solutLineList = value;
+            }
+        }
+
+
+
 
         public void Dispose()       //но он не вызывается ниоткуда
         {

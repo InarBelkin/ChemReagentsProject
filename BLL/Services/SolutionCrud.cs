@@ -39,7 +39,10 @@ namespace BLL.Services
             if(s.ConcentrationId!=null)
             {
                 Concentration c = db.Concentrations.GetItem((int)s.ConcentrationId);
-                s.SolutionRecipeId = db.Solution_Recipes.GetItem(c.SolutionRecipeId).Id;
+                Solution_recipe sr = db.Solution_Recipes.GetItem(c.SolutionRecipeId);
+                s.SolutionRecipeId = sr.Id;
+                s.ConcentrName = c.Name;
+                s.RecipeName = sr.Name;
             }
             return s;
         }
@@ -54,7 +57,10 @@ namespace BLL.Services
                 if (s.ConcentrationId != null)
                 {
                     Concentration c = db.Concentrations.GetItem((int)s.ConcentrationId);
-                    s.SolutionRecipeId = db.Solution_Recipes.GetItem(c.SolutionRecipeId).Id;
+                    Solution_recipe sr = db.Solution_Recipes.GetItem(c.SolutionRecipeId);
+                    s.SolutionRecipeId = sr.Id;
+                    s.ConcentrName = c.Name;
+                    s.RecipeName = sr.Name;
                 }
                 ret.Add(s);
             }

@@ -24,17 +24,19 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <DataGrid Grid.ColumnSpan="2"  ItemsSource="{Binding ListRecLine}">
+            <DataGrid Grid.ColumnSpan="3"  ItemsSource="{Binding ListRecLine}">
 
             </DataGrid>
 
             <Button Grid.Column="0" Grid.Row="1" Content="Ок" Command="{Binding ComButton}" CommandParameter="Save"/>
-            <Button Grid.Column="1" Grid.Row="2" Content="Отмена" Command="{Binding ComButton}" CommandParameter="Cancel"/>
+            <Button Grid.Column="1" Grid.Row="1" Content="Убрать рецепт" Command="{Binding ComButton}" CommandParameter="SaveAndNull"/>
+            <Button Grid.Column="2" Grid.Row="2" Content="Отмена" Command="{Binding ComButton}" CommandParameter="Cancel"/>
 
         </Grid>
        

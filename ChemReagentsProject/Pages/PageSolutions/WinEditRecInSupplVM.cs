@@ -26,13 +26,30 @@ namespace ChemReagentsProject.Pages.PageSolutions
             dbOp = cr;
             rep = report;
             EditSolut = solut;
-            if(solut.ConcentrationId!=null)
+            tempsolut = new SolutionM();
+            ListRecip = null;
+            if (solut.ConcentrationId!=null)
             {
-                tempsolut = new SolutionM();
                 tempsolut.ConcentrationId = solut.ConcentrationId;
                 ConcentrationM c = dbOp.Concentrations.GetItem((int)solut.ConcentrationId);
                 SolutionRezipeM sr = dbOp.SolutRecipes.GetItem(c.SolutionRecipeId);
                 tempsolut.SolutionRecipeId = sr.Id;
+
+                foreach(SolutionRezipeM s in ListRecip)
+                {
+                    if(s.Id == solut.SolutionRecipeId)
+                    {
+                        SelectRecip = s;
+                        foreach(ConcentrationM conc in ListConcent)
+                        {
+                            if(conc.Id == solut.ConcentrationId)
+                            {
+                                SelectConcent = conc;
+                            }
+                        }
+                        break;
+                    }
+                }
 
             }
         }
@@ -48,12 +65,17 @@ namespace ChemReagentsProject.Pages.PageSolutions
             return ThisGuid;
         }
 
+        private ObservableCollection<SolutionRezipeM> listRecip;
         public ObservableCollection<SolutionRezipeM> ListRecip
         {
             get
             {
+                return listRecip;
+            }
+            set
+            {
                 ObservableCollection<SolutionRezipeM> a = dbOp.SolutRecipes.GetList();
-                return a;
+                listRecip = a;
             }
         }
 
@@ -76,6 +98,11 @@ namespace ChemReagentsProject.Pages.PageSolutions
                         SelectConcent = ListConcent[0];
                         OnPropertyChanged("SelectConcent");
                     }
+                }
+                else
+                {
+                    ListConcent = new ObservableCollection<ConcentrationM>();
+                    SelectConcent = null;
                 }
             }
         }
@@ -140,6 +167,11 @@ namespace ChemReagentsProject.Pages.PageSolutions
                         case "Save":    //возможно надо добавить проверку, если рецепт есть, а концентрации нет - обе null
                             EditSolut.ConcentrationId = tempsolut.ConcentrationId;
                             EditSolut.SolutionRecipeId = tempsolut.SolutionRecipeId;
+                            WindowService.CloseWindow(ThisGuid, true);
+                            break;
+                        case "SaveAndNull":
+                            EditSolut.ConcentrationId = null;
+                            EditSolut.SolutionRecipeId = null;
                             WindowService.CloseWindow(ThisGuid, true);
                             break;
                         case "Cancel":

@@ -15,9 +15,9 @@
         <GridSplitter Grid.Column="1" Width="8" Background="Black" ResizeBehavior="PreviousAndNext" />
         <DataGrid x:Name="SolutionsDG" ItemsSource="{Binding SolutionList}"  SelectedItem="{Binding SelectSolution,Mode=OneWayToSource}"  AutoGenerateColumns="False"  >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                <DataGridTextColumn  Header="Рецепт"/>
-                <DataGridTextColumn  Header="Концентрация"/>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
+                <DataGridTextColumn  Header="Рецепт" Binding="{Binding ConcentrName}" IsReadOnly="True"/>
+                <DataGridTextColumn  Header="Концентрация"  Binding="{Binding RecipeName}"  IsReadOnly="True"/>
                 <DataGridTextColumn Header="Дата изготовления" Binding="{Binding Date_Begin}"/>
                 <DataGridTextColumn Header="Годен до" />
                 <DataGridTemplateColumn Header="Изменить рецепт">
@@ -32,7 +32,7 @@
         </DataGrid>
 
 
-        <DataGrid Grid.Column ="2">
+        <DataGrid Grid.Column ="2" ItemsSource="{Binding SolutLineList}"  SelectedItem="{Binding SelectLine,Mode=OneWayToSource}"  AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                 <DataGridComboBoxColumn Header="Поставка"/>

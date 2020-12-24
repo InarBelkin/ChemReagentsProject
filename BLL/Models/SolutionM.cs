@@ -47,22 +47,25 @@ namespace BLL.Models
             }
         }
 
-
-
-        public int SelectBind
+        private string concentrName;
+        public string ConcentrName
         {
-            get
-            {
-                return 0;
-            }
+            get => concentrName;
             set
             {
-
+                concentrName = value;
             }
         }
 
-      
-
+        private string recipeName;
+        public string RecipeName
+        {
+            get => recipeName;
+            set
+            {
+                recipeName = value;
+            }
+        }
 
         public SolutionM() { }
         public SolutionM(Solution s)

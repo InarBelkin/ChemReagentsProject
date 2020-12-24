@@ -1,4 +1,5 @@
 ﻿using BLL.Interfaces;
+using BLL.Models;
 using DAL.Interfaces;
 using DAL.Tables;
 using System;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Models
+namespace BLL.Services
 {
     class SolutionLineCrud :ICrudRepos<SolutionLineM>
     {

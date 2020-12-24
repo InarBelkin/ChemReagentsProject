@@ -61,7 +61,7 @@
     <Compile Include="Interfaces\IReportServ.cs" />
     <Compile Include="Models\ConcentrationM.cs" />
     <Compile Include="Models\ReagentM.cs" />
-    <Compile Include="Models\SolutionLineCrud.cs" />
+    <Compile Include="Services\SolutionLineCrud.cs" />
     <Compile Include="Models\SolutionM.cs" />
     <Compile Include="Models\SolutionRezipeM.cs" />
     <Compile Include="Models\SupplierM.cs" />
