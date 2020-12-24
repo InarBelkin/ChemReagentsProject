@@ -35,22 +35,42 @@ namespace BLL.Services
 
         public SolutionM GetItem(int id)
         {
-            return new SolutionM(db.Solutions.GetItem(id));
+            var s = new SolutionM(db.Solutions.GetItem(id));
+            if(s.ConcentrationId!=null)
+            {
+                Concentration c = db.Concentrations.GetItem((int)s.ConcentrationId);
+                s.SolutionRecipeId = db.Solution_Recipes.GetItem(c.SolutionRecipeId).Id;
+            }
+            return s;
         }
 
+     
         public ObservableCollection<SolutionM> GetList()
         {
             ObservableCollection<SolutionM> ret = new ObservableCollection<SolutionM>();
-            foreach(Solution s in db.Solutions.GetList())
+            foreach (Solution ss in db.Solutions.GetList())
             {
-                ret.Add(new SolutionM(s));
+                var s = new SolutionM(ss);
+                if (s.ConcentrationId != null)
+                {
+                    Concentration c = db.Concentrations.GetItem((int)s.ConcentrationId);
+                    s.SolutionRecipeId = db.Solution_Recipes.GetItem(c.SolutionRecipeId).Id;
+                }
+                ret.Add(s);
             }
             return ret;
         }
 
+
+
         public void Update(SolutionM item)
         {
+            
             Solution s = db.Solutions.GetItem(item.Id);
+            if(s.ConcentrationId ==9 && item.ConcentrationId==2)
+            {
+
+            }
             item.updDal(s);
             db.Solutions.Update(s);
             Save();

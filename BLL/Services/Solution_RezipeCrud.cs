@@ -51,6 +51,7 @@ namespace BLL.Services
         public void Update(SolutionRezipeM item)
         {
             Solution_recipe s = db.Solution_Recipes.GetItem(item.Id);
+            
             item.updDal(s);
             db.Solution_Recipes.Update(s);
             Save();

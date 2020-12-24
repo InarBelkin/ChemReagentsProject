@@ -1,5 +1,6 @@
 ﻿using BLL.Interfaces;
 using ChemReagentsProject.Interfaces;
+using ChemReagentsProject.NavService;
 using ChemReagentsProject.Pages.PageReagents;
 using ChemReagentsProject.Pages.PageReziepe;
 using ChemReagentsProject.Pages.PageSolutions;
@@ -50,6 +51,7 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
             {
                 return tabCommand ?? (tabCommand = new RelayCommand(obj =>
                 {
+                    InarService.closeSolut();
                     switch (obj as string)
                     {
                         case "Reagent":

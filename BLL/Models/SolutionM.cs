@@ -2,31 +2,122 @@
 using DAL.Tables;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BLL.Models
 {
-    public class SolutionM 
+    public class SolutionM : INotifyPropertyChanged
     {
+        private int? soltuionRecipeId;
+        private int? concentrationId;
+        private DateTime date_Begin;
+
         public int Id { get; set; }
-        public int? SolutionRecipeId { get; set; }
-        public DateTime Date_Begin { get; set; }
+        public int? SolutionRecipeId
+        {
+            get => soltuionRecipeId;
+            set
+            {
+                soltuionRecipeId = value;
+                OnPropertyChanged();
+            }
+        }
+        public int? ConcentrationId
+        {
+            get => concentrationId;
+            set
+            {
+                concentrationId = value;
+                OnPropertyChanged();
+            }
+        }
+        public DateTime Date_Begin
+        {
+            get => date_Begin;
+            set
+            {
+                date_Begin = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
+        public int SelectBind
+        {
+            get
+            {
+                return 0;
+            }
+            set
+            {
+
+            }
+        }
+
+        private ConcentrationM selectconcent;
+        public ConcentrationM Selectconcent
+        {
+            get => selectconcent;
+            set => selectconcent = value;
+        }
+
+        private ObservableCollection<ConcentrationM> concentList;
+        public ObservableCollection<ConcentrationM> ConcentList
+        {
+            get => concentList;
+            set
+            {
+                concentList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private SolutionRezipeM selectRecipe;
+        public SolutionRezipeM SelectRecipe
+        {
+            get => selectRecipe;
+            set => selectRecipe = value;
+        }
+
+        private ObservableCollection<SolutionRezipeM> recipeList;
+        public ObservableCollection<SolutionRezipeM> RecipeList
+        {
+            get => recipeList;
+            set
+            {
+                recipeList = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public SolutionM() { }
         public SolutionM(Solution s)
         {
             Id = s.Id;
-            SolutionRecipeId = s.SolutionRecipeId;
+            ConcentrationId = s.ConcentrationId;
+            // SolutionRecipeId = s.SolutionRecipeId;
             Date_Begin = s.Date_Begin;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         internal Solution getDal()
         {
             Solution s = new Solution();
             s.Id = Id;
-            s.SolutionRecipeId = SolutionRecipeId;
+            s.ConcentrationId = ConcentrationId;
             s.Date_Begin = Date_Begin;
             return s;
         }
@@ -34,11 +125,11 @@ namespace BLL.Models
         internal void updDal(Solution s)
         {
             s.Id = Id;
-            s.SolutionRecipeId = SolutionRecipeId;
+            s.ConcentrationId = ConcentrationId;
             s.Date_Begin = Date_Begin;
         }
 
-      
+
     }
 
     public class SolutionLineM

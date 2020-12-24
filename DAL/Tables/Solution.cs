@@ -11,9 +11,10 @@ namespace DAL.Tables
     {
         public int Id { get; set; }
 
-        public int? SolutionRecipeId { get; set; }
-        [ForeignKey("SolutionRecipeId")]
-        public Solution_recipe Solution_Recipe { get; set; }
+        //public int? SolutionRecipeId { get; set; }
+        public int? ConcentrationId {get;set;}
+        [ForeignKey("ConcentrationId")]
+        public Concentration Concentration { get; set; }
         public DateTime Date_Begin { get; set; }
     }
 }

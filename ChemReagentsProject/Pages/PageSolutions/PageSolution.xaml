@@ -13,14 +13,34 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Column="1" Width="8" Background="Black" ResizeBehavior="PreviousAndNext" />
-        <DataGrid x:Name="SolutionsDG" ItemsSource="{Binding SolutionList}"  SelectedItem="{Binding SelectSolution,Mode=OneWayToSource}"  AutoGenerateColumns="False">
+        <DataGrid x:Name="SolutionsDG" ItemsSource="{Binding SolutionList}"  SelectedItem="{Binding SelectSolution,Mode=OneWayToSource}"  AutoGenerateColumns="False"  >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="Рецепт" Binding="{Binding SolutionRecipeId}"/>
+                <!--<DataGridComboBoxColumn x:Name="RecipClmn" Header="Рецепт"  SelectedValueBinding="{Binding SolutionRecipeId}" DisplayMemberPath="Name" SelectedValuePath="Id" />
+                <DataGridComboBoxColumn x:Name="ConcClmn" Header="Концентрация"   ItemsSource="{Binding ConcentList}"  SelectedValueBinding="{Binding ConcentrationId}" DisplayMemberPath="Name" SelectedValuePath="Id"/>-->
+                <DataGridTemplateColumn x:Name="Temp" Header="Рецепт">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox Name="Combine" ItemsSource="{Binding RecipeList}" SelectionChanged="ComboBox_SelectionChanged"  SelectedItem="{Binding SelectRecipe}" DisplayMemberPath="Name" >
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn x:Name="Temp2" Header="Концентрация">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox Name="Combine" ItemsSource="{Binding ConcentList}" SelectionChanged="Concentr_SelectionChanged" SelectedItem="{Binding Selectconcent}" DisplayMemberPath="Name" >
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
                 <DataGridTextColumn Header="Дата изготовления" Binding="{Binding Date_Begin}"/>
                 <DataGridTextColumn Header="Годен до" />
             </DataGrid.Columns>
         </DataGrid>
+
 
         <DataGrid Grid.Column ="2">
             <DataGrid.Columns>
@@ -30,5 +50,6 @@
                 <DataGridTextColumn Header="Ед.Изм."/>
             </DataGrid.Columns>
         </DataGrid>
+       
     </Grid>
 </UserControl>

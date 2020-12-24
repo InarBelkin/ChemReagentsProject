@@ -90,6 +90,7 @@
       <DependentUpon>Styles.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IPageRezipe.cs" />
+    <Compile Include="Interfaces\IPageSolution.cs" />
     <Compile Include="Interfaces\IRecognizable.cs" />
     <Compile Include="NavService\InarService.cs" />
     <Compile Include="NavService\Navigation.cs" />

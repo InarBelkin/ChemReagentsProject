@@ -27,7 +27,7 @@ namespace BLL.Models
             }
         }
 
-        public string NameOfConc
+        public string Name
         {
             get => name;
             set
@@ -37,12 +37,13 @@ namespace BLL.Models
             }
         }
 
-        public ConcentrationM() { NameOfConc = ""; }
+      
+        public ConcentrationM() { Name = ""; }
         public ConcentrationM(Concentration c)
         {
             Id = c.Id;
             SolutionRecipeId = c.SolutionRecipeId;
-            NameOfConc = c.Name;
+            Name = c.Name;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -56,7 +57,7 @@ namespace BLL.Models
             Concentration c = new Concentration();
             c.Id = Id;
             c.SolutionRecipeId = SolutionRecipeId;
-            c.Name = NameOfConc;
+            c.Name = Name;
             return c;
         }
 
@@ -66,7 +67,7 @@ namespace BLL.Models
             c.Id = Id;
 
             c.SolutionRecipeId = SolutionRecipeId;
-            c.Name = NameOfConc;
+            c.Name = Name;
         }
     }
 }
