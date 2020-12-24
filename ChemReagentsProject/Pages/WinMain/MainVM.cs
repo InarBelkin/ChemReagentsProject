@@ -51,6 +51,7 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
             {
                 return tabCommand ?? (tabCommand = new RelayCommand(obj =>
                 {
+                   
                     switch (obj as string)
                     {
                         case "Reagent":

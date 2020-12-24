@@ -67,10 +67,6 @@ namespace BLL.Services
         {
             
             Solution s = db.Solutions.GetItem(item.Id);
-            if(s.ConcentrationId ==9 && item.ConcentrationId==2)
-            {
-
-            }
             item.updDal(s);
             db.Solutions.Update(s);
             Save();

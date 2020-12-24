@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace ChemReagentsProject.Pages.PageSolutions
 {
-    class SolutionVM : IRecognizable, INotifyPropertyChanged
+    class SolutionVM : IRecognizable, INotifyPropertyChanged, IDisposable
     {
         IDbCrud dbOp;
         IReportServ rep;
@@ -24,7 +24,20 @@ namespace ChemReagentsProject.Pages.PageSolutions
             dbOp = cr;
             rep = report;
             page = pg;
+            InarService.ChangeClick += InarService_ChangeClick;
+        }
 
+        private void InarService_ChangeClick(object sender, EventArgs e)
+        {
+            if (selectSolution != null)
+            {
+                WinEditRecInSuppl win = new WinEditRecInSuppl( dbOp, rep, selectSolution);
+                if(win.ShowDialog()== true)
+                {
+
+                }
+
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -44,13 +57,13 @@ namespace ChemReagentsProject.Pages.PageSolutions
             get
             {
                 solutionList = dbOp.Solutions.GetList();
-                var recipelist = dbOp.SolutRecipes.GetList();
+                //var recipelist = dbOp.SolutRecipes.GetList();
                 foreach (SolutionM s in solutionList)
                 {
                     s.PropertyChanged += Solution_PropertyChanged;
                 }
                 solutionList.CollectionChanged += SolutionList_CollectionChanged;
-                var solutrec = dbOp.SolutRecipes.GetList();
+
 
                 return solutionList;
             }
@@ -93,18 +106,9 @@ namespace ChemReagentsProject.Pages.PageSolutions
 
         }
 
-
-        private RelayCommand clickChangeRec;
-        public RelayCommand ClickChangeRec      //
+        public void Dispose()       //но он не вызывается ниоткуда
         {
-            get
-            {
-                return clickChangeRec ?? (clickChangeRec = new RelayCommand(obj =>
-                {
-                    Console.Beep(100, 100);
-
-                }));
-            }
+            InarService.ChangeClick -= InarService_ChangeClick;
         }
 
     }

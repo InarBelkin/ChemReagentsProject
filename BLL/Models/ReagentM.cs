@@ -53,10 +53,15 @@ namespace BLL.Models
 
         }
 
+        //~ReagentM()
+        //{
+        //    Console.Beep();
+        //}
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

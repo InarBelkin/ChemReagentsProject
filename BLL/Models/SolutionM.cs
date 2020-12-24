@@ -61,41 +61,7 @@ namespace BLL.Models
             }
         }
 
-        private ConcentrationM selectconcent;
-        public ConcentrationM Selectconcent
-        {
-            get => selectconcent;
-            set => selectconcent = value;
-        }
-
-        private ObservableCollection<ConcentrationM> concentList;
-        public ObservableCollection<ConcentrationM> ConcentList
-        {
-            get => concentList;
-            set
-            {
-                concentList = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private SolutionRezipeM selectRecipe;
-        public SolutionRezipeM SelectRecipe
-        {
-            get => selectRecipe;
-            set => selectRecipe = value;
-        }
-
-        private ObservableCollection<SolutionRezipeM> recipeList;
-        public ObservableCollection<SolutionRezipeM> RecipeList
-        {
-            get => recipeList;
-            set
-            {
-                recipeList = value;
-                OnPropertyChanged();
-            }
-        }
+      
 
 
         public SolutionM() { }

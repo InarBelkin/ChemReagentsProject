@@ -12,6 +12,7 @@ namespace ChemReagentsProject.NavService
 
         public static void ClickChangeInv()
         {
+            
             ChangeClick?.Invoke(null, null);
         }
 
