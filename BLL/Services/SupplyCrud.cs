@@ -44,11 +44,11 @@ namespace BLL.Services
         public SupplyM GetItem(int id)
         {
             SupplyM s = new SupplyM(db.Supplies.GetItem(id));
-            if (s.State == SupplStates.Active && DateTime.Now > s.Date_End)
-            {
-                s.State = SupplStates.ToWriteOff;
-                Update(s);
-            }
+            //if (s.State == SupplStates.Active && DateTime.Now > s.Date_End)   //B
+            //{
+            //    s.State = SupplStates.ToWriteOff;
+            //    Update(s);
+            //}
 
             return s;
 
@@ -60,11 +60,11 @@ namespace BLL.Services
             foreach (Supply sold in db.Supplies.GetList())
             {
                 SupplyM s = new SupplyM(sold);
-                if (s.State == SupplStates.Active && DateTime.Now > s.Date_End)
-                {
-                    s.State = SupplStates.ToWriteOff;
-                    Update(s);
-                }
+                //if (s.State == SupplStates.Active && DateTime.Now > s.Date_End)
+                //{
+                //    s.State = SupplStates.ToWriteOff;
+                //    Update(s);
+                //}
                 ret.Add(s);
             }
 

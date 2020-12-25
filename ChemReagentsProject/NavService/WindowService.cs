@@ -19,7 +19,7 @@ namespace ChemReagentsProject.NavService
                 {
                     Item.DialogResult = Result;
                     Item.Close();
-                    break;
+                    break;  //если убрать возможно будет ошибка, проверить
                 }
             }
         }

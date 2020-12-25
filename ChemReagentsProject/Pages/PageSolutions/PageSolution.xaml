@@ -48,8 +48,25 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
-                                <ComboBox  Visibility="{Binding VisibComb}"  ItemsSource="{Binding SupplyList}"  SelectedItem="{Binding SelectSuppl}" DisplayMemberPath="Date_End"/>
-                                <TextBox x:Name="SupplText" Text="Как" Visibility="{Binding VisibNoComb}"/>
+                                <ComboBox x:Name="SupplComb" Visibility="{Binding VisibComb}"  ItemsSource="{Binding SupplyList}"  SelectedItem="{Binding SelectSuppl}" SelectionChanged="SupplComb_SelectionChanged" DisplayMemberPath="ShortName">
+                                    <!--<Style TargetType="ComboBoxItem">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding State}" Value="1">
+                                                <Setter Property="Background" Value="#6495ED"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding State}" Value="2">
+                                                <Setter Property="Background" Value="#F4A460"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding State}" Value="3">
+                                                <Setter Property="Background" Value="#DC143C"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding State}" Value="4">
+                                                <Setter Property="Background" Value="#C0C0C0"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>-->
+                                </ComboBox>
+                                <TextBox x:Name="SupplText" Text="{Binding NameOtherComp}" Visibility="{Binding VisibNoComb}" TextChanged="SupplText_TextChanged"  />
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -58,6 +75,6 @@
                 <DataGridTextColumn Header="Ед.Изм."/>
             </DataGrid.Columns>
         </DataGrid>
-       
+
     </Grid>
 </UserControl>

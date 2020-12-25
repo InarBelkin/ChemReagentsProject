@@ -13,5 +13,6 @@ namespace DAL.Interfaces
         List<Solution_recipe_line> GetReciepeLine(int ConcentrId);
         List<Concentration> ConcentrbyRecipe(int RecipeId);
         List<Solution_line> SolutionLineBySolut(int SolutId);
+        bool AcceptRecipe(int SolutionId);
     }
 }

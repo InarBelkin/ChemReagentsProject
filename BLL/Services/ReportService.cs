@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BLL.Services
 {
@@ -38,7 +39,7 @@ namespace BLL.Services
                     db.Supplies.Update(r);
                     ischange = true;
                 }
-                if ((s.State == SupplStates.SoonToWriteOff || s.State==SupplStates.Active) && DateTime.Now > s.Date_End)
+                if ((s.State == SupplStates.SoonToWriteOff || s.State == SupplStates.Active) && DateTime.Now > s.Date_End)
                 {
                     s.State = SupplStates.ToWriteOff;
                     r.State = (byte)SupplStates.ToWriteOff;
@@ -56,10 +57,60 @@ namespace BLL.Services
             return ret;
         }
 
+        public ObservableCollection<SupplyM> SupplyByReagOnlyActual(int reagid, DateTime NowDate)
+        {
+            ObservableCollection<SupplyM> slist = SupplyByReag(reagid);
+            ObservableCollection<SupplyM> ret = new ObservableCollection<SupplyM>();
+            foreach (SupplyM s in slist)
+            {
+                if (s.Date_End.AddDays(1) > NowDate)
+                {
+                    ret.Add(s);
+                }
+            }
+            return ret;
+        }
+
+        public void AcceptRecipe(int SolutId, DateTime NowDate)
+        {
+            db.Reports.AcceptRecipe(SolutId);
+            Solution solut = db.Solutions.GetItem(SolutId);
+            if (solut.ConcentrationId != null)
+            {
+                Concentration conc = db.Concentrations.GetItem((int)solut.ConcentrationId);
+                if (conc.LineList != null && conc.LineList.Count > 0)
+                {
+                    foreach (Solution_recipe_line srl in conc.LineList)
+                    {
+                        var listsuppl = SupplyByReagOnlyActual(srl.ReagentId, NowDate);
+                        if (listsuppl.Count != 0)
+                        {
+                            db.Solution_Lines.Create(new Solution_line()
+                            {
+                                SolutionId = solut.Id,
+                                NameOtherComponent = "",
+                                SupplyId = listsuppl[0].Id,
+                                Count = srl.Count,
+                            });
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Для реактива " + srl.Reagent.Name + "не найдено активных поставок");
+                        }
+                    }
+
+                }
+                else return;
+            }
+            else return;
+            db.Solutions.Update(solut);
+        }
+
         public ObservableCollection<ConcentrationM> ConcentrbyRecipe(int RecipeId)
         {
             ObservableCollection<ConcentrationM> ret = new ObservableCollection<ConcentrationM>();
-            foreach(Concentration c in db.Reports.ConcentrbyRecipe(RecipeId))
+            foreach (Concentration c in db.Reports.ConcentrbyRecipe(RecipeId))
             {
                 ret.Add(new ConcentrationM(c));
             }
@@ -95,6 +146,6 @@ namespace BLL.Services
             }
         }
 
-       
+
     }
 }

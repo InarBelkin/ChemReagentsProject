@@ -204,7 +204,7 @@ namespace BLL.Models
             Solution_line l = new Solution_line();
             l.Id = Id;
             l.SolutionId = SolutionId;
-            l.SupplyId = l.SupplyId;
+            l.SupplyId = SupplyId;
             l.Count = Count;
             l.NameOtherComponent = NameOtherComp;
             return l;
@@ -214,7 +214,7 @@ namespace BLL.Models
         {
             l.Id = Id;
             l.SolutionId = SolutionId;
-            l.SupplyId = l.SupplyId;
+            l.SupplyId = SupplyId;
             l.NameOtherComponent = NameOtherComp;
             l.Count = Count;
         }

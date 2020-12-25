@@ -30,8 +30,11 @@ namespace BLL.Models
                     default: str = "Ошибка"; break;
                 }
                 RusState = str;
+                
+                ShortName = Date_Begin.ToString("dd.MM.yy ") + RusState;
             }
         }
+        public string ShortName { get; set; }
         public string RusState { get; set; }
         public float Count { get; set; }
 

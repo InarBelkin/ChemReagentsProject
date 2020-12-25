@@ -11,7 +11,7 @@ namespace ChemReagentsProject.NavService
 {
     class NavService
     {
-        public IRecognizable recognizable { get; }
+        public IRecognizable recognizable { get; }  //вьюмодель
         public NavigationService  NavServ {get;}
         
         public NavService(Control Source, NavigationService Nav)

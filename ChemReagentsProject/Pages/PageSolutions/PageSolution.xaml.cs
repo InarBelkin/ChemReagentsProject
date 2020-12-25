@@ -23,7 +23,7 @@ namespace ChemReagentsProject.Pages.PageSolutions
     /// <summary>
     /// Логика взаимодействия для PageSolution.xaml
     /// </summary>
-    public partial class PageSolution : UserControl
+    public partial class PageSolution : UserControl, IDisposable
     {
         public PageSolution(IDbCrud cr, IReportServ report)
         {
@@ -35,6 +35,7 @@ namespace ChemReagentsProject.Pages.PageSolutions
 
         }
 
+
         private void ChangeRec_Click(object sender, RoutedEventArgs e)
         {
             InarService.ClickChangeInv();
@@ -43,6 +44,24 @@ namespace ChemReagentsProject.Pages.PageSolutions
         private void ReagComb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             InarService.ReagentChangeInv(e.AddedItems[0] as ReagentM);
+        }
+
+        private void SupplComb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(e.AddedItems.Count>0)
+            {
+                InarService.SupplyChangeInv(e.AddedItems[0] as SupplyM);
+            }
+          
+        }
+
+        private void SupplText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            InarService.SolLineTextChangeInv((sender as TextBox).Text);
+        }
+        public void Dispose()
+        {
+            (DataContext as SolutionVM).Dispose();
         }
     }
 }

@@ -25,6 +25,24 @@ namespace ChemReagentsProject.Pages.PageSolutions
             rep = report;
             InarService.ChangeClick += InarService_ChangeClick;
             InarService.ReagentChange += InarService_ReagentChange;
+            InarService.SupplyChange += InarService_SupplyChange;
+            InarService.SolLineTextChange += InarService_SolLineTextChange;
+        }
+
+        private void InarService_SolLineTextChange(object sender, string e)
+        {
+            if (selectLine != null)
+            {
+                SelectLine.NameOtherComp = e;
+            }
+        }
+
+        private void InarService_SupplyChange(object sender, SupplyM e)
+        {
+            if (SelectLine != null)
+            {
+                SelectLine.SelectSuppl = e;
+            }
         }
 
         private void InarService_ReagentChange(object sender, ReagentM e)
@@ -42,7 +60,9 @@ namespace ChemReagentsProject.Pages.PageSolutions
                 WinEditRecInSuppl win = new WinEditRecInSuppl(dbOp, rep, selectSolution);
                 if (win.ShowDialog() == true)
                 {
+                    rep.AcceptRecipe(selectSolution.Id, DateTime.Now);
                     OnPropertyChanged("SolutionList");
+
                 }
 
             }
@@ -141,8 +161,30 @@ namespace ChemReagentsProject.Pages.PageSolutions
                     foreach (SolutionLineM sl in solutLineList)
                     {
                         sl.ReagList = reags;
+                        if(sl.SupplyId!=null)
+                        {
+                           int reagid = (dbOp.Supplies.GetItem((int)sl.SupplyId)).Id;
+                            foreach(ReagentM r in reags)
+                            {
+                                if(r.Id == reagid)
+                                {
+                                    sl.SelectReag = r;
+                                    var supplies = rep.SupplyByReag(reagid);
+                                    sl.SupplyList = supplies;
+                                    foreach(SupplyM ss in supplies)
+                                    {
+                                        if(ss.Id == sl.SupplyId)
+                                        {
+                                            sl.SelectSuppl = ss;
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        
                         sl.PropertyChanged += SolutLines_PropertyChanged;
-                        // sl.ReagList = 
                     }
                     solutLineList.CollectionChanged += SolutLineList_CollectionChanged;
                     return solutLineList;
@@ -160,10 +202,11 @@ namespace ChemReagentsProject.Pages.PageSolutions
 
         private void SolutLines_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "SelectReag")
+            if (sender is SolutionLineM sl)
             {
-                if (sender is SolutionLineM sl)
+                if (e.PropertyName == "SelectReag")
                 {
+
                     if (sl.Id != -3)
                     {
                         sl.SupplyList = rep.SupplyByReag(sl.SelectReag.Id);
@@ -182,15 +225,44 @@ namespace ChemReagentsProject.Pages.PageSolutions
                         //sl.SupplyList = null;
                         sl.SelectSuppl = null;
                     }
-
                 }
-
+                else
+                {
+                    switch (e.PropertyName)
+                    {
+                        case "SolutionId":
+                        case "SupplyId":
+                        case "NameOtherComp":
+                        case "Count":
+                            dbOp.SolutLines.Update(sl);
+                            break;
+                    }
+                }
             }
+
+
+
+
+
         }
 
         private void SolutLineList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-
+            switch(e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    if(SelectSolution!= null)
+                    {
+                        SolutionLineM sl = new SolutionLineM() { SolutionId = SelectSolution.Id};
+                        dbOp.SolutLines.Create(sl);
+                        OnPropertyChanged("SolutLineList");
+                    }
+                  
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    dbOp.SolutLines.Delete((e.OldItems[0] as SolutionLineM).Id);
+                    break;
+            }
         }
 
         private SolutionLineM selectLine;
@@ -203,10 +275,12 @@ namespace ChemReagentsProject.Pages.PageSolutions
             }
         }
 
-        public void Dispose()       //но он не вызывается ниоткуда, а должно вообще то
+        public void Dispose()
         {
             InarService.ChangeClick -= InarService_ChangeClick;
             InarService.ReagentChange -= InarService_ReagentChange;
+            InarService.SupplyChange -= InarService_SupplyChange;
+            InarService.SolLineTextChange -= InarService_SolLineTextChange;
         }
 
     }

@@ -51,19 +51,24 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
             {
                 return tabCommand ?? (tabCommand = new RelayCommand(obj =>
                 {
-                   
+                    ChangePage();
                     switch (obj as string)
                     {
+
                         case "Reagent":
-                            NavService.Navigation.Navigate(ThisGuid, new PageReag(dbOp, rep));
+                            // NavService.Navigation.Navigate(ThisGuid, new PageReag(dbOp, rep));
+                            NavService.Navigation.Navigate(ThisGuid, PReag);
                             //MainWin.ChangePage(PReag);
                             break;
                         case "Reziepe":
-                            NavService.Navigation.Navigate(ThisGuid, new PageReziepe(dbOp, rep));
+                            //NavService.Navigation.Navigate(ThisGuid, new PageReziepe(dbOp, rep));
+
+                            NavService.Navigation.Navigate(ThisGuid, PReziepe);
                             //MainWin.ChangePage(PSolutRec);
                             break;
                         case "Solution":
-                            NavService.Navigation.Navigate(ThisGuid, new PageSolution(dbOp, rep));
+                            // NavService.Navigation.Navigate(ThisGuid, new PageSolution(dbOp, rep));
+                            NavService.Navigation.Navigate(ThisGuid, PSolution);
                             break;
 
                         default:
