@@ -73,7 +73,7 @@ namespace BLL.Services
 
         public void AcceptRecipe(int SolutId, DateTime NowDate)
         {
-            db.Reports.AcceptRecipe(SolutId);
+            db.Reports.AcceptRecipe(SolutId);   //удалили лишнее
             Solution solut = db.Solutions.GetItem(SolutId);
             if (solut.ConcentrationId != null)
             {
@@ -101,10 +101,9 @@ namespace BLL.Services
                     }
 
                 }
-                else return;
             }
-            else return;
             db.Solutions.Update(solut);
+            db.Save();
         }
 
         public ObservableCollection<ConcentrationM> ConcentrbyRecipe(int RecipeId)

@@ -75,6 +75,7 @@
                 <DataGridTextColumn Header="Ед.Изм."/>
             </DataGrid.Columns>
         </DataGrid>
+        <!--<Button x:Name="button" Grid.ColumnSpan="3" Content="Button" HorizontalAlignment="Left" Margin="438,262,0,0" VerticalAlignment="Top" Width="85" Height="63"  Command="{Binding TabCommand}"/>-->
 
     </Grid>
 </UserControl>

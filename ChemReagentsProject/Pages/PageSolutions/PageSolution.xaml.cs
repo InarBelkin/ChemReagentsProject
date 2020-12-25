@@ -63,5 +63,7 @@ namespace ChemReagentsProject.Pages.PageSolutions
         {
             (DataContext as SolutionVM).Dispose();
         }
+
+    
     }
 }

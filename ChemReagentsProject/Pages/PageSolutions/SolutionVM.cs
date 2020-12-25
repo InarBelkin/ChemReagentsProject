@@ -161,19 +161,19 @@ namespace ChemReagentsProject.Pages.PageSolutions
                     foreach (SolutionLineM sl in solutLineList)
                     {
                         sl.ReagList = reags;
-                        if(sl.SupplyId!=null)
+                        if (sl.SupplyId != null)
                         {
-                           int reagid = (dbOp.Supplies.GetItem((int)sl.SupplyId)).Id;
-                            foreach(ReagentM r in reags)
+                            int reagid = (dbOp.Supplies.GetItem((int)sl.SupplyId)).ReagentId;
+                            foreach (ReagentM r in reags)
                             {
-                                if(r.Id == reagid)
+                                if (r.Id == reagid)
                                 {
                                     sl.SelectReag = r;
                                     var supplies = rep.SupplyByReag(reagid);
                                     sl.SupplyList = supplies;
-                                    foreach(SupplyM ss in supplies)
+                                    foreach (SupplyM ss in supplies)
                                     {
-                                        if(ss.Id == sl.SupplyId)
+                                        if (ss.Id == sl.SupplyId)
                                         {
                                             sl.SelectSuppl = ss;
                                             break;
@@ -183,7 +183,7 @@ namespace ChemReagentsProject.Pages.PageSolutions
                                 }
                             }
                         }
-                        
+
                         sl.PropertyChanged += SolutLines_PropertyChanged;
                     }
                     solutLineList.CollectionChanged += SolutLineList_CollectionChanged;
@@ -248,16 +248,16 @@ namespace ChemReagentsProject.Pages.PageSolutions
 
         private void SolutLineList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch(e.Action)
+            switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    if(SelectSolution!= null)
+                    if (SelectSolution != null)
                     {
-                        SolutionLineM sl = new SolutionLineM() { SolutionId = SelectSolution.Id};
+                        SolutionLineM sl = new SolutionLineM() { SolutionId = SelectSolution.Id };
                         dbOp.SolutLines.Create(sl);
                         OnPropertyChanged("SolutLineList");
                     }
-                  
+
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     dbOp.SolutLines.Delete((e.OldItems[0] as SolutionLineM).Id);
@@ -274,6 +274,29 @@ namespace ChemReagentsProject.Pages.PageSolutions
                 selectLine = value;
             }
         }
+
+
+
+        private RelayCommand tabCommand;
+        public RelayCommand TabCommand      //
+        {
+            get
+            {
+                return tabCommand ?? (tabCommand = new RelayCommand(obj =>
+                {
+                    //var a = rep.SupplyByReag(1);
+                    //var b = rep.SupplyByReag(2);
+                    //var c = rep.SupplyByReag(1);
+
+
+                    //var a = rep.SupplyByReagOnlyActual(1, DateTime.Now);
+                    //var b = rep.SupplyByReagOnlyActual(2, DateTime.Now);
+                    //var c = rep.SupplyByReagOnlyActual(1, DateTime.Now);
+
+                }));
+            }
+        }
+
 
         public void Dispose()
         {
