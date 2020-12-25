@@ -34,7 +34,9 @@ namespace BLL.Services
 
         public SolutRezLineM GetItem(int id)
         {
-            return new SolutRezLineM(db.Solution_Rezipe_Line.GetItem(id));
+            var a = new SolutRezLineM(db.Solution_Rezipe_Line.GetItem(id));
+            a.PropertyChanged += SRL_PropertyChanged;
+            return a;
         }
 
         public ObservableCollection<SolutRezLineM> GetList()

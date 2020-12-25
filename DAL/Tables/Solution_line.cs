@@ -15,10 +15,11 @@ namespace DAL.Tables
         [ForeignKey("SolutionId")]
         public Solution Solution { get; set; }
 
-        public int SupplyId { get; set; }
+        public int? SupplyId { get; set; }
         [ForeignKey("SupplyId")]
         public Supply Supply { get; set; }
 
+        public string NameOtherComponent { get; set; }
         public float Count { get; set; }
     }
 }

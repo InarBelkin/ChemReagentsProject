@@ -31,6 +31,7 @@ namespace ChemReagentsProject.Pages.PageSolutions
 
             DataContext = new SolutionVM(cr, report, this);
 
+            SolutionsDG.Visibility = Visibility.Visible;
 
         }
 

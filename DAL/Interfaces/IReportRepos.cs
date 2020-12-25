@@ -12,5 +12,6 @@ namespace DAL.Interfaces
         List<Supply> SupplyByReag(int reagId);
         List<Solution_recipe_line> GetReciepeLine(int ConcentrId);
         List<Concentration> ConcentrbyRecipe(int RecipeId);
+        List<Solution_line> SolutionLineBySolut(int SolutId);
     }
 }

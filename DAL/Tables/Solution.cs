@@ -16,5 +16,6 @@ namespace DAL.Tables
         [ForeignKey("ConcentrationId")]
         public Concentration Concentration { get; set; }
         public DateTime Date_Begin { get; set; }
+        public virtual List<Solution_line> Solution_Lines { get; set; }
     }
 }

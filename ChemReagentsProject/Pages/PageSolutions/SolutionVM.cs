@@ -75,8 +75,11 @@ namespace ChemReagentsProject.Pages.PageSolutions
             get => selectSolution;
             set
             {
-
-                selectSolution = value;
+                if (value != null && value.Id != 0)
+                {
+                    selectSolution = value;
+                    OnPropertyChanged("SolutLineList");
+                }
             }
         }
 
@@ -121,15 +124,34 @@ namespace ChemReagentsProject.Pages.PageSolutions
         private ObservableCollection<SolutionLineM> solutLineList;
         public ObservableCollection<SolutionLineM> SolutLineList
         {
-            get => solutLineList;
+            get
+            {
+                if (selectSolution != null)
+                {
+                    solutLineList = rep.SolutionLineBySolut(selectSolution.Id);
+                    foreach(SolutionLineM sl in solutLineList)
+                    {
+
+                        sl.ReagList = 
+                    }
+                    solutLineList.CollectionChanged += SolutLineList_CollectionChanged;
+                    return solutLineList;
+                }
+                else return new ObservableCollection<SolutionLineM>();
+                
+
+            }
             set
             {
-                solutLineList = value;
+                //OnPropertyChanged("SolutLineList");
+                //solutLineList = value;
             }
         }
 
-
-
+        private void SolutLineList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            
+        }
 
         public void Dispose()       //но он не вызывается ниоткуда
         {

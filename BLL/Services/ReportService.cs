@@ -31,7 +31,13 @@ namespace BLL.Services
             {
                 SupplyM s = new SupplyM(r);
 
-     
+                if (s.State == SupplStates.Active && DateTime.Now > s.Date_End.AddMonths(-1))
+                {
+                    s.State = SupplStates.SoonToWriteOff;
+                    r.State = (byte)SupplStates.SoonToWriteOff;
+                    db.Supplies.Update(r);
+                    ischange = true;
+                }
                 if ((s.State == SupplStates.SoonToWriteOff || s.State==SupplStates.Active) && DateTime.Now > s.Date_End)
                 {
                     s.State = SupplStates.ToWriteOff;
@@ -39,13 +45,7 @@ namespace BLL.Services
                     db.Supplies.Update(r);
                     ischange = true;
                 }
-                if(s.State == SupplStates.Active && DateTime.Now > s.Date_End.AddMonths(-1))
-                {
-                    s.State = SupplStates.SoonToWriteOff;
-                    r.State = (byte)SupplStates.SoonToWriteOff;
-                    db.Supplies.Update(r);
-                    ischange = true;
-                }
+
 
                 if (ischange) db.Save();
 
@@ -93,6 +93,17 @@ namespace BLL.Services
                     }
                 }
             }
+        }
+
+        public ObservableCollection<SolutionLineM> SolutionLineBySolut(int SolutId)
+        {
+            ObservableCollection<SolutionLineM> ret = new ObservableCollection<SolutionLineM>();
+            foreach (Solution_line s in db.Reports.SolutionLineBySolut(SolutId)) 
+            {
+                SolutionLineM sl = new SolutionLineM(s);
+                ret.Add(sl);
+            }
+            return ret;
         }
     }
 }

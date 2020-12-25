@@ -35,7 +35,25 @@
         <DataGrid Grid.Column ="2" ItemsSource="{Binding SolutLineList}"  SelectedItem="{Binding SelectLine,Mode=OneWayToSource}"  AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                <DataGridComboBoxColumn Header="Поставка"/>
+                <DataGridTemplateColumn Header="Реагент">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <ComboBox  Visibility="{Binding VisibComb}" />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Поставка">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <ComboBox  Visibility="{Binding VisibComb}" />
+                                <TextBox x:Name="SupplText" Text="Как" Visibility="{Binding VisibNoComb}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Кол-во" Binding="{Binding Count}"/>
                 <DataGridTextColumn Header="Ед.Изм."/>
             </DataGrid.Columns>

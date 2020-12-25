@@ -50,5 +50,16 @@ namespace DAL.Repository
             }
             return a ?? new List<Concentration>();
         }
+
+        public List<Solution_line> SolutionLineBySolut(int SolutId)
+        {
+            Solution s = db.Solutions.Find(SolutId);
+            List<Solution_line> a = null;
+            if(s!=null)
+            {
+                a = s.Solution_Lines;
+            }
+            return a ?? new List<Solution_line>();
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace BLL.Models
@@ -101,21 +102,72 @@ namespace BLL.Models
 
     }
 
-    public class SolutionLineM
+    public class SolutionLineM : INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public int SolutionId { get; set; }
-        public int SupplyId { get; set; }
-        public float Count { get; set; }
+        private int solutionId;
+        public int SolutionId { get => solutionId; set { solutionId = value; OnPropertyChanged(); } }
+        private int? supplyId;
+        public int? SupplyId { get => supplyId; set { supplyId = value; OnPropertyChanged(); } }
+        private string nameOtherComp;
+        public string NameOtherComp { get => nameOtherComp; set { nameOtherComp = value; OnPropertyChanged(); } }
+
+        public Visibility VisibComb { get; set; }
+        public Visibility VisibNoComb { get; set; }
+        private float count;
+        public float Count { get => count; set { count = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<ReagentM> reagList;
+        public ObservableCollection<ReagentM> ReagList
+        {
+            get => reagList;
+            set
+            {
+                reagList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<SupplyM> supplyList;
+        public ObservableCollection<SupplyM> SupplyList
+        {
+            get => supplyList;
+            set
+            {
+                supplyList = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public SolutionLineM() { }
         public SolutionLineM(Solution_line sl)
         {
             Id = sl.Id;
+
+
             SolutionId = sl.SolutionId;
             SupplyId = sl.SupplyId;
+            NameOtherComp = sl.NameOtherComponent;
             Count = sl.Count;
+            if (SupplyId == null)
+            {
+                VisibComb = Visibility.Collapsed;
+                VisibNoComb = Visibility.Visible;
+            }
+            else
+            {
+                VisibComb = Visibility.Visible;
+                VisibNoComb = Visibility.Collapsed;
+            }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
 
         internal Solution_line getDal()
         {
@@ -124,6 +176,7 @@ namespace BLL.Models
             l.SolutionId = SolutionId;
             l.SupplyId = l.SupplyId;
             l.Count = Count;
+            l.NameOtherComponent = NameOtherComp;
             return l;
         }
 
@@ -132,6 +185,7 @@ namespace BLL.Models
             l.Id = Id;
             l.SolutionId = SolutionId;
             l.SupplyId = l.SupplyId;
+            l.NameOtherComponent = NameOtherComp;
             l.Count = Count;
         }
     }
