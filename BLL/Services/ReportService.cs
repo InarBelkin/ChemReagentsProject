@@ -95,15 +95,6 @@ namespace BLL.Services
             }
         }
 
-        public ObservableCollection<SolutionLineM> SolutionLineBySolut(int SolutId)
-        {
-            ObservableCollection<SolutionLineM> ret = new ObservableCollection<SolutionLineM>();
-            foreach (Solution_line s in db.Reports.SolutionLineBySolut(SolutId)) 
-            {
-                SolutionLineM sl = new SolutionLineM(s);
-                ret.Add(sl);
-            }
-            return ret;
-        }
+       
     }
 }

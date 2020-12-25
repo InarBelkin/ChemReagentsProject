@@ -19,13 +19,20 @@ namespace ChemReagentsProject.Pages.PageSolutions
     {
         IDbCrud dbOp;
         IReportServ rep;
-        IPageSolution page;
-        public SolutionVM(IDbCrud cr, IReportServ report, IPageSolution pg)
+        public SolutionVM(IDbCrud cr, IReportServ report)
         {
             dbOp = cr;
             rep = report;
-            page = pg;
             InarService.ChangeClick += InarService_ChangeClick;
+            InarService.ReagentChange += InarService_ReagentChange;
+        }
+
+        private void InarService_ReagentChange(object sender, ReagentM e)
+        {
+            if (SelectLine != null)
+            {
+                SelectLine.SelectReag = e;
+            }
         }
 
         private void InarService_ChangeClick(object sender, EventArgs e)
@@ -128,17 +135,20 @@ namespace ChemReagentsProject.Pages.PageSolutions
             {
                 if (selectSolution != null)
                 {
-                    solutLineList = rep.SolutionLineBySolut(selectSolution.Id);
-                    foreach(SolutionLineM sl in solutLineList)
+                    solutLineList = dbOp.SolutLines.SolutionLineBySolut(selectSolution.Id);
+                    var reags = dbOp.Reagents.GetList();
+                    reags.Add(new ReagentM() { Id = -3, Name = "Свой", });   //и чё ты мне сделоеш
+                    foreach (SolutionLineM sl in solutLineList)
                     {
-
-                        sl.ReagList = 
+                        sl.ReagList = reags;
+                        sl.PropertyChanged += SolutLines_PropertyChanged;
+                        // sl.ReagList = 
                     }
                     solutLineList.CollectionChanged += SolutLineList_CollectionChanged;
                     return solutLineList;
                 }
                 else return new ObservableCollection<SolutionLineM>();
-                
+
 
             }
             set
@@ -148,14 +158,55 @@ namespace ChemReagentsProject.Pages.PageSolutions
             }
         }
 
-        private void SolutLineList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void SolutLines_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
+            if (e.PropertyName == "SelectReag")
+            {
+                if (sender is SolutionLineM sl)
+                {
+                    if (sl.Id != -3)
+                    {
+                        sl.SupplyList = rep.SupplyByReag(sl.SelectReag.Id);
+                        if (sl.SupplyList != null && sl.SupplyList.Count > 0)
+                        {
+                            sl.SelectSuppl = sl.SupplyList[0];
+                        }
+                        else
+                        {
+                            sl.SelectSuppl = null;
+                            //sl.SupplyList = null;
+                        }
+                    }
+                    else
+                    {
+                        //sl.SupplyList = null;
+                        sl.SelectSuppl = null;
+                    }
+
+                }
+
+            }
         }
 
-        public void Dispose()       //но он не вызывается ниоткуда
+        private void SolutLineList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+
+        }
+
+        private SolutionLineM selectLine;
+        public SolutionLineM SelectLine
+        {
+            get => selectLine;
+            set
+            {
+                selectLine = value;
+            }
+        }
+
+        public void Dispose()       //но он не вызывается ниоткуда, а должно вообще то
         {
             InarService.ChangeClick -= InarService_ChangeClick;
+            InarService.ReagentChange -= InarService_ReagentChange;
         }
 
     }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    class Solution_RezipeCrud : ICrudRepos<SolutionRezipeM>
+    public class Solution_RezipeCrud : ICrudRepos<SolutionRezipeM>
     {
         IDbRepos db;
 

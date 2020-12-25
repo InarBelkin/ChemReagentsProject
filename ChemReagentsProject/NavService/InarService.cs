@@ -17,5 +17,11 @@ namespace ChemReagentsProject.NavService
         }
 
 
+        public static event EventHandler<ReagentM> ReagentChange;
+        public static void ReagentChangeInv(ReagentM r)
+        {
+            ReagentChange?.Invoke(null,r);
+        }
+
     }
 }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    class SolutionLineCrud :ICrudRepos<SolutionLineM>
+    public class SolutionLineCrud :ICrudRepos<SolutionLineM>
     {
         IDbRepos db;
 
@@ -35,7 +35,9 @@ namespace BLL.Services
 
         public SolutionLineM GetItem(int id)
         {
-            return new SolutionLineM(db.Solution_Lines.GetItem(id));
+            var sl = new SolutionLineM(db.Solution_Lines.GetItem(id));
+            sl.PropertyChanged += Sl_PropertyChanged;
+            return sl;
         }
 
         public ObservableCollection<SolutionLineM> GetList()
@@ -43,7 +45,9 @@ namespace BLL.Services
             ObservableCollection<SolutionLineM> ret = new ObservableCollection<SolutionLineM>();
             foreach(Solution_line l in db.Solution_Lines.GetList())
             {
-                ret.Add(new SolutionLineM(l));
+                var sl = new SolutionLineM(l);
+                sl.PropertyChanged += Sl_PropertyChanged;
+                ret.Add(sl);
             }
             return ret;
         }
@@ -59,6 +63,35 @@ namespace BLL.Services
         int Save()
         {
             return db.Save();
+        }
+
+        public ObservableCollection<SolutionLineM> SolutionLineBySolut(int SolutId)
+        {
+            ObservableCollection<SolutionLineM> ret = new ObservableCollection<SolutionLineM>();
+            foreach (Solution_line s in db.Reports.SolutionLineBySolut(SolutId))
+            {
+                SolutionLineM sl = new SolutionLineM(s);
+                sl.PropertyChanged += Sl_PropertyChanged;
+                ret.Add(sl);
+            }
+            return ret;
+        }
+
+        private void Sl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            //if(e.PropertyName== "SelectReag")
+            //{
+            //    if(sender is SolutionLineM sl)
+            //    {
+            //        sl.SupplyList = new ObservableCollection<SupplyM>();
+            //        var supList = db.Reports.SupplyByReag(sl.SelectReag.Id);
+            //        foreach(Supply s in supList)
+            //        {
+            //            sl.SupplyList.Add(new SupplyM(s));
+            //        }
+
+            //    }
+            //}
         }
     }
 }

@@ -23,32 +23,26 @@ namespace ChemReagentsProject.Pages.PageSolutions
     /// <summary>
     /// Логика взаимодействия для PageSolution.xaml
     /// </summary>
-    public partial class PageSolution : UserControl, IPageSolution
+    public partial class PageSolution : UserControl
     {
         public PageSolution(IDbCrud cr, IReportServ report)
         {
             InitializeComponent();
 
-            DataContext = new SolutionVM(cr, report, this);
+            DataContext = new SolutionVM(cr, report);
 
             SolutionsDG.Visibility = Visibility.Visible;
 
         }
 
-        public void SetConcentrations(ObservableCollection<ConcentrationM> concentrations)
-        {
-            //ConcClmn.ItemsSource = concentrations;
-
-        }
-
-        public void SetRecipes(ObservableCollection<SolutionRezipeM> recipes)
-        {
-            //RecipClmn.ItemsSource = recipes;
-        }
-
         private void ChangeRec_Click(object sender, RoutedEventArgs e)
         {
             InarService.ClickChangeInv();
+        }
+
+        private void ReagComb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            InarService.ReagentChangeInv(e.AddedItems[0] as ReagentM);
         }
     }
 }

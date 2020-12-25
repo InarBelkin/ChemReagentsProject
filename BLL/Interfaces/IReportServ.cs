@@ -13,6 +13,6 @@ namespace BLL.Interfaces
         ObservableCollection<SupplyM> SupplyByReag(int reagId);
         ObservableCollection<SolutRezLineM> GetRecipeLine(int ConcentrId);
         ObservableCollection<ConcentrationM> ConcentrbyRecipe(int RecipeId);
-        ObservableCollection<SolutionLineM> SolutionLineBySolut(int SolutId);
+       
     }
 }

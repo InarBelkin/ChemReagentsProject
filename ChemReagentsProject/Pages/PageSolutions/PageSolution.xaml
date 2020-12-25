@@ -8,9 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Column="1" Width="8" Background="Black" ResizeBehavior="PreviousAndNext" />
         <DataGrid x:Name="SolutionsDG" ItemsSource="{Binding SolutionList}"  SelectedItem="{Binding SelectSolution,Mode=OneWayToSource}"  AutoGenerateColumns="False"  >
@@ -39,7 +39,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
-                                <ComboBox  Visibility="{Binding VisibComb}" />
+                                <ComboBox x:Name="ReagComb" ItemsSource="{Binding ReagList}" SelectedItem="{Binding SelectReag}"   DisplayMemberPath="Name" SelectionChanged="ReagComb_SelectionChanged"/>
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -48,7 +48,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
-                                <ComboBox  Visibility="{Binding VisibComb}" />
+                                <ComboBox  Visibility="{Binding VisibComb}"  ItemsSource="{Binding SupplyList}"  SelectedItem="{Binding SelectSuppl}" DisplayMemberPath="Date_End"/>
                                 <TextBox x:Name="SupplText" Text="Как" Visibility="{Binding VisibNoComb}"/>
                             </Grid>
                         </DataTemplate>

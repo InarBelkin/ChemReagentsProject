@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    class SolutionCrud : ICrudRepos<SolutionM>
+    public class SolutionCrud : ICrudRepos<SolutionM>
     {
         IDbRepos db;
 

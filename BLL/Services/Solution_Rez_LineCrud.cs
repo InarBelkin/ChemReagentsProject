@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
 
 namespace BLL.Services
 {
-    class Solution_Rez_LineCrud : ICrudRepos<SolutRezLineM>
+    public class Solution_Rez_LineCrud : ICrudRepos<SolutRezLineM>
     {
         IDbRepos db;
 

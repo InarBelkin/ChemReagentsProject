@@ -112,10 +112,16 @@ namespace BLL.Models
         private string nameOtherComp;
         public string NameOtherComp { get => nameOtherComp; set { nameOtherComp = value; OnPropertyChanged(); } }
 
-        public Visibility VisibComb { get; set; }
-        public Visibility VisibNoComb { get; set; }
+        private Visibility visibComb;
+        public Visibility VisibComb { get => visibComb; set { visibComb = value; OnPropertyChanged(); } }
+        private Visibility visibNoComb;
+        public Visibility VisibNoComb { get => visibNoComb; set { visibNoComb = value; OnPropertyChanged(); } }
         private float count;
         public float Count { get => count; set { count = value; OnPropertyChanged(); } }
+
+
+        private ReagentM selectReag;    //идея такая: раз уж бомбобокс это не сетит, сделать это самому, тут сработает событие
+        public ReagentM SelectReag { get => selectReag; set { selectReag = value; OnPropertyChanged(); } }
 
         private ObservableCollection<ReagentM> reagList;
         public ObservableCollection<ReagentM> ReagList
@@ -127,6 +133,30 @@ namespace BLL.Models
                 OnPropertyChanged();
             }
         }
+
+        private SupplyM selectSuppl;
+        public SupplyM SelectSuppl
+        {
+            get => selectSuppl;
+            set
+            {
+                selectSuppl = value; 
+                if(selectSuppl==null)
+                {
+                    SupplyId = null;
+                    VisibComb = Visibility.Collapsed;
+                    VisibNoComb = Visibility.Visible;
+                }
+                else
+                {
+                    VisibComb = Visibility.Visible;
+                    VisibNoComb = Visibility.Collapsed;
+                    SupplyId = selectSuppl.Id;
+                }
+                OnPropertyChanged();
+            }
+        }
+
 
         private ObservableCollection<SupplyM> supplyList;
         public ObservableCollection<SupplyM> SupplyList

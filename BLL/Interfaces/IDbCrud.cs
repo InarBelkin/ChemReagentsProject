@@ -1,4 +1,5 @@
 ﻿using BLL.Models;
+using BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,14 @@ namespace BLL.Interfaces
 {
     public interface IDbCrud
     {
-        ICrudRepos<SupplyM> Supplies { get; }
-        ICrudRepos<ReagentM> Reagents { get; }
-        ICrudRepos<SupplierM> Suppliers { get; }
-        ICrudRepos<SolutionRezipeM> SolutRecipes{get;}
-        ICrudRepos<SolutRezLineM> SolutRecLines { get; }
-        ICrudRepos<SolutionM> Solutions { get; }
-        ICrudRepos<SolutionLineM> SolutLines { get; }
-        ICrudRepos<ConcentrationM> Concentrations { get; }
+        SupplyCrud Supplies { get; }
+        ReagentCrud Reagents { get; }
+        SupplierCrud Suppliers { get; }
+        Solution_RezipeCrud SolutRecipes {get;}
+        Solution_Rez_LineCrud SolutRecLines { get; }
+        SolutionCrud Solutions { get; }
+
+        SolutionLineCrud SolutLines { get; }
+        ConcentrationCrud Concentrations { get; }
     }
 }

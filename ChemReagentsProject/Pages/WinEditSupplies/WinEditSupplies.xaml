@@ -43,7 +43,7 @@
 
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Название реактива" Grid.ColumnSpan="2" Margin="-2,11,60.438,11"/>
             <!--<TextBox Grid.Row="2" Grid.Column="1"  Margin="10" Width="177" Height="33"  />-->
-            <ComboBox  Name="Bombobox" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding ListReag}"  SelectedItem="{Binding SelectReag}" DisplayMemberPath="Name" Grid.ColumnSpan="2" Margin="0,0,0,1" />
+            <ComboBox  Name="Bombobox" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding ListReag}" SelectedItem="{Binding SelectReag}" DisplayMemberPath="Name" Grid.ColumnSpan="2" Margin="0,0,0,1" />
 
             <TextBlock Grid.Row="3" Grid.Column="0" Text="Поставщик" Margin="41,10,41,12"/>
             <!--<TextBox Grid.Row="3" Grid.Column="1"  Margin="10" Width="177" Height="33" />-->

@@ -110,6 +110,7 @@ namespace ChemReagentsProject.ViewModel
             {
                 selectreag = value;
                 EditSuppl.ReagentId = value.Id;
+
             }
         }
 
