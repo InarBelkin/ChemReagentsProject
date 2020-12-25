@@ -40,6 +40,9 @@ namespace BLL.Services
         private ConcentrationCrud concentration;
         public ConcentrationCrud Concentrations => concentration ?? (concentration = new ConcentrationCrud(db));
 
+        private ConsumptionCrud consump;
+        public ConsumptionCrud Consumptions => consump ?? (consump = new ConsumptionCrud(db));
+
         public bool Save()
         {
             //if (db.Save() > 0) return true;

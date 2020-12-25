@@ -51,7 +51,6 @@ namespace DAL.Repository
 
         public int Save()
         {
-
             return db.SaveChanges();
         }
     }

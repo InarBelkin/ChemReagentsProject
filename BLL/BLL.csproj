@@ -60,8 +60,11 @@
     <Compile Include="Interfaces\IDbCrud.cs" />
     <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\IReportServ.cs" />
+    <Compile Include="Interfaces\IServCrudAbstr.cs" />
     <Compile Include="Models\ConcentrationM.cs" />
+    <Compile Include="Models\ConsumptionM.cs" />
     <Compile Include="Models\ReagentM.cs" />
+    <Compile Include="Services\ConsumptionCrud.cs" />
     <Compile Include="Services\SolutionLineCrud.cs" />
     <Compile Include="Models\SolutionM.cs" />
     <Compile Include="Models\SolutionRezipeM.cs" />

@@ -19,5 +19,6 @@ namespace BLL.Interfaces
 
         SolutionLineCrud SolutLines { get; }
         ConcentrationCrud Concentrations { get; }
+        ConsumptionCrud Consumptions { get; }
     }
 }

@@ -8,6 +8,7 @@ namespace BLL.Interfaces
 {
     public interface IModel<T>
     {
+        int Id { get; set; }
         T getDal();
         void updDal(T item);
     }
