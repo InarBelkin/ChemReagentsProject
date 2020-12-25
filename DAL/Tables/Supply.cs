@@ -23,5 +23,8 @@ namespace DAL.Tables
         public DateTime Date_End { get; set; }
         public byte State { get; set; }
         public float count { get; set; }
+
+        public virtual List<Solution_line> Solution_Lines { get; set; }
+        public virtual List<Supply_consumption> Consumptions { get; set; }
     }
 }

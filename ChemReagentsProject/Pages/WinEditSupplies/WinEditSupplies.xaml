@@ -67,12 +67,10 @@
             <Button Grid.Row="8" Grid.Column="0" Margin="10,10.444,10,9.556" Content="Сохранить" Command="{Binding ComButton}" CommandParameter="Save"/>
             <Button x:Name="butto" Grid.Row="8" Grid.Column="1" Margin="10,10.444,10,9.556" Content="Отмена"  Command="{Binding ComButton}" CommandParameter="Cancel" Grid.ColumnSpan="2" />
 
-
-
-
-
-
         </Grid>
+        <DataGrid Grid.Column="2" >
+            
+        </DataGrid>
 
     </Grid>
 </Window>

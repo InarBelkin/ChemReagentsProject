@@ -22,6 +22,7 @@ namespace DAL.Repository
         private SolutionRepSQL solution;
         private SolutionLineRepSQL solutionLine;
         private ConcentracionsRepSQL concentrations;
+        private ConsumptionsRepSQL consump;
         public DbReposSQL()
         {
             db = new ChemContext();
@@ -46,6 +47,7 @@ namespace DAL.Repository
 
         public IRepository<Concentration> Concentrations => concentrations ?? (concentrations = new ConcentracionsRepSQL(db));
 
+        public IRepository<Supply_consumption> Consumptions => consump ?? (consump = new ConsumptionsRepSQL(db));
 
         public int Save()
         {

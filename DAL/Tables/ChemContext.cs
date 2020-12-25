@@ -22,6 +22,7 @@ namespace DAL.Tables
 
         public DbSet<Solution> Solutions { get; set; }
         public DbSet<Solution_line> Solution_Lines { get; set; }
+        public DbSet<Supply_consumption> Consumptions { get; set; }
 
     }
 }
