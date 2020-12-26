@@ -38,7 +38,7 @@
             <TextBlock  Grid.Row="0" Grid.Column="2" Text="{Binding SupId}" Margin="36.562,11,98,10"/>
 
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Номер реактива" Margin="15,12,14,10"/>
-            <TextBox Grid.Row="1" Grid.Column="2" Text="30" Margin="20.562,11,82,9" />
+            <TextBox Grid.Row="1" Grid.Column="2" Text="0" Margin="20.562,11,82,9" />
 
 
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Название реактива" Grid.ColumnSpan="2" Margin="-2,11,60.438,11"/>
@@ -62,7 +62,8 @@
             <TextBox Grid.Row="6" Grid.Column="1"  Margin="10,6,10,8" Width="177" Height="33" Text="{Binding SupAmount}" Grid.ColumnSpan="2"/>
 
             <TextBlock Grid.Row="7" Grid.Column="0" Text="Остаток" Margin="57,10,57,11.556"/>
-            <TextBox Grid.Row="7" Grid.Column="1"  Margin="10,7,10,6.556" Width="177" Height="33" Grid.ColumnSpan="2" />
+
+            <TextBlock Grid.Row="7" Grid.Column="1"  Margin="10,7,10,6.556" Width="177" Height="33" Grid.ColumnSpan="2" Text="{Binding Remainder}" />
 
             <Button Grid.Row="8" Grid.Column="0" Margin="10,10.444,10,9.556" Content="Сохранить" Command="{Binding ComButton}" CommandParameter="Save"/>
             <Button x:Name="butto" Grid.Row="8" Grid.Column="1" Margin="10,10.444,10,9.556" Content="Отмена"  Command="{Binding ComButton}" CommandParameter="Cancel" Grid.ColumnSpan="2" />

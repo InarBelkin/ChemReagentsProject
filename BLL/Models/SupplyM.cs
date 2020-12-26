@@ -54,6 +54,26 @@ namespace BLL.Models
             Date_End = s.Date_End;
             State = (SupplStates)s.State;
             Count = s.count;
+
+            if(State!= SupplStates.WriteOff)
+            {
+                if(Date_End<DateTime.Now)
+                {
+                    State = SupplStates.ToWriteOff;
+                }
+                else
+                {
+                    if(Date_End<DateTime.Now.AddMonths(1))
+                    {
+                        State = SupplStates.SoonToWriteOff;
+                    }
+                    else
+                    {
+                        State = SupplStates.Active;
+                    }
+                }
+
+            }
         }
 
         public bool Validate()

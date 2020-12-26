@@ -29,7 +29,7 @@ namespace ChemReagentsProject.ViewModel
             rep = report;
             listReag = dbOp.Reagents.GetList();
             listSuppliers = dbOp.Suppliers.GetList();
-            if (isupl.Id<0)
+            if (isupl.Id < 0)
             {
                 EditSuppl = new SupplyM()
                 {
@@ -154,7 +154,7 @@ namespace ChemReagentsProject.ViewModel
         public float SupAmount
         {
             get => EditSuppl.Count;
-            set => EditSuppl.Count = value;
+            set { EditSuppl.Count = value; OnPropertyChanged("SupplyStringsList"); }
         }
 
         private RelayCommand comButton;
@@ -199,13 +199,17 @@ namespace ChemReagentsProject.ViewModel
                 }));
             }
         }
-        
+
+        private float remainder;
+        public float Remainder { get => remainder; set { remainder = value; OnPropertyChanged("Remainder"); } }
 
         public List<SupplyStringM> SupplyStringsList
         {
             get
             {
-                return rep.GetSupplyStrings(EditSuppl.Id).Item1;
+                var a = rep.GetSupplyStrings(EditSuppl.Id);
+                Remainder = SupAmount - a.Summ;
+                return a.Item1;
             }
         }
 
@@ -220,16 +224,16 @@ namespace ChemReagentsProject.ViewModel
                     {
                         case "Add":
 
-                            ConsumptionM cons = new ConsumptionM() { SupplyId = EditSuppl.Id};
+                            ConsumptionM cons = new ConsumptionM() { SupplyId = EditSuppl.Id };
                             WinEditConsumption win = new WinEditConsumption(dbOp, rep, cons);
-                            if(win.ShowDialog()==true )
+                            if (win.ShowDialog() == true)
                             {
                                 dbOp.Consumptions.Create(cons);
                             }
 
                             break;
                         case "Change":
-                            
+
                             break;
                         case "Remove":
 
@@ -241,6 +245,7 @@ namespace ChemReagentsProject.ViewModel
                 }));
             }
         }
+
 
     }
 }
