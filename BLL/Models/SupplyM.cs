@@ -31,7 +31,7 @@ namespace BLL.Models
                 }
                 RusState = str;
                 
-                ShortName = Date_Begin.ToString("dd.MM.yy ") + RusState;
+                ShortName = Date_End.ToString("dd.MM.yy ") + RusState;
             }
         }
         public string ShortName { get; set; }

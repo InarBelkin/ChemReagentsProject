@@ -55,6 +55,7 @@ namespace BLL.Models
             set
             {
                 concentrName = value;
+                OnPropertyChanged();
             }
         }
 
@@ -65,6 +66,7 @@ namespace BLL.Models
             set
             {
                 recipeName = value;
+                OnPropertyChanged();
             }
         }
 
@@ -75,6 +77,8 @@ namespace BLL.Models
             ConcentrationId = s.ConcentrationId;
             // SolutionRecipeId = s.SolutionRecipeId;
             Date_Begin = s.Date_Begin;
+            ConcentrName = s.ConcentrName;
+            RecipeName = s.RecipeName;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -97,6 +101,16 @@ namespace BLL.Models
             s.Id = Id;
             s.ConcentrationId = ConcentrationId;
             s.Date_Begin = Date_Begin;
+            if(s.ConcentrationId==null)
+            {
+                s.ConcentrName = ConcentrName;
+                s.RecipeName = RecipeName;
+            }
+            else
+            {
+                s.RecipeName = "";
+                s.ConcentrName = "";
+            }
         }
 
 

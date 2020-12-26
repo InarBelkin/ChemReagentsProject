@@ -39,7 +39,7 @@ namespace ChemReagentsProject
             MainVM a = new MainVM( crudServ,RepServ);
            // Navigation.AddNav(this, FrameRight.NavigationService);
             DataContext = a;
-
+            
             
         }
 

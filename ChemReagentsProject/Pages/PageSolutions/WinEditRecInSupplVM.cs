@@ -154,6 +154,15 @@ namespace ChemReagentsProject.Pages.PageSolutions
             }
         }
 
+        private string soloConcentrName;
+        public string SoloConcentrName
+        {
+            get => soloConcentrName;
+            set => soloConcentrName = value;
+        }
+
+        private string soloRecipeName;
+        public string SoloRecipeName { get => soloRecipeName; set => soloRecipeName = value; }
 
         private RelayCommand comButton;
         public RelayCommand ComButton      //
@@ -167,11 +176,15 @@ namespace ChemReagentsProject.Pages.PageSolutions
                         case "Save":    //возможно надо добавить проверку, если рецепт есть, а концентрации нет - обе null
                             EditSolut.ConcentrationId = tempsolut.ConcentrationId;
                             EditSolut.SolutionRecipeId = tempsolut.SolutionRecipeId;
+                            EditSolut.ConcentrName = "";
+                            EditSolut.RecipeName = "";
                             WindowService.CloseWindow(ThisGuid, true);
                             break;
                         case "SaveAndNull":
                             EditSolut.ConcentrationId = null;
                             EditSolut.SolutionRecipeId = null;
+                            EditSolut.ConcentrName = SoloConcentrName;
+                            EditSolut.RecipeName = SoloRecipeName;
                             WindowService.CloseWindow(ThisGuid, true);
                             break;
                         case "Cancel":
@@ -185,7 +198,6 @@ namespace ChemReagentsProject.Pages.PageSolutions
             }
         }
 
-
-
+       
     }
 }

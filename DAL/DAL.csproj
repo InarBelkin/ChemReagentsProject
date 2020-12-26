@@ -73,6 +73,14 @@
     <Compile Include="Migrations\202012252147509_AddConsumptions.designer.cs">
       <DependentUpon>202012252147509_AddConsumptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012261027571_AddSolutionName.cs" />
+    <Compile Include="Migrations\202012261027571_AddSolutionName.designer.cs">
+      <DependentUpon>202012261027571_AddSolutionName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012261036223_ConcentrationName.cs" />
+    <Compile Include="Migrations\202012261036223_ConcentrationName.designer.cs">
+      <DependentUpon>202012261036223_ConcentrationName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ConsumptionsRepSQL.cs" />
@@ -111,6 +119,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012252147509_AddConsumptions.resx">
       <DependentUpon>202012252147509_AddConsumptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012261027571_AddSolutionName.resx">
+      <DependentUpon>202012261027571_AddSolutionName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012261036223_ConcentrationName.resx">
+      <DependentUpon>202012261036223_ConcentrationName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

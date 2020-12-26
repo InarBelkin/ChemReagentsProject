@@ -142,6 +142,8 @@ namespace ChemReagentsProject.Pages.PageSolutions
             {
                 case "ConcentrationId":
                 case "Date_Begin":
+                case "RecipeName":
+                case "ConcentrName":
                     dbOp.Solutions.Update(s);
                     break;
             }

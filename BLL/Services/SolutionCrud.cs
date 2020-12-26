@@ -44,6 +44,8 @@ namespace BLL.Services
                 s.ConcentrName = c.Name;
                 s.RecipeName = sr.Name;
             }
+
+
             return s;
         }
 

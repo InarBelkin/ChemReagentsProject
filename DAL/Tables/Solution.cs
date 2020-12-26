@@ -12,9 +12,12 @@ namespace DAL.Tables
         public int Id { get; set; }
 
         //public int? SolutionRecipeId { get; set; }
-        public int? ConcentrationId {get;set;}
+        public int? ConcentrationId { get; set; }
         [ForeignKey("ConcentrationId")]
         public Concentration Concentration { get; set; }
+
+        public string RecipeName {get;set;}
+        public string ConcentrName {get;set;}
         public DateTime Date_Begin { get; set; }
         public virtual List<Solution_line> Solution_Lines { get; set; }
     }
