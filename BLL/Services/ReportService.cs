@@ -28,7 +28,7 @@ namespace BLL.Services
 
             List<Supply> ss = db.Reports.SupplyByReag(reagId);
 
-            bool ischange = false;
+           // bool ischange = false;
             foreach (Supply r in ss)
             {
                 SupplyM s = new SupplyM(r);
@@ -58,6 +58,11 @@ namespace BLL.Services
             return ret;
         }
 
+
+
+        /// <summary>
+        /// Получает все поставки для этого реактива, что ещё не протухли на заданный момент и уже созданы
+        /// </summary>
         public ObservableCollection<SupplyM> SupplyByReagOnlyActual(int reagid, DateTime NowDate)
         {
             ObservableCollection<SupplyM> slist = SupplyByReag(reagid);
@@ -72,6 +77,9 @@ namespace BLL.Services
             return ret;
         }
 
+        /// <summary>
+        /// Удаляет старое содержание этого раствора и устанавливает новый рецепт(id рецепта-концентрации уже должно быть в нём)
+        /// </summary>
         public void AcceptRecipe(int SolutId, DateTime NowDate)
         {
             db.Reports.AcceptRecipe(SolutId);   //удалили лишнее
@@ -84,7 +92,7 @@ namespace BLL.Services
                     foreach (Solution_recipe_line srl in conc.LineList)
                     {
                         var listsuppl = SupplyByReagOnlyActual(srl.ReagentId, NowDate);
-                        if (listsuppl.Count != 0)
+                        if (listsuppl.Count != 0)                   
                         {
                             db.Solution_Lines.Create(new Solution_line()
                             {
@@ -146,6 +154,9 @@ namespace BLL.Services
             }
         }
 
+        /// <summary>
+        /// Получает все расходы этого реактива и сумму этих расходов
+        /// </summary>
         public (List<SupplyStringM>, float Summ) GetSupplyStrings(int SupplId)  //ещё сортировку надо
         {
             List<SupplyStringM> ret = new List<SupplyStringM>();
