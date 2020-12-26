@@ -50,7 +50,7 @@ namespace ChemReagentsProject.ViewModel
         private PageReports pageReports;
         public PageReports PReports
         {
-            get => new PageReports();
+            get => new PageReports(dbOp, rep);
         }
     }
 }

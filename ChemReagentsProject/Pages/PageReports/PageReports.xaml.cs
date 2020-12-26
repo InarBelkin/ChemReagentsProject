@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +21,10 @@ namespace ChemReagentsProject.Pages.PageReports
     /// </summary>
     public partial class PageReports : UserControl
     {
-        public PageReports()
+        public PageReports(IDbCrud cr, IReportServ report)
         {
             InitializeComponent();
-            
+            DataContext = new ReportsVM(cr, report);
         }
     }
 }

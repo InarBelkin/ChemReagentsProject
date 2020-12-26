@@ -16,6 +16,7 @@ namespace BLL.Interfaces
         ObservableCollection<SolutRezLineM> GetRecipeLine(int ConcentrId);
         ObservableCollection<ConcentrationM> ConcentrbyRecipe(int RecipeId);
         (List<SupplyStringM>, float Summ) GetSupplyStrings(int SupplId);
+        List<MonthReportM> GetMonthReport(DateTime start, DateTime end);
         void AcceptRecipe(int SolutId, DateTime NowDate);
     }
 }

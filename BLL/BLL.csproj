@@ -63,6 +63,7 @@
     <Compile Include="Interfaces\IServCrudAbstr.cs" />
     <Compile Include="Models\ConcentrationM.cs" />
     <Compile Include="Models\ConsumptionM.cs" />
+    <Compile Include="Models\OtherModels\MonthReportM.cs" />
     <Compile Include="Models\OtherModels\SupplyStringM.cs" />
     <Compile Include="Models\ReagentM.cs" />
     <Compile Include="Services\ConsumptionCrud.cs" />

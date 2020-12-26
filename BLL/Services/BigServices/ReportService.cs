@@ -28,7 +28,7 @@ namespace BLL.Services
 
             List<Supply> ss = db.Reports.SupplyByReag(reagId);
 
-           // bool ischange = false;
+            // bool ischange = false;
             foreach (Supply r in ss)
             {
                 SupplyM s = new SupplyM(r);
@@ -63,7 +63,7 @@ namespace BLL.Services
         /// <summary>
         /// Получает все поставки для этого реактива, что ещё не протухли на заданный момент и уже созданы
         /// </summary>
-        public ObservableCollection<SupplyM> SupplyByReagOnlyActual(int reagid, DateTime NowDate)
+        public ObservableCollection<SupplyM> SupplyByReagOnlyActual(int reagid, DateTime NowDate)   //тоже бы отсортировать
         {
             ObservableCollection<SupplyM> slist = SupplyByReag(reagid);
             ObservableCollection<SupplyM> ret = new ObservableCollection<SupplyM>();
@@ -165,30 +165,118 @@ namespace BLL.Services
             db.Solution_Recipes.GetList();
             Supply s = db.Supplies.GetItem(SupplId);
             if (s == null) return (null, 0);
-            if(s.Solution_Lines!=null)
+            if (s.Solution_Lines != null)
             {
-                foreach(Solution_line sl in s.Solution_Lines)
+                foreach (Solution_line sl in s.Solution_Lines)
                 {
                     SupplyStringM a = new SupplyStringM(sl);
                     ret.Add(a);
                 }
             }
-            if(s.Consumptions!=null)
+            if (s.Consumptions != null)
             {
-                foreach(Supply_consumption cons in s.Consumptions)
+                foreach (Supply_consumption cons in s.Consumptions)
                 {
                     SupplyStringM b = new SupplyStringM(cons);
                     ret.Add(b);
                 }
-            }   
+            }
 
             float summ = 0;
-            foreach(SupplyStringM str in ret)
+            foreach (SupplyStringM str in ret)
             {
                 summ += str.Count;
             }
 
-            return (ret,summ);
+            return (ret, summ);
+        }
+
+        public List<MonthReportM> GetMonthReport(DateTime start, DateTime end)
+        {
+            List<MonthReportM> ret = new List<MonthReportM>();
+
+            var supplies = db.Supplies.GetList();
+
+            foreach (Supply s in supplies)
+            {
+                if (s.State != (byte)SupplStates.WriteOff)  //состояние не должно быть списанное
+                {
+                    var getstr = GetSupplyStrings(s.Id);
+                    if (s.Date_End < end ) //если протух или количество==0, списываем
+                    {
+                        float sum = 0;
+                        foreach (SupplyStringM ss in getstr.Item1)
+                        {
+                            if (ss.DateUse < start)
+                            {
+                                sum += ss.Count;
+                            }
+
+                        }
+                        MonthReportM a = new MonthReportM()
+                        {
+                            Count = s.count - sum,
+                            SupplyId = s.Id,
+                            ReagentName = s.Reagent.Name,
+                            status = "Списание по сроку годности",
+                        };
+                        ret.Add(a);
+
+                    }
+                    else
+                    {
+                        if (s.count - getstr.Summ <= 0)
+                        {
+                            float sum = 0;
+                            foreach (SupplyStringM ss in getstr.Item1)
+                            {
+                                if (ss.DateUse < start)
+                                {
+                                    sum += ss.Count;
+                                }
+
+                            }
+                            MonthReportM a = new MonthReportM()
+                            {
+                                Count = s.count - sum,
+                                SupplyId = s.Id,
+                                ReagentName = s.Reagent.Name,
+                                status = "Списание из-за количества",
+                            };
+                            ret.Add(a);
+                        }
+                        else
+                        {
+                            float sum = 0;
+                            foreach (SupplyStringM ss in getstr.Item1)
+                            {
+                                if (ss.DateUse > start && ss.DateUse < end)
+                                {
+                                    sum += ss.Count;
+                                }
+                            }
+                            if (sum > 0)
+                            {
+                                MonthReportM a = new MonthReportM()
+                                {
+                                    Count = sum,
+                                    SupplyId = s.Id,
+                                    ReagentName = s.Reagent.Name,
+                                    status = "Расход",
+                                };
+                                ret.Add(a);
+                            }
+                        }
+
+
+                    }
+
+
+                }
+            }
+
+
+            return ret;
         }
 
 
