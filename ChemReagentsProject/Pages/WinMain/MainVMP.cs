@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using ChemReagentsProject.Pages.PageReagents;
 using ChemReagentsProject.Pages.PageReziepe;
 using ChemReagentsProject.Pages.PageSolutions;
+using ChemReagentsProject.Pages.PageReports;
 
 namespace ChemReagentsProject.ViewModel
 {
@@ -44,6 +45,12 @@ namespace ChemReagentsProject.ViewModel
                 pSolution = new PageSolution(dbOp, rep);
                 return pSolution;
             }
+        }
+
+        private PageReports pageReports;
+        public PageReports PReports
+        {
+            get => new PageReports();
         }
     }
 }

@@ -88,9 +88,9 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ConsumptionsRepSQL.cs" />
-    <Compile Include="Repository\DbReposSQL.cs" />
+    <Compile Include="Repository\BigRepositories\DbReposSQL.cs" />
     <Compile Include="Repository\ReagentsRepSQL.cs" />
-    <Compile Include="Repository\ReportsRepSQL.cs" />
+    <Compile Include="Repository\BigRepositories\ReportsRepSQL.cs" />
     <Compile Include="Repository\SolutionRepSQL.cs" />
     <Compile Include="Repository\SolutionRezipeRepSQL.cs" />
     <Compile Include="Repository\SupplierRepSQL.cs" />

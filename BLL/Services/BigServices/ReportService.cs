@@ -92,7 +92,7 @@ namespace BLL.Services
                     foreach (Solution_recipe_line srl in conc.LineList)
                     {
                         var listsuppl = SupplyByReagOnlyActual(srl.ReagentId, NowDate);
-                        if (listsuppl.Count != 0)                   
+                        if (listsuppl.Count != 0)                           //Надо учесть ещё и оставшееся там количество
                         {
                             db.Solution_Lines.Create(new Solution_line()
                             {

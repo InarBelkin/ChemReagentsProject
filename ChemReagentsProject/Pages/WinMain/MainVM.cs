@@ -70,7 +70,9 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
                             // NavService.Navigation.Navigate(ThisGuid, new PageSolution(dbOp, rep));
                             NavService.Navigation.Navigate(ThisGuid, PSolution);
                             break;
-
+                        case "Report":
+                            NavService.Navigation.Navigate(ThisGuid, PReports);
+                            break;
                         default:
                             break;
                     }

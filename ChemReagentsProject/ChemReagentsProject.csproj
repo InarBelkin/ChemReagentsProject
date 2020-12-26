@@ -98,6 +98,10 @@
     <Compile Include="Pages\PageReagents\PageReag.xaml.cs">
       <DependentUpon>PageReag.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageReports\PageReports.xaml.cs">
+      <DependentUpon>PageReports.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageReports\ReportsVM.cs" />
     <Compile Include="Pages\PageReziepe\PageReziepe.xaml.cs">
       <DependentUpon>PageReziepe.xaml</DependentUpon>
     </Compile>
@@ -128,6 +132,10 @@
     <Compile Include="Pages\PageReagents\ReagentsVM.cs" />
     <Compile Include="Additional\RelayCommand.cs" />
     <Page Include="Pages\PageReagents\PageReag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageReports\PageReports.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
