@@ -1,4 +1,5 @@
 ﻿using BLL.Models;
+using BLL.Models.OtherModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@ namespace BLL.Interfaces
         ObservableCollection<SupplyM> SupplyByReagOnlyActual(int reagid, DateTime NowDate);
         ObservableCollection<SolutRezLineM> GetRecipeLine(int ConcentrId);
         ObservableCollection<ConcentrationM> ConcentrbyRecipe(int RecipeId);
+        (List<SupplyStringM>, float Summ) GetSupplyStrings(int SupplId);
         void AcceptRecipe(int SolutId, DateTime NowDate);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BLL.Interfaces;
 using BLL.Models;
+using BLL.Models.OtherModels;
 using DAL.Interfaces;
 using DAL.Tables;
 using System;
@@ -143,6 +144,39 @@ namespace BLL.Services
                     }
                 }
             }
+        }
+
+        public (List<SupplyStringM>, float Summ) GetSupplyStrings(int SupplId)  //ещё сортировку надо
+        {
+            List<SupplyStringM> ret = new List<SupplyStringM>();
+            db.Solutions.GetList();
+            db.Concentrations.GetList();
+            db.Solution_Recipes.GetList();
+            Supply s = db.Supplies.GetItem(SupplId);
+            if(s.Solution_Lines!=null)
+            {
+                foreach(Solution_line sl in s.Solution_Lines)
+                {
+                    SupplyStringM a = new SupplyStringM(sl);
+                    ret.Add(a);
+                }
+            }
+            if(s.Consumptions!=null)
+            {
+                foreach(Supply_consumption cons in s.Consumptions)
+                {
+                    SupplyStringM b = new SupplyStringM(cons);
+                    ret.Add(b);
+                }
+            }   
+
+            float summ = 0;
+            foreach(SupplyStringM str in ret)
+            {
+                summ += str.Count;
+            }
+
+            return (ret,summ);
         }
 
 

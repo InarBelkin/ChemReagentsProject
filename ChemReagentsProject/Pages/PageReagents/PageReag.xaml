@@ -51,8 +51,8 @@
                 </DataGrid.RowStyle>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Дата поставки" Binding="{Binding Date_Begin}" IsReadOnly="True"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Дата конца" Binding="{Binding Date_End}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата поставки" Binding="{Binding Date_Begin, StringFormat=dd.MM.yyyy}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата конца" Binding="{Binding Date_End, StringFormat=dd.MM.yyyy}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="Состояние" Binding="{Binding RusState}" IsReadOnly="True"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>

@@ -1,7 +1,9 @@
 ﻿using BLL.Interfaces;
 using BLL.Models;
+using BLL.Models.OtherModels;
 using ChemReagentsProject.Interfaces;
 using ChemReagentsProject.NavService;
+using ChemReagentsProject.Pages.WinEditConsumption;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -189,6 +191,48 @@ namespace ChemReagentsProject.ViewModel
                             WindowService.CloseWindow(ThisGuid, false);
                             break;
                         default:
+                            break;
+                    }
+
+
+
+                }));
+            }
+        }
+        
+
+        public List<SupplyStringM> SupplyStringsList
+        {
+            get
+            {
+                return rep.GetSupplyStrings(EditSuppl.Id);
+            }
+        }
+
+        private RelayCommand consumpButton;
+        public RelayCommand ConsumpButton      //
+        {
+            get
+            {
+                return consumpButton ?? (consumpButton = new RelayCommand(obj =>
+                {
+                    switch (obj as string)
+                    {
+                        case "Add":
+
+                            ConsumptionM cons = new ConsumptionM() { SupplyId = EditSuppl.Id};
+                            WinEditConsumption win = new WinEditConsumption(dbOp, rep, cons);
+                            if(win.ShowDialog()==true )
+                            {
+                                dbOp.Consumptions.Create(cons);
+                            }
+
+                            break;
+                        case "Change":
+                            
+                            break;
+                        case "Remove":
+
                             break;
                     }
 

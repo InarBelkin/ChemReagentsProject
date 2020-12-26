@@ -14,6 +14,7 @@ namespace DAL.Tables
         [ForeignKey("SupplyId")]
         public Supply Supply { get; set; }
         public string Name { get; set; }
+        public DateTime DateBegin { get; set; }
         public float Count { get; set; }
 
     }

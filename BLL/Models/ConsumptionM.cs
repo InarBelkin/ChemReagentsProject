@@ -13,6 +13,7 @@ namespace BLL.Models
         public int Id { get; set; }
         public int SupplyId { get; set; }
         public string Name { get; set; }
+        public DateTime DateBegin { get; set; }
         public float Count { get; set; }
 
         public ConsumptionM() { Name = ""; }
@@ -31,6 +32,7 @@ namespace BLL.Models
             sc.SupplyId = SupplyId;
             sc.Name = Name;
             sc.Count = Count;
+            sc.DateBegin = DateBegin;
             return sc;
         }
 
@@ -40,6 +42,7 @@ namespace BLL.Models
             sc.SupplyId = SupplyId;
             sc.Name = Name;
             sc.Count = Count;
+            sc.DateBegin = DateBegin;
         }
     }
 }

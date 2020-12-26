@@ -41,7 +41,9 @@ namespace BLL.Services
         public ConcentrationCrud Concentrations => concentration ?? (concentration = new ConcentrationCrud(db));
 
         private ConsumptionCrud consump;
-        public ConsumptionCrud Consumptions => consump ?? (consump = new ConsumptionCrud(db));
+       // public ConsumptionCrud Consumptions => consump ?? (consump = new ConsumptionCrud(db));
+
+        public ICrudRepos<ConsumptionM> Consumptions => consump ?? (consump = new ConsumptionCrud(db));
 
         public bool Save()
         {
