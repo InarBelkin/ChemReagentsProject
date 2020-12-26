@@ -205,7 +205,7 @@ namespace ChemReagentsProject.ViewModel
         {
             get
             {
-                return rep.GetSupplyStrings(EditSuppl.Id);
+                return rep.GetSupplyStrings(EditSuppl.Id).Item1;
             }
         }
 
