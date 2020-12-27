@@ -60,6 +60,7 @@
             <Grid  Grid.Row="1">
                 <Button x:Name="button" Content="Изменить/посмотреть" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="180" Height="39" Command="{Binding AddSuppl}" CommandParameter="Edit" />
                 <Button x:Name="button1" Content="Добавить" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Width="180" Height="36" Command="{Binding AddSuppl}" CommandParameter="Add" />
+                <Button x:Name="button2" Content="Button" HorizontalAlignment="Left" Margin="195,19,0,0" VerticalAlignment="Top" Width="60" Height="71" Command="{Binding AddSuppl}" CommandParameter="generate"/>
 
 
             </Grid>

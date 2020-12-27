@@ -58,7 +58,8 @@ namespace BLL.Services
 
         int Save()
         {
-            return db.Save();
+            throw new NotImplementedException();
+            //return db.Save();
         }
     }
 }

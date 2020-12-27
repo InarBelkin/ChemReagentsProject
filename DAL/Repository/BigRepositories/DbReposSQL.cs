@@ -49,9 +49,22 @@ namespace DAL.Repository
 
         public IRepository<Supply_consumption> Consumptions => consump ?? (consump = new ConsumptionsRepSQL(db));
 
-        public int Save()
+      
+        public int Save(out Exception except)
         {
-            return db.SaveChanges();
+            except = null;
+            
+
+            try
+            {
+                return db.SaveChanges();
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                except = ex;
+                return -1;
+            }
+
         }
     }
 }

@@ -182,6 +182,15 @@ namespace ChemReagentsProject.ViewModel
                                 winSuppl = new WinEditSupplies(dbOp, rep, new SupplyM());
                             }
                             break;
+                        //case "generate":
+                        //    //var a = DateTime.MinValue;
+                        //    //var ex = dbOp.Supplies.Create(new SupplyM() { Count = 10, ReagentId = 100, Date_Begin = new DateTime(1700,12,12), Date_End = new DateTime(1980,12,12) });
+
+                        //    //var ex2 = dbOp.Supplies.Create(new SupplyM() { Count = 10, Date_Begin = DateTime.Now, Date_End = DateTime.Now, ReagentId = 20, State = SupplStates.Active, SupplierId = 1 });
+                        //    var sup = dbOp.Supplies.GetItem(30);
+                        //    sup.Date_Begin = new DateTime(1300, 12, 12);
+                        //    var ex = dbOp.Supplies.Update(sup);
+                        //    break;
                         default:
                             break;
                     }

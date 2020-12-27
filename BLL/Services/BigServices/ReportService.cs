@@ -143,7 +143,8 @@ namespace BLL.Services
                 }
             }
             db.Solutions.Update(solut);
-            db.Save();
+            throw new NotImplementedException();
+            db.Save(out _);
         }
 
         public ObservableCollection<ConcentrationM> ConcentrbyRecipe(int RecipeId)

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BLL.Interfaces;
 using DAL.Tables;
 namespace BLL.Models
 {
-    public class SupplyM
+    public class SupplyM: IModel<Supply>
     {
         public int Id { get; set; }
         public int ReagentId { get; set; }
@@ -80,6 +81,29 @@ namespace BLL.Models
         {
             if (ReagentId != -2 && SupplierId != -2) return true;
             else return false;
+        }
+
+        public Supply getDal()
+        {
+            Supply sup = new Supply();
+
+            sup.ReagentId = ReagentId;
+            sup.SupplierId =SupplierId;
+            sup.Date_Begin = Date_Begin;
+            sup.Date_End = Date_End;
+            sup.State = (byte)State;
+            sup.count = Count;
+            return sup;
+        }
+
+        public void updDal(Supply sup)
+        {
+            sup.ReagentId = ReagentId;
+            sup.SupplierId = SupplierId;
+            sup.Date_Begin = Date_Begin;
+            sup.Date_End = Date_End;
+            sup.State = (byte)State;
+            sup.count = Count;
         }
     }
 

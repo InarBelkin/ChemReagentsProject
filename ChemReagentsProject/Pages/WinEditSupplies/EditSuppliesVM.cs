@@ -172,11 +172,13 @@ namespace ChemReagentsProject.ViewModel
                             {
                                 if (EditSuppl.Id == -1)    // если создаётся заново
                                 {
-                                    dbOp.Supplies.Create(EditSuppl);
+                                    var ex = dbOp.Supplies.Create(EditSuppl);
+                                    if (ex != null) MessageBox.Show(ex.Message);
                                 }
                                 else
                                 {
-                                    dbOp.Supplies.Update(EditSuppl);
+                                    var ex = dbOp.Supplies.Update(EditSuppl);
+                                    if (ex != null) MessageBox.Show(ex.Message);
                                 }
                                 WindowService.CloseWindow(ThisGuid, true);
                             }

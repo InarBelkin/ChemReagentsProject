@@ -19,6 +19,6 @@ namespace DAL.Interfaces
         IRepository<Concentration> Concentrations { get; }
         IRepository<Supply_consumption> Consumptions { get; }
         IReportRepos Reports { get; }
-        int Save();
+        int Save(out Exception except);
     }
 }

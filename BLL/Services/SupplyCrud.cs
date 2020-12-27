@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using BLL.Additional;
 using BLL.Interfaces;
 using BLL.Models;
 using DAL.Interfaces;
@@ -11,7 +13,7 @@ using DAL.Tables;
 
 namespace BLL.Services
 {
-    public class SupplyCrud : ICrudRepos<SupplyM>
+    public class SupplyCrud //: ICrudRepos<SupplyM>
     {
         IDbRepos db;
 
@@ -20,7 +22,7 @@ namespace BLL.Services
             db = dbRepos;
         }
 
-        public void Create(SupplyM s)
+        public Exception Create(SupplyM s)
         {
             db.Supplies.Create(new Supply()
             {
@@ -31,8 +33,19 @@ namespace BLL.Services
                 Date_End = s.Date_End,
                 State = (byte)s.State,
                 count = s.Count
-            });;
-            Save();
+            }); ;
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                db.Supplies.Delete(s.Id);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption("При создании произошла ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось создать поставку", ex1);
+            }
+            else return null;
+
+
+
         }
 
         public void Delete(int id)
@@ -72,9 +85,12 @@ namespace BLL.Services
             //return db.Supplies.GetList().Select(i => new SupplyM(i)).ToList();
         }
 
-        public void Update(SupplyM item)
+        public Exception Update(SupplyM item)
         {
+
             Supply sup = db.Supplies.GetItem(item.Id);
+            SupplyM backup = new SupplyM(sup);
+
             sup.ReagentId = item.ReagentId;
             sup.SupplierId = item.SupplierId;
             sup.Date_Begin = item.Date_Begin;
@@ -82,13 +98,28 @@ namespace BLL.Services
             sup.State = (byte)item.State;
             sup.count = item.Count;
             db.Supplies.Update(sup);
-            Save();
+
+
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                backup.updDal(sup);
+                db.Supplies.Update(sup);
+                var ex2 = Save();
+                if(ex2!=null) return new AddEditExeption("При изменении поставки произошла ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось изменить поставку", ex1);
+            }
+
+
+            return null;
 
         }
 
-        public bool Save()
+        public Exception Save()
         {
-            return db.Save() > 0;
+            Exception ex;
+            db.Save(out ex);
+            return ex;
         }
     }
 }

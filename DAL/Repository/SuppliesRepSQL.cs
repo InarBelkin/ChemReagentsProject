@@ -73,6 +73,8 @@ namespace DAL.Repository
             //s.Date_End = item.Date_End;
             //s.count = item.count;
             db.Entry(item).State = EntityState.Modified;
+            
+         
         }
 
 

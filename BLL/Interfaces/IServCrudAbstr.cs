@@ -48,7 +48,8 @@ namespace BLL.Interfaces
 
         protected virtual int Save()
         {
-            return db.Save();
+            throw new NotImplementedException();
+            //return db.Save();
         }
     }
 }
