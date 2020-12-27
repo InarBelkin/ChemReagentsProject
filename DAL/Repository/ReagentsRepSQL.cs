@@ -1,5 +1,6 @@
 ﻿using DAL.Interfaces;
 using DAL.Tables;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -18,14 +19,20 @@ namespace DAL.Repository
         public override List<Reagent> GetList()
         {
             //ChemContext db2 = new ChemContext();
-            
+
             //List<Supply> s =  db2.Supplies.ToList();
             //List<Reagent> d = db2.Reagents.ToList();
 
-           // db.Supplies.Load();
-           
-            List<Reagent> a = db.Reagents.ToList();
-            
+            // db.Supplies.Load();
+            try
+            {
+                List<Reagent> a = db.Reagents.ToList();
+            }
+            catch
+            {
+                throw new Exception("asdf");
+            }
+
             //Supply s = a[0].Supplies[0];
             //s.count = 999;
             //List<Supply> supl = db.Supplies.ToList();
