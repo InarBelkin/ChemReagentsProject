@@ -61,8 +61,6 @@ namespace ChemReagentsProject.Pages.PageReports
                         DisplayInExcel(ReportList);
 
 
-
-
                     }
 
 

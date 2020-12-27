@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using BLL.Additional;
+using BLL.Interfaces;
 using BLL.Models;
 using BLL.Models.OtherModels;
 using DAL.Interfaces;
@@ -66,7 +67,7 @@ namespace BLL.Services
         public ObservableCollection<SupplyM> SupplyByReagOnlyActual(int reagid, DateTime NowDate)   //тоже бы отсортировать
         {
             ObservableCollection<SupplyM> slist = SupplyByReag(reagid);
-            ObservableCollection<SupplyM> ret = new ObservableCollection<SupplyM>();
+            List<SupplyM> ret = new List<SupplyM>();
             foreach (SupplyM s in slist)
             {
                 if (s.Date_End.AddDays(1) > NowDate)
@@ -74,7 +75,11 @@ namespace BLL.Services
                     ret.Add(s);
                 }
             }
-            return ret;
+            ret.Sort( new SupplDateComparer());
+
+
+            ObservableCollection<SupplyM> rets = new ObservableCollection<SupplyM>(ret);
+            return rets;
         }
 
         /// <summary>
@@ -94,14 +99,40 @@ namespace BLL.Services
                         var listsuppl = SupplyByReagOnlyActual(srl.ReagentId, NowDate);
                         if (listsuppl.Count != 0)                           //Надо учесть ещё и оставшееся там количество
                         {
-                            db.Solution_Lines.Create(new Solution_line()
+                            bool b = false;
+                            foreach(SupplyM sup in listsuppl)
                             {
-                                SolutionId = solut.Id,
-                                NameOtherComponent = "",
-                                SupplyId = listsuppl[0].Id,
-                                Count = srl.Count,
-                            });
-
+                                if(sup.Count-GetSupplyStrings(sup.Id).Summ <=0)
+                                {
+                                    continue;
+                                }
+                                else if(sup.Count-GetSupplyStrings(sup.Id).Summ-srl.Count<0)
+                                {
+                                    db.Solution_Lines.Create(new Solution_line()
+                                    {
+                                        SolutionId = solut.Id,
+                                        NameOtherComponent = "",
+                                        SupplyId = sup.Id,
+                                        Count = sup.Count - GetSupplyStrings(sup.Id).Summ,
+                                    });
+                                    b = true;
+                                    MessageBox.Show("Для реактива " + srl.Reagent.Name + " не хватает количества в самом старом реактиве\nДобавлено столько, сколько было");
+                                    break;
+                                }
+                                else
+                                {
+                                    db.Solution_Lines.Create(new Solution_line()
+                                    {
+                                        SolutionId = solut.Id,
+                                        NameOtherComponent = "",
+                                        SupplyId = sup.Id,
+                                        Count =srl.Count,
+                                    });
+                                    b = true;
+                                    break;
+                                }
+                            }
+                            if(!b) MessageBox.Show("Для реактива " + srl.Reagent.Name + "нет поставок с количеством>0");
                         }
                         else
                         {

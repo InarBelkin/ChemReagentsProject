@@ -4,6 +4,7 @@ using BLL.Models.OtherModels;
 using ChemReagentsProject.Interfaces;
 using ChemReagentsProject.NavService;
 using ChemReagentsProject.Pages.WinEditConsumption;
+using ChemReagentsProject.Pages.WinQuestion;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -213,6 +214,9 @@ namespace ChemReagentsProject.ViewModel
             }
         }
 
+        private SupplyStringM selectString;
+        public SupplyStringM SelectString { get => selectString; set { selectString = value; OnPropertyChanged("SelectString"); } }
+
         private RelayCommand consumpButton;
         public RelayCommand ConsumpButton      //
         {
@@ -229,14 +233,43 @@ namespace ChemReagentsProject.ViewModel
                             if (win.ShowDialog() == true)
                             {
                                 dbOp.Consumptions.Create(cons);
+                                OnPropertyChanged("SupplyStringsList");
                             }
-
                             break;
                         case "Change":
-
+                            if (SelectString != null)
+                            {
+                                if (SelectString.IsConsump==true)
+                                {
+                                    ConsumptionM cons2 = dbOp.Consumptions.GetItem(SelectString.Id);
+                                    WinEditConsumption win2 = new WinEditConsumption(dbOp, rep, cons2);
+                                    if (win2.ShowDialog() == true)
+                                    {
+                                        dbOp.Consumptions.Update(cons2);
+                                        OnPropertyChanged("SupplyStringsList");
+                                    }
+                                }
+                                else MessageBox.Show("Это строка из раствора");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Сначала выделите строку сверху");
+                            }
                             break;
                         case "Remove":
-
+                            if(SelectString!=null)
+                            {
+                                if (SelectString.IsConsump == true)
+                                {
+                                    if (new QuestWin("Точно удалить расход?").ShowDialog() == true)
+                                    {
+                                        dbOp.Consumptions.Delete(SelectString.Id);
+                                        OnPropertyChanged("SupplyStringsList");
+                                    }
+                                }
+                                else MessageBox.Show("Нельзя отсюда удалять строки растворов");
+                            }
+                            else MessageBox.Show("Сначала выделите строку сверху"); 
                             break;
                     }
 

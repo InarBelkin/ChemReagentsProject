@@ -79,7 +79,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <DataGrid Grid.ColumnSpan="3"  ItemsSource="{Binding SupplyStringsList}" AutoGenerateColumns="False" IsReadOnly="True"  >
+            <DataGrid Grid.ColumnSpan="3"  ItemsSource="{Binding SupplyStringsList}" SelectedItem="{Binding SelectString}" AutoGenerateColumns="False" IsReadOnly="True"  >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Дата" Binding="{Binding DateUse,  StringFormat=dd.MM.yyyy}"/>
                     <DataGridTextColumn Header="Откуда" Binding="{Binding FromWhere}"/>

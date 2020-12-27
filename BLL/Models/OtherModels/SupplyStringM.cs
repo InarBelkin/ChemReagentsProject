@@ -15,6 +15,7 @@ namespace BLL.Models.OtherModels
         public string NameTarget { get; set; }
         public DateTime DateUse { get; set; }
         public string FromWhere { get; set; }
+        public bool IsConsump { get; set; }
         public float Count { get; set; }
 
         public SupplyStringM() { }
@@ -35,6 +36,7 @@ namespace BLL.Models.OtherModels
             DateUse = sl.Solution.Date_Begin;
             Count = sl.Count;
             FromWhere = "Из раствора";
+            IsConsump = false;
 
         }
         public SupplyStringM (Supply_consumption sc)
@@ -46,6 +48,7 @@ namespace BLL.Models.OtherModels
             Count = sc.Count;
 
             FromWhere = "Просто берём";
+            IsConsump = true;
         }
     }
 }

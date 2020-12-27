@@ -15,8 +15,8 @@
         <StackPanel  Grid.Column="0">
             <Button Content="Реактивы" Command="{Binding TabCommand}" CommandParameter="Reagent"  />
             <Button Content="Рецепты" Command="{Binding TabCommand}" CommandParameter="Reziepe"  />
-            <Button Content="Поставщики"/>
-            <Button Content="Поставки"/>
+            <Button Content="Поставщики"  Command="{Binding TabCommand}" CommandParameter="Suppliers" />
+            <!--<Button Content="Поставки"/>-->
             <Button Content="Растворы"  Command="{Binding TabCommand}" CommandParameter="Solution"/>
             <Button Content="Отчёты" Command="{Binding TabCommand}" CommandParameter="Report"/>
         </StackPanel>

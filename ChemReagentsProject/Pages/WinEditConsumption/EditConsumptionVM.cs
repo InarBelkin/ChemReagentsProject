@@ -21,6 +21,9 @@ namespace ChemReagentsProject.Pages.WinEditConsumption
         Guid ThisGuid;
         public EditConsumptionVM(IDbCrud cr, IReportServ report, ConsumptionM icons)
         {
+            NameB = icons.Name;
+            DateB = icons.DateBegin;
+            CountB = icons.Count;
             ThisGuid = Guid.NewGuid();
             EditCons = icons;
             dateB = DateTime.Now;

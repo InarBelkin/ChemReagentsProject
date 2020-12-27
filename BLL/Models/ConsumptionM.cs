@@ -16,7 +16,7 @@ namespace BLL.Models
         public DateTime DateBegin { get; set; }
         public float Count { get; set; }
 
-        public ConsumptionM() { Name = ""; }
+        public ConsumptionM() { Name = ""; DateBegin = DateTime.Now; }
         public ConsumptionM(Supply_consumption sc)
         {
             Id = sc.Id;
