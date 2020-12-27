@@ -15,7 +15,8 @@ namespace BLL.Interfaces
         ObservableCollection<SupplyM> SupplyByReagOnlyActual(int reagid, DateTime NowDate);
         ObservableCollection<SolutRezLineM> GetRecipeLine(int ConcentrId);
         ObservableCollection<ConcentrationM> ConcentrbyRecipe(int RecipeId);
-        (List<SupplyStringM>, float Summ) GetSupplyStrings(int SupplId);
+        (List<SupplyStringM>, float Summ) GetSupplyStrings(int SupplId, int SolutLineId=-1);
+      //  (List<SupplyStringM>, float Summ) GetSupplyStringsWithoutSolutLine(int SupplId);
         List<MonthReportM> GetMonthReport(DateTime start, DateTime end);
         void AcceptRecipe(int SolutId, DateTime NowDate);
     }

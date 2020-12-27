@@ -235,8 +235,37 @@ namespace ChemReagentsProject.Pages.PageSolutions
                         case "SolutionId":
                         case "SupplyId":
                         case "NameOtherComp":
-                        case "Count":
                             dbOp.SolutLines.Update(sl);
+                            break;
+                        case "Count":   //нужно смотреть, верная ли цифра введена
+                            if (sl.SupplyId == null)
+                            {
+                                dbOp.SolutLines.Update(sl);
+                            }
+                            else
+                            {
+                                float countwithoutline = dbOp.Supplies.GetItem((int)sl.SupplyId).Count - rep.GetSupplyStrings((int)sl.SupplyId, sl.Id).Summ;
+                                if (countwithoutline - sl.Count < 0)
+                                {
+                                    if (new QuestWin("Введённого количества нет в выбранной поставке, ввести максимальное количество?").ShowDialog() == true)
+                                    {
+                                        if(countwithoutline>=0)
+                                        {
+                                            sl.Count = countwithoutline;
+                                            dbOp.SolutLines.Update(sl);
+                                            OnPropertyChanged("SolutLineList");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    dbOp.SolutLines.Update(sl);
+                                }
+                            }
                             break;
                     }
                 }

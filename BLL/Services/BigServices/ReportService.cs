@@ -186,9 +186,9 @@ namespace BLL.Services
         }
 
         /// <summary>
-        /// Получает все расходы этого реактива и сумму этих расходов
+        /// Получает все расходы этого реактива и сумму этих расходов, если указать solutionline, она не будет учитываться
         /// </summary>
-        public (List<SupplyStringM>, float Summ) GetSupplyStrings(int SupplId)  //ещё сортировку надо
+        public (List<SupplyStringM>, float Summ) GetSupplyStrings(int SupplId, int SolutLineId=-1)  //ещё сортировку надо
         {
             List<SupplyStringM> ret = new List<SupplyStringM>();
             db.Solutions.GetList();
@@ -200,8 +200,11 @@ namespace BLL.Services
             {
                 foreach (Solution_line sl in s.Solution_Lines)
                 {
-                    SupplyStringM a = new SupplyStringM(sl);
-                    ret.Add(a);
+                    if(sl.Id!=SolutLineId)  //не нужно брать выбранную линию
+                    {
+                        SupplyStringM a = new SupplyStringM(sl);
+                        ret.Add(a);
+                    }
                 }
             }
             if (s.Consumptions != null)
