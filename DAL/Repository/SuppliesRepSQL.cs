@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using DAL.Additional;
 
 namespace DAL.Repository
 {
@@ -20,7 +21,16 @@ namespace DAL.Repository
 
         public List<Supply> GetList()
         {
-            return db.Supplies.ToList();
+            var a = new List<Supply>();
+            try
+            {
+                a = db.Supplies.ToList();
+            }
+            catch(Exception ex)
+            {
+                ExceptionSystemD.ConnectLostInv(new ConnectionExcetionD(ex));
+            }
+            return a;
         }
 
         public void Create(Supply item)
@@ -39,6 +49,16 @@ namespace DAL.Repository
 
         public Supply GetItem(int id)
         {
+            Supply a = null;
+            try
+            {
+                a = db.Supplies.Find(id);
+            }
+            catch(Exception ex)
+            {
+                ExceptionSystemD.ConnectLostInv(new ConnectionExcetionD(ex));
+            }
+
             return db.Supplies.Find(id);
         }
 
