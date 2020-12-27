@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+
+namespace ChemReagentsProject.Pages.WinMain
+{
+    partial class MainVM
+    {
+        private void ExceptionSystem_ConnectLost(object sender, Exception e)
+        {
+            MessageBox.Show("Отсутствует подключение к серверу\nВозможно в будущем можно будет изменять в настройках строку подключения, а пока можно только выйти из программы");
+        }
+    }
+}

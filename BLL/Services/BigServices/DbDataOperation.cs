@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using BLL.Additional;
+using BLL.Interfaces;
 using BLL.Models;
 using DAL.Interfaces;
 using DAL.Tables;
@@ -14,6 +15,12 @@ namespace BLL.Services
         public DbDataOperation(IDbRepos repos)
         {
             db = repos;
+            DAL.Additional.ExceptionSystemD.ConnectLost += ExceptionSystemD_ConnectLost;
+        }
+
+        private void ExceptionSystemD_ConnectLost(object sender, DAL.Additional.ConnectionExcetionD e)
+        {
+            ExceptionSystem.ConnectLostInv(e);
         }
 
         private SupplyCrud supplies;

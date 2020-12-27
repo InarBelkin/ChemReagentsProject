@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Additional\ConnectionExcetionD.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Interfaces\IDbRepos.cs" />
     <Compile Include="Interfaces\IReportRepos.cs" />

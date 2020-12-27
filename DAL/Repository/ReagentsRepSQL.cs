@@ -1,5 +1,6 @@
 ﻿using DAL.Interfaces;
 using DAL.Tables;
+using DAL.Additional;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -25,19 +26,17 @@ namespace DAL.Repository
 
             // db.Supplies.Load();
 
-            List<Reagent> a;
+            List<Reagent> a = new List<Reagent>();
             try
             {
                a = db.Reagents.ToList();
             }
-            catch
+            catch(Exception ex)
             {
-                throw new Exception("asdf");
+                //throw new Exception("asdf");
+                ExceptionSystemD.ConnectLostInv(new ConnectionExcetionD(ex));
             }
-            finally
-            {
 
-            }
 
             //Supply s = a[0].Supplies[0];
             //s.count = 999;

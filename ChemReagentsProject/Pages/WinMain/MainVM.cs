@@ -7,7 +7,7 @@ using ChemReagentsProject.Pages.PageSolutions;
 using System;
 using System.ComponentModel;
 using System.Globalization;
-
+using BLL.Additional;
 
 namespace ChemReagentsProject.ViewModel //Типа изменил
 {
@@ -33,7 +33,10 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
             ThisGuid = Guid.NewGuid();
 
             NavService.Navigation.LoadDone += Navigation_LoadDone;
+            BLL.Additional.ExceptionSystem.ConnectLost += ExceptionSystem_ConnectLost;
         }
+
+ 
 
         private void Navigation_LoadDone(object sender, IRecognizable e)
         {

@@ -121,6 +121,7 @@
     <Compile Include="Pages\WinEditSupplies\WinEditSupplies.xaml.cs">
       <DependentUpon>WinEditSupplies.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\WinMain\MainVMP2.cs" />
     <Compile Include="Pages\WinQuestion\QuestVM.cs" />
     <Compile Include="Pages\WinQuestion\QuestWin.xaml.cs">
       <DependentUpon>QuestWin.xaml</DependentUpon>

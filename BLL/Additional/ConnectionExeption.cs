@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.Additional;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,21 @@ namespace BLL.Additional
         public ConnectionExeption(Exception InnerExeption) : base("Ошибка соединения с сервером!", InnerExeption)
         {
         }
+    }
+
+
+    public static  class ExceptionSystem
+    {
+        public static event EventHandler<Exception> ConnectLost;
+
+        internal static void ConnectLostInv(Exception ex)
+        {
+            if(ex is ConnectionExcetionD)
+                
+            ConnectLost?.Invoke(null,new ConnectionExeption(ex.InnerException));
+        }
+
+
     }
 
 
