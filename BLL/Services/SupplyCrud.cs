@@ -117,9 +117,9 @@ namespace BLL.Services
 
         public Exception Save()
         {
-            Exception ex;
-            db.Save(out ex);
-            return ex;
+          
+            return db.Save();
+       
         }
     }
 }
