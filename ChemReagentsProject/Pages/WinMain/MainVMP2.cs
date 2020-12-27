@@ -11,10 +11,11 @@ namespace ChemReagentsProject.ViewModel
     {
         private void ExceptionSystem_ConnectLost(object sender, Exception e)
         {
-            if(MessageBox.Show("Отсутствует подключение к серверу\nВозможно в будущем можно будет изменять в настройках строку подключения, а пока можно только выйти из программы" )== MessageBoxResult.Yes)
+            if(MessageBox.Show("Отсутствует подключение к серверу\nВозможно в будущем можно будет изменять в настройках строку подключения, а пока можно только выйти из программы", )== MessageBoxResult.Yes)
             {
-                System.Windows.Application.Current.Shutdown();
+               
             }
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }
