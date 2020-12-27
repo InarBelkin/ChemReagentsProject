@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ChemReagentsProject.Pages.WinMain
+namespace ChemReagentsProject.ViewModel
 {
     partial class MainVM
     {
