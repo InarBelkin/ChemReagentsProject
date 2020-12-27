@@ -24,13 +24,19 @@ namespace DAL.Repository
             //List<Reagent> d = db2.Reagents.ToList();
 
             // db.Supplies.Load();
+
+            List<Reagent> a;
             try
             {
-                List<Reagent> a = db.Reagents.ToList();
+               a = db.Reagents.ToList();
             }
             catch
             {
                 throw new Exception("asdf");
+            }
+            finally
+            {
+
             }
 
             //Supply s = a[0].Supplies[0];
