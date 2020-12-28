@@ -8,11 +8,11 @@
         Title="WinEditSupplies" Height="450" Width="800" MinHeight="450">
     <Window.Resources>
         <Style    TargetType="TextBlock"   BasedOn="{StaticResource ColumnEdit}" />
-        <Style    TargetType="TextBox"   BasedOn="{StaticResource ColumnEdit}" />
+        <Style    TargetType="TextBox"   BasedOn="{StaticResource BigText}" />
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" MinWidth="300" MaxWidth="400"/>
+            <ColumnDefinition Width="1*" MinWidth="400" MaxWidth="400" />
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
@@ -38,32 +38,32 @@
             <TextBlock  Grid.Row="0" Grid.Column="2" Text="{Binding SupId}" Margin="36.562,11,98,10"/>
 
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Номер реактива" Margin="15,12,14,10"/>
-            <TextBox Grid.Row="1" Grid.Column="2" Text="0" Margin="20.562,11,82,9" />
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="0" Margin="20.562,11,82,9" />
 
 
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Название реактива" Grid.ColumnSpan="2" Margin="-2,11,60.438,11"/>
             <!--<TextBox Grid.Row="2" Grid.Column="1"  Margin="10" Width="177" Height="33"  />-->
-            <ComboBox  Name="Bombobox" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding ListReag}" SelectedItem="{Binding SelectReag}" DisplayMemberPath="Name" Grid.ColumnSpan="2" Margin="0,0,0,1" />
+            <ComboBox  Name="Bombobox" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding ListReag}" SelectedItem="{Binding SelectReag}" DisplayMemberPath="Name" Grid.ColumnSpan="2" Margin="5"  />
 
             <TextBlock Grid.Row="3" Grid.Column="0" Text="Поставщик" Margin="41,10,41,12"/>
             <!--<TextBox Grid.Row="3" Grid.Column="1"  Margin="10" Width="177" Height="33" />-->
-            <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding ListSuppliers}"  SelectedItem="{Binding SelectSupplier}" DisplayMemberPath="Name" Grid.ColumnSpan="2" Margin="0,46,0,1" Grid.RowSpan="2"/>
+            <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding ListSuppliers}"  SelectedItem="{Binding SelectSupplier}" DisplayMemberPath="Name" Grid.ColumnSpan="2" Margin="5"/>
 
             <TextBlock Grid.Row="4" Grid.Column="0" Text="Дата поставки" Margin="24,10,23,12"/>
             <!--<TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SupDTBeg}" Margin="10" Width="177" Height="33" />-->
-            <DatePicker x:Name="CalendB" Grid.Row="3" Grid.Column="1"  SelectedDate="{Binding SupDTBeg}" Grid.ColumnSpan="2" Margin="0,46,0,1" Grid.RowSpan="2"  />
+            <DatePicker x:Name="CalendB" Grid.Row="4" Grid.Column="1"  SelectedDate="{Binding SupDTBeg}" Grid.ColumnSpan="2"    />
 
 
             <TextBlock Grid.Row="5" Grid.Column="0" Text="Годен до" Margin="52,10,52,11"/>
             <!--<TextBox Grid.Row="5" Grid.Column="1"  Text="{Binding SupDTEnd}" Margin="10" Width="177" Height="33" />-->
-            <DatePicker x:Name="Calend" Grid.Row="4" Grid.Column="1"  SelectedDate="{Binding SupDTEnd}" Grid.ColumnSpan="2" Margin="0,46,0,1" Grid.RowSpan="2" />
+            <DatePicker x:Name="Calend" Grid.Row="5" Grid.Column="1"  SelectedDate="{Binding SupDTEnd}" Grid.ColumnSpan="2" />
 
             <TextBlock Grid.Row="6" Grid.Column="0" Text="Количество" Margin="39,10,38,12"/>
-            <TextBox Grid.Row="6" Grid.Column="1"  Margin="10,6,10,8" Width="177" Height="33" Text="{Binding SupAmount}" Grid.ColumnSpan="2"/>
+            <TextBox Grid.Row="6" Grid.Column="1"  Margin="5" Height="33" Text="{Binding SupAmount}" Grid.ColumnSpan="2"/>
 
-            <TextBlock Grid.Row="7" Grid.Column="0" Text="Остаток" Margin="57,10,57,11.556"/>
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="Остаток" />
 
-            <TextBlock Grid.Row="7" Grid.Column="1"  Margin="10,7,10,6.556" Width="177" Height="33" Grid.ColumnSpan="2" Text="{Binding Remainder}" />
+            <TextBlock Grid.Row="7" Grid.Column="1" Margin="5" Width="177" Height="33" Grid.ColumnSpan="2" Text="{Binding Remainder}" />
 
             <Button Grid.Row="8" Grid.Column="0" Margin="10,10.444,10,9.556" Content="Сохранить" Command="{Binding ComButton}" CommandParameter="Save"/>
             <Button x:Name="butto" Grid.Row="8" Grid.Column="1" Margin="10,10.444,10,9.556" Content="Отмена"  Command="{Binding ComButton}" CommandParameter="Cancel" Grid.ColumnSpan="2" />

@@ -78,6 +78,29 @@ namespace BLL.Services
             return ret;
         }
 
+        public ObservableCollection<SolutionM> GetListbyDate(DateTime start, DateTime end)
+        {
+            ObservableCollection<SolutionM> ret = new ObservableCollection<SolutionM>();
+            foreach (Solution ss in db.Solutions.GetList())
+            {
+                if(ss.Date_Begin>=start && ss.Date_Begin<=end)
+                {
+                    var s = new SolutionM(ss);
+                    if (s.ConcentrationId != null)
+                    {
+                        Concentration c = db.Concentrations.GetItem((int)s.ConcentrationId);
+                        Solution_recipe sr = db.Solution_Recipes.GetItem(c.SolutionRecipeId);
+                        s.SolutionRecipeId = sr.Id;
+                        s.ConcentrName = c.Name;
+                        s.RecipeName = sr.Name;
+                    }
+                    ret.Add(s);
+                }
+
+            }
+            return ret;
+
+        }
 
 
         public Exception Update(SolutionM item)

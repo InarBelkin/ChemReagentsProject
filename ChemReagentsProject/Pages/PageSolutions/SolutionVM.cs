@@ -28,6 +28,8 @@ namespace ChemReagentsProject.Pages.PageSolutions
             InarService.ReagentChange += InarService_ReagentChange;
             InarService.SupplyChange += InarService_SupplyChange;
             InarService.SolLineTextChange += InarService_SolLineTextChange;
+            startDate = DateTime.Now.AddDays(-7);
+            endDate = DateTime.Now.AddDays(1);
         }
 
         private void InarService_SolLineTextChange(object sender, string e)
@@ -86,7 +88,8 @@ namespace ChemReagentsProject.Pages.PageSolutions
         {
             get
             {
-                solutionList = dbOp.Solutions.GetList();
+                //solutionList = dbOp.Solutions.GetList();
+                solutionList = dbOp.Solutions.GetListbyDate(StartDate, EndDate);
                 foreach (SolutionM s in solutionList)
                 {
                     s.PropertyChanged += Solution_PropertyChanged;
@@ -336,6 +339,30 @@ namespace ChemReagentsProject.Pages.PageSolutions
                     //var c = rep.SupplyByReagOnlyActual(1, DateTime.Now);
 
                 }));
+            }
+        }
+
+        private DateTime startDate;
+        public DateTime StartDate
+        {
+            get => startDate;
+            set
+            {
+                startDate = value;
+                OnPropertyChanged("StartDate");
+                OnPropertyChanged("SolutionList");
+            }
+        }
+
+        private DateTime endDate;
+        public DateTime EndDate
+        {
+            get => endDate;
+            set
+            {
+                endDate = value;
+                OnPropertyChanged("EndDate");
+                OnPropertyChanged("SolutionList");
             }
         }
 

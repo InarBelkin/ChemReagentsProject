@@ -6,30 +6,43 @@
              xmlns:local="clr-namespace:ChemReagentsProject.Pages.PageSolutions"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="Gray">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Column="1" Width="8" Background="Black" ResizeBehavior="PreviousAndNext" />
-        <DataGrid x:Name="SolutionsDG" ItemsSource="{Binding SolutionList}"  SelectedItem="{Binding SelectSolution,Mode=OneWayToSource}"  AutoGenerateColumns="False"  >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
-                <DataGridTextColumn  Header="Рецепт" Binding="{Binding ConcentrName}" IsReadOnly="True"/>
-                <DataGridTextColumn  Header="Концентрация"  Binding="{Binding RecipeName}"  IsReadOnly="True"/>
-                <DataGridTextColumn Header="Дата изготовления" Binding="{Binding Date_Begin}"/>
-                <DataGridTextColumn Header="Годен до" />
-                <DataGridTemplateColumn Header="Изменить рецепт">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button x:Name="ChangeRec" Content="Сменить рецепт" Click="ChangeRec_Click"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <DatePicker Width="200" HorizontalAlignment="Left" SelectedDate="{Binding StartDate}" />
+            <DatePicker Width="200" HorizontalAlignment="Left" Margin="230,0,0,0" SelectedDate="{Binding EndDate}"/>
 
-            </DataGrid.Columns>
-        </DataGrid>
+            <DataGrid Grid.Row="1" x:Name="SolutionsDG" ItemsSource="{Binding SolutionList}"  SelectedItem="{Binding SelectSolution,Mode=OneWayToSource}"  AutoGenerateColumns="False"  >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
+                    <DataGridTextColumn  Header="Рецепт" Binding="{Binding RecipeName}" IsReadOnly="True"/>
+                    <DataGridTextColumn  Header="Концентрация"   Binding="{Binding ConcentrName}"  IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Дата изготовления" Binding="{Binding Date_Begin, StringFormat=dd.MM.yyyy}"/>
+                    <DataGridTextColumn Header="Годен до" />
+                    <DataGridTemplateColumn Header="Изменить рецепт">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="ChangeRec" Content="Сменить рецепт" Click="ChangeRec_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+       
 
 
         <DataGrid Grid.Column ="2" ItemsSource="{Binding SolutLineList}"  SelectedItem="{Binding SelectLine,Mode=OneWayToSource}"  AutoGenerateColumns="False">
