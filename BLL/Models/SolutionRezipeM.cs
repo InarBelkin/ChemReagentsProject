@@ -94,6 +94,10 @@ namespace BLL.Models
             set { units = value;OnPropertyChanged(); }
         }
 
+       
+
+        private string reactiveName;
+        public string ReactiveName { get => reactiveName; set => reactiveName = value; }
 
 
         public SolutRezLineM() { }
@@ -106,6 +110,7 @@ namespace BLL.Models
             if (s.Reagent != null)
             {
                 Units = s.Reagent.units;
+                reactiveName = s.Reagent.Name;
             }
 
         }

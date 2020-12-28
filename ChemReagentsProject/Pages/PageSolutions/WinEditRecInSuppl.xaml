@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:ChemReagentsProject.Pages.PageSolutions"
         mc:Ignorable="d"
         Title="WinEditRecInSuppl" Height="450" Width="800">
+    <Window.Resources>
+        <Style    TargetType="TextBlock"   BasedOn="{StaticResource ColumnEdit}" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -17,9 +20,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
-            <ComboBox x:Name="RecipeCB" Height="30" VerticalAlignment="Top" ItemsSource="{Binding ListRecip}" SelectedItem="{Binding SelectRecip}" DisplayMemberPath="Name"/>
-            <ComboBox  x:Name="ConcentrCB"  Height="30" VerticalAlignment="Top" Grid.Column="1" ItemsSource="{Binding ListConcent}" SelectedItem="{Binding SelectConcent}" DisplayMemberPath="Name"/>
+            <TextBlock Height="30" VerticalAlignment="Top" Text="Раствор"/>
+            <TextBlock Grid.Column="1" Height="30" VerticalAlignment="Top" Text="Концентрация"/>
+
+            <ComboBox x:Name="RecipeCB" Height="30" VerticalAlignment="Top" ItemsSource="{Binding ListRecip}" SelectedItem="{Binding SelectRecip}" DisplayMemberPath="Name" Margin="0,30,0,0"/>
+            <ComboBox  x:Name="ConcentrCB"  Height="30" VerticalAlignment="Top" Grid.Column="1" ItemsSource="{Binding ListConcent}" SelectedItem="{Binding SelectConcent}" DisplayMemberPath="Name" Margin="0,30,0,0"/>
 
             <TextBox Height="30" VerticalAlignment="Bottom" Margin="10" Text="{Binding SoloRecipeName}"/>
             <TextBox Grid.Column="1" Height="30" VerticalAlignment="Bottom" Margin="10" Text="{Binding SoloConcentrName}" />
@@ -35,7 +40,14 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <DataGrid Grid.ColumnSpan="3"  ItemsSource="{Binding ListRecLine}">
+            <DataGrid Grid.ColumnSpan="3"  ItemsSource="{Binding ListRecLine}" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Реактив" Binding="{Binding ReactiveName}"></DataGridTextColumn>
+                    <!--<DataGridComboBoxColumn x:Name="column"   SelectedValueBinding="{Binding ReagentId }" Header="Реактив" DisplayMemberPath="Name" SelectedValuePath="Id"/>-->
+                    <DataGridTextColumn Header="Количество" Binding="{Binding Count}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Единицы измерения" Binding="{Binding Units}"></DataGridTextColumn>
+                </DataGrid.Columns>
 
             </DataGrid>
 
@@ -44,6 +56,6 @@
             <Button Grid.Column="2" Grid.Row="2" Content="Отмена" Command="{Binding ComButton}" CommandParameter="Cancel"/>
 
         </Grid>
-       
+
     </Grid>
 </Window>
