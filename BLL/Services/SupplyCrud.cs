@@ -24,22 +24,28 @@ namespace BLL.Services
 
         public Exception Create(SupplyM s)
         {
-            db.Supplies.Create(new Supply()
-            {
-                Id = s.Id,
-                ReagentId = s.ReagentId,
-                SupplierId = s.SupplierId,
-                Date_Begin = s.Date_Begin,
-                Date_End = s.Date_End,
-                State = (byte)s.State,
-                count = s.Count
-            }); ;
+            Supply nsup = s.getDal();
+            //db.Supplies.Create(new Supply()
+            //{
+            //    Id = s.Id,
+            //    ReagentId = s.ReagentId,
+            //    SupplierId = s.SupplierId,
+            //    Date_Begin = s.Date_Begin,
+            //    Date_End = s.Date_End,
+            //    State = (byte)s.State,
+            //    count = s.Count
+            //}); ;
+            db.Supplies.Create(nsup);
             var ex1 = Save();
+            //var list = db.Supplies.GetList();
+            //var it = db.Supplies.GetItem(nsup.Id);
+
             if (ex1 != null)
             {
-                db.Supplies.Delete(s.Id);
+                db.Supplies.Delete(nsup.Id);
                 var ex2 = Save();
-                if (ex2 != null) return new AddEditExeption("При создании произошла ошибка, которую не удалось исправить.", ex2);
+               // var it2 = db.Supplies.GetItem(nsup.Id);
+                if (ex2 != null) return new AddEditExeption("При создании поставки произошла ошибка, которую не удалось исправить.", ex2);
                 else return new AddEditExeption("Не удалось создать поставку", ex1);
             }
             else return null;

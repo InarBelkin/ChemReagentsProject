@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using BLL.Additional;
+using BLL.Interfaces;
 using BLL.Models;
 using DAL.Interfaces;
 using DAL.Tables;
@@ -20,11 +21,19 @@ namespace BLL.Services
             db = dbRepos;
         }
 
-        public void Create(SolutionLineM item)
+        public Exception Create(SolutionLineM item)
         {
             Solution_line s = item.getDal();
             db.Solution_Lines.Create(s);
-            Save();
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                db.Solution_Lines.Delete(s.Id);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption("При создании строки раствора произошла ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось создать строку раствора", ex1);
+            }
+            else return null;
         }
 
         public void Delete(int id)
@@ -52,18 +61,28 @@ namespace BLL.Services
             return ret;
         }
 
-        public void Update(SolutionLineM item)
+        public Exception Update(SolutionLineM item)
         {
             Solution_line l = db.Solution_Lines.GetItem(item.Id);
+            SolutionLineM back = new SolutionLineM(l);
             item.updDal(l);
             db.Solution_Lines.Update(l);
-            Save();
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                back.updDal(l);
+                db.Solution_Lines.Update(l);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption("При изменении строки раствора произошла ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось изменить строку раствора", ex1);
+            }
+            return null;
         }
 
-        int Save()
+        public Exception Save()
         {
-            throw new NotImplementedException();
-            //return db.Save();
+            return db.Save();
+
         }
 
         public ObservableCollection<SolutionLineM> SolutionLineBySolut(int SolutId)

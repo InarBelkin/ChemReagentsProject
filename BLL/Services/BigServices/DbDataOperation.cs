@@ -52,12 +52,6 @@ namespace BLL.Services
 
         public ICrudRepos<ConsumptionM> Consumptions => consump ?? (consump = new ConsumptionCrud(db));
 
-        public bool Save()
-        {
-            //if (db.Save() > 0) return true;
-            //else return false;
-            throw new NotImplementedException();
-            //return db.Save() > 0;
-        }
+      
     }
 }

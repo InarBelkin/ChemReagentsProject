@@ -11,8 +11,8 @@ namespace BLL.Interfaces
     {
         ObservableCollection<T> GetList();
         T GetItem(int id);
-        void Create(T item);
-        void Update(T item);
+        Exception Create(T item);
+        Exception Update(T item);
         void Delete(int id);
     }
 }

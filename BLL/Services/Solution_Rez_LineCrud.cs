@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DAL.Tables;
 using DAL.Interfaces;
 using System.Collections.ObjectModel;
+using BLL.Additional;
 
 namespace BLL.Services
 {
@@ -19,11 +20,19 @@ namespace BLL.Services
         {
             db = dbRepos;
         }
-        public void Create(SolutRezLineM item)
+        public Exception Create(SolutRezLineM item)
         {
             Solution_recipe_line l = item.getDal();
             db.Solution_Rezipe_Line.Create(l);
-            Save();
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                db.Solution_Rezipe_Line.Delete(l.Id);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption("При создании строки рецепта произошла ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось создать строку рецепта", ex1);
+            }
+            else return null;
         }
 
         public void Delete(int id)
@@ -66,18 +75,29 @@ namespace BLL.Services
             }
         }
 
-        public void Update(SolutRezLineM item)
+        public Exception Update(SolutRezLineM item)
         {
             Solution_recipe_line l = db.Solution_Rezipe_Line.GetItem(item.Id);
+            SolutRezLineM back = new SolutRezLineM(l);
             item.updDal(l);
             db.Solution_Rezipe_Line.Update(l);
-            Save();
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                back.updDal(l);
+                db.Solution_Rezipe_Line.Update(l);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption("При изменении строки рецепта произошла ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось изменить строку рецепта", ex1);
+            }
+            return null;
         }
 
-        int Save()
+        public Exception Save()
         {
-            throw new NotImplementedException();
-           // return db.Save();
+
+            return db.Save();
+
         }
     }
 }

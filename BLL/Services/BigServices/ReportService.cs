@@ -75,7 +75,7 @@ namespace BLL.Services
                     ret.Add(s);
                 }
             }
-            ret.Sort( new SupplDateComparer());
+            ret.Sort(new SupplDateComparer());
 
 
             ObservableCollection<SupplyM> rets = new ObservableCollection<SupplyM>(ret);
@@ -85,7 +85,7 @@ namespace BLL.Services
         /// <summary>
         /// Удаляет старое содержание этого раствора и устанавливает новый рецепт(id рецепта-концентрации уже должно быть в нём)
         /// </summary>
-        public void AcceptRecipe(int SolutId, DateTime NowDate)
+        public Exception AcceptRecipe(int SolutId, DateTime NowDate)
         {
             db.Reports.AcceptRecipe(SolutId);   //удалили лишнее
             Solution solut = db.Solutions.GetItem(SolutId);
@@ -100,13 +100,13 @@ namespace BLL.Services
                         if (listsuppl.Count != 0)                           //Надо учесть ещё и оставшееся там количество
                         {
                             bool b = false;
-                            foreach(SupplyM sup in listsuppl)
+                            foreach (SupplyM sup in listsuppl)
                             {
-                                if(sup.Count-GetSupplyStrings(sup.Id).Summ <=0)
+                                if (sup.Count - GetSupplyStrings(sup.Id).Summ <= 0)
                                 {
                                     continue;
                                 }
-                                else if(sup.Count-GetSupplyStrings(sup.Id).Summ-srl.Count<0)
+                                else if (sup.Count - GetSupplyStrings(sup.Id).Summ - srl.Count < 0)
                                 {
                                     db.Solution_Lines.Create(new Solution_line()
                                     {
@@ -126,13 +126,13 @@ namespace BLL.Services
                                         SolutionId = solut.Id,
                                         NameOtherComponent = "",
                                         SupplyId = sup.Id,
-                                        Count =srl.Count,
+                                        Count = srl.Count,
                                     });
                                     b = true;
                                     break;
                                 }
                             }
-                            if(!b) MessageBox.Show("Для реактива " + srl.Reagent.Name + "нет поставок с количеством>0");
+                            if (!b) MessageBox.Show("Для реактива " + srl.Reagent.Name + "нет поставок с количеством>0");
                         }
                         else
                         {
@@ -143,8 +143,15 @@ namespace BLL.Services
                 }
             }
             db.Solutions.Update(solut);
-            throw new NotImplementedException();
-            db.Save(out _);
+
+            var saveEx = db.Save();
+            if (saveEx != null)
+            {
+                AddEditExeption except = new AddEditExeption("Ошибка при применении рецепта", saveEx);
+                return except;
+            }
+            else return null;
+
         }
 
         public ObservableCollection<ConcentrationM> ConcentrbyRecipe(int RecipeId)
@@ -189,7 +196,7 @@ namespace BLL.Services
         /// <summary>
         /// Получает все расходы этого реактива и сумму этих расходов, если указать solutionline, она не будет учитываться
         /// </summary>
-        public (List<SupplyStringM>, float Summ) GetSupplyStrings(int SupplId, int SolutLineId=-1)  //ещё сортировку надо
+        public (List<SupplyStringM>, float Summ) GetSupplyStrings(int SupplId, int SolutLineId = -1)  //ещё сортировку надо
         {
             List<SupplyStringM> ret = new List<SupplyStringM>();
             db.Solutions.GetList();
@@ -201,7 +208,7 @@ namespace BLL.Services
             {
                 foreach (Solution_line sl in s.Solution_Lines)
                 {
-                    if(sl.Id!=SolutLineId)  //не нужно брать выбранную линию
+                    if (sl.Id != SolutLineId)  //не нужно брать выбранную линию
                     {
                         SupplyStringM a = new SupplyStringM(sl);
                         ret.Add(a);
@@ -237,7 +244,7 @@ namespace BLL.Services
                 if (s.State != (byte)SupplStates.WriteOff)  //состояние не должно быть списанное
                 {
                     var getstr = GetSupplyStrings(s.Id);
-                    if (s.Date_End < end ) //если протух или количество==0, списываем
+                    if (s.Date_End < end) //если протух или количество==0, списываем
                     {
                         float sum = 0;
                         foreach (SupplyStringM ss in getstr.Item1)

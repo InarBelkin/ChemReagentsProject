@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using BLL.Additional;
+using BLL.Interfaces;
 using BLL.Models;
 using DAL.Interfaces;
 using DAL.Tables;
@@ -20,11 +21,19 @@ namespace BLL.Services
             db = dbRepos;
         }
 
-        public void Create(SolutionM item)
+        public Exception Create(SolutionM item)
         {
             Solution s = item.getDal();
             db.Solutions.Create(s);
-            Save();
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                db.Solutions.Delete(item.Id);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption("При создании раствора произошла ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось создать раствор", ex1);
+            }
+            else return null;
         }
 
         public void Delete(int id)
@@ -71,19 +80,31 @@ namespace BLL.Services
 
 
 
-        public void Update(SolutionM item)
+        public Exception Update(SolutionM item)
         {
             
             Solution s = db.Solutions.GetItem(item.Id);
+            SolutionM back = new SolutionM(s);
             item.updDal(s);
             db.Solutions.Update(s);
-            Save();
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                back.updDal(s);
+                db.Solutions.Update(s);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption("При изменении раствора произошла ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось изменить раствор", ex1);
+            }
+            return null;
+
         }
 
-        private int Save()
+        public Exception Save()
         {
-            throw new NotImplementedException();
-            //return db.Save();
+
+            return db.Save();
+
         }
     }
 }

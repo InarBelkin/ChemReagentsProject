@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using BLL.Additional;
+using BLL.Interfaces;
 using BLL.Models;
 using DAL.Interfaces;
 using DAL.Tables;
@@ -20,7 +21,7 @@ namespace BLL.Services
             db = dbRepos;
         }
 
-        public void Create(SupplierM item)
+        public Exception Create(SupplierM item)
         {
             Supplier s = new Supplier()
             {
@@ -29,7 +30,15 @@ namespace BLL.Services
             };
 
             db.Suppliers.Create(s);
-            Save();
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                db.Suppliers.Delete(s.Id);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption("При создании поставщика произошла ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось создать поставщика", ex1);
+            }
+            else return null;
         }
 
         public void Delete(int id)
@@ -53,19 +62,33 @@ namespace BLL.Services
             return ret;
         }
 
-        public void Update(SupplierM item)
+        public Exception Update(SupplierM item)
         {
             Supplier s = db.Suppliers.GetItem(item.Id);
+            SupplierM back = new SupplierM(s);
             s.Id = item.Id;
             s.Name = item.Name;
             db.Suppliers.Update(s);
-            Save();
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                back.updDal(s);
+                db.Suppliers.Update(s);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption("При изменении поставщика произошла ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось изменить поставщика", ex1);
+            }
+
+
+            return null;
         }
 
-        int Save()
+        public Exception Save()
         {
-            throw new NotImplementedException();
-            //return db.Save();
+
+            return db.Save();
+
         }
     }
 }
+

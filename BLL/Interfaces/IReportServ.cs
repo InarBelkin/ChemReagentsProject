@@ -18,6 +18,6 @@ namespace BLL.Interfaces
         (List<SupplyStringM>, float Summ) GetSupplyStrings(int SupplId, int SolutLineId=-1);
       //  (List<SupplyStringM>, float Summ) GetSupplyStringsWithoutSolutLine(int SupplId);
         List<MonthReportM> GetMonthReport(DateTime start, DateTime end);
-        void AcceptRecipe(int SolutId, DateTime NowDate);
+        Exception AcceptRecipe(int SolutId, DateTime NowDate);
     }
 }

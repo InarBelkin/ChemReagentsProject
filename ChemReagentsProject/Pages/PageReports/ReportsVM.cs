@@ -17,11 +17,12 @@ namespace ChemReagentsProject.Pages.PageReports
     {
         IDbCrud dbOp;
         IReportServ rep;
+        bool isSaved;
         public ReportsVM(IDbCrud cr, IReportServ report)
         {
             dbOp = cr;
             rep = report;
-
+            isSaved = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,6 +38,7 @@ namespace ChemReagentsProject.Pages.PageReports
             {
                 return generateCommand ?? (generateCommand = new RelayCommand(obj =>
                 {
+                    isSaved = false;
                     GenerateReport();
                    
                 }));
@@ -68,7 +70,7 @@ namespace ChemReagentsProject.Pages.PageReports
             }
         }
 
-        static void DisplayInExcel(List<MonthReportM> accounts)
+        void DisplayInExcel(List<MonthReportM> accounts)
         {
             var excelApp = new Excel.Application();
             // Make the object visible.
@@ -99,9 +101,45 @@ namespace ChemReagentsProject.Pages.PageReports
             workSheet.Columns[2].AutoFit();
             workSheet.Columns[3].AutoFit();
 
-           
+            isSaved = true;
 
         }
+
+
+        private RelayCommand writeOff;
+        public RelayCommand WriteOff
+        {
+            get
+            {
+                return writeOff ?? (writeOff = new RelayCommand(obj =>
+                {
+                    if(ReportList == null)
+                    {
+                        MessageBox.Show("Сначала сгенерируйте отчёт");
+                    }
+                    else if(!isSaved)
+                    {
+                        MessageBox.Show("Сначала сохраните отчёт");
+                    }
+                    else
+                    {
+                        foreach( var s in ReportList)
+                        {
+                            dbOp.Supplies.GetItem(s.SupplyId);
+
+                        }
+                    }
+
+
+
+                  
+
+
+                }));
+            }
+        }
+
+
 
 
         private DateTime repBeg;

@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using BLL.Additional;
+using BLL.Interfaces;
 using BLL.Models;
 using DAL.Interfaces;
 using DAL.Tables;
@@ -20,11 +21,19 @@ namespace BLL.Services
             db = dbRepos;
         }
 
-        public void Create(ConcentrationM item)
+        public Exception Create(ConcentrationM item)
         {
             Concentration c = item.getDal();
             db.Concentrations.Create(c);
-            Save();
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                db.Concentrations.Delete(c.Id);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption("При создании поставки произошла ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось создать поставку", ex1);
+            }
+            else return null;
         }
 
         public void Delete(int id)
@@ -48,18 +57,31 @@ namespace BLL.Services
             return ret;
         }
 
-        public void Update(ConcentrationM item)
+        public Exception Update(ConcentrationM item)
         {
             Concentration c = db.Concentrations.GetItem(item.Id);
+            ConcentrationM back = new ConcentrationM(c);
             item.updDal(c);
             db.Concentrations.Update(c);
-            Save();
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                back.updDal(c);
+                db.Concentrations.Update(c);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption("При изменении концентрации произошла ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось изменить концентрацию", ex1);
+            }
+
+
+            return null;
         }
 
-        int Save()
+        public Exception Save()
         {
-            throw new NotImplementedException();
-            //return db.Save();
+
+            return db.Save();
+
         }
     }
 }

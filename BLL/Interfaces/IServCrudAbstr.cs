@@ -1,4 +1,5 @@
-﻿using DAL.Interfaces;
+﻿using BLL.Additional;
+using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +13,8 @@ namespace BLL.Interfaces
     {
         protected IDbRepos db;
         protected IRepository<DM> dbIn;
+        protected abstract string GetExString(int num);
+      
 
         public IServCrudAbstr(IDbRepos repos, IRepository<DM> repIn)
         {
@@ -19,11 +22,19 @@ namespace BLL.Interfaces
             dbIn = repIn;
         }
 
-        public virtual void Create(M item)
+        public virtual Exception Create(M item)
         {
             DM cl = item.getDal();
             dbIn.Create(cl);
-            Save();
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                dbIn.Delete(item.Id);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption(GetExString(0), ex2);
+                else return new AddEditExeption(GetExString(1), ex1);
+            }
+            else return null;
         }
 
         public virtual void Delete(int id)
@@ -38,18 +49,19 @@ namespace BLL.Interfaces
         public abstract ObservableCollection<M> GetList();
 
 
-        public virtual void Update(M item)
-        {
-            DM s = dbIn.GetItem(item.Id);
-            item.updDal(s);
-            dbIn.Update(s);
-            Save();
-        }
+        public abstract Exception Update(M item);
+        //{
+        //    DM s = dbIn.GetItem(item.Id);
+            
+        //    item.updDal(s);
+        //    dbIn.Update(s);
+        //    Save();
+        //}
 
-        protected virtual int Save()
+        protected virtual Exception Save()
         {
-            throw new NotImplementedException();
-            //return db.Save();
+            return db.Save();
+           
         }
     }
 }

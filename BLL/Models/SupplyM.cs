@@ -86,7 +86,7 @@ namespace BLL.Models
         public Supply getDal()
         {
             Supply sup = new Supply();
-
+            sup.Id = Id;
             sup.ReagentId = ReagentId;
             sup.SupplierId =SupplierId;
             sup.Date_Begin = Date_Begin;
@@ -98,6 +98,7 @@ namespace BLL.Models
 
         public void updDal(Supply sup)
         {
+            sup.Id = Id;
             sup.ReagentId = ReagentId;
             sup.SupplierId = SupplierId;
             sup.Date_Begin = Date_Begin;

@@ -5,10 +5,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using BLL.Interfaces;
 using DAL.Tables;
 namespace BLL.Models
 {
-    public class ReagentM : INotifyPropertyChanged
+    public class ReagentM : INotifyPropertyChanged , IModel<Reagent>
     {
         private int id;
         private string name;
@@ -62,6 +63,22 @@ namespace BLL.Models
         private void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public Reagent getDal()
+        {
+            Reagent ret = new Reagent();
+            ret.Id = Id;
+            ret.Name = name;
+            ret.units = units;
+            return ret;
+        }
+
+        public void updDal(Reagent item)
+        {
+            item.Id = Id;
+            item.Name = name;
+            item.units = units;
         }
     }
 }

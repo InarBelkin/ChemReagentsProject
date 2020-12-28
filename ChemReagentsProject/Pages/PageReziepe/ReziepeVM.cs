@@ -58,7 +58,8 @@ namespace ChemReagentsProject.Pages.PageReziepe
         private void RecipePropCh(object sender, PropertyChangedEventArgs e)
         {
             SolutionRezipeM s = sender as SolutionRezipeM;
-            dbOp.SolutRecipes.Update(s);
+            var ex = dbOp.SolutRecipes.Update(s);
+            if (ex != null) MessageBox.Show(ex.Message);
         }
 
         private void RecipeList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -67,7 +68,8 @@ namespace ChemReagentsProject.Pages.PageReziepe
             {
                 case NotifyCollectionChangedAction.Add:
                     SolutionRezipeM newreag = new SolutionRezipeM();
-                    dbOp.SolutRecipes.Create(newreag);
+                    var ex = dbOp.SolutRecipes.Create(newreag);
+                    if (ex != null) MessageBox.Show(ex.Message);
                     OnPropertyChanged("RecipeList");
                     break;
                 case NotifyCollectionChangedAction.Remove:
@@ -145,12 +147,13 @@ namespace ChemReagentsProject.Pages.PageReziepe
             {
                 case NotifyCollectionChangedAction.Add:
                     ConcentrationM newconc = new ConcentrationM() { SolutionRecipeId = selectRecipe.Id };
-                    dbOp.Concentrations.Create(newconc);
+                    var ex = dbOp.Concentrations.Create(newconc);
+                    if (ex != null) MessageBox.Show(ex.Message);
                     OnPropertyChanged("ConcentrList");
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     QuestWin win = new QuestWin("Вы точно хотите удалить эту концетрацию?");
-                    if(win.ShowDialog()==true)
+                    if (win.ShowDialog() == true)
                     {
                         dbOp.Concentrations.Delete((e.OldItems[0] as ConcentrationM).Id);
                     }
@@ -166,7 +169,8 @@ namespace ChemReagentsProject.Pages.PageReziepe
         {
             if (sender is ConcentrationM c)
             {
-                dbOp.Concentrations.Update(c);
+                var ex =dbOp.Concentrations.Update(c);
+                if (ex != null) MessageBox.Show(ex.Message);
             }
         }
 
@@ -179,9 +183,9 @@ namespace ChemReagentsProject.Pages.PageReziepe
             }
             set
             {
-                if(value is ConcentrationM c)
+                if (value is ConcentrationM c)
                 {
-                    if(c.Id!=0)
+                    if (c.Id != 0)
                     {
                         page.SetItemSource(ReagentList);
                         selectConcentr = c;
@@ -224,7 +228,8 @@ namespace ChemReagentsProject.Pages.PageReziepe
         {
             if (sender is SolutRezLineM L)
             {
-                dbOp.SolutRecLines.Update(L);
+                var ex =dbOp.SolutRecLines.Update(L);
+                if (ex != null) MessageBox.Show(ex.Message);
             }
         }
 
@@ -237,7 +242,8 @@ namespace ChemReagentsProject.Pages.PageReziepe
                     if (ReagentList.Count > 0)
                     {
                         SolutRezLineM newline = new SolutRezLineM() { ReagentId = dbOp.Reagents.GetList()[0].Id, ConcentrationId = SelectConcentr.Id };
-                        dbOp.SolutRecLines.Create(newline);
+                        var ex = dbOp.SolutRecLines.Create(newline);
+                        if (ex != null) MessageBox.Show(ex.Message);
                         OnPropertyChanged("RecipeLineList");
                     }
                     else

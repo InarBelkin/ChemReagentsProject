@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using BLL.Additional;
+using BLL.Interfaces;
 using BLL.Models;
 using DAL.Interfaces;
 using DAL.Tables;
@@ -20,11 +21,19 @@ namespace BLL.Services
             db = dbRepos;
         }
 
-        public void Create(SolutionRezipeM item)
+        public Exception Create(SolutionRezipeM item)
         {
             Solution_recipe s = item.getDal();
             db.Solution_Recipes.Create(s);
-            Save();
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                db.Solution_Recipes.Delete(s.Id);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption("При создании рецепта ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось создать рецепт", ex1);
+            }
+            else return null;
         }
 
         public void Delete(int id)
@@ -48,19 +57,27 @@ namespace BLL.Services
             return ret;
         }
 
-        public void Update(SolutionRezipeM item)
+        public Exception Update(SolutionRezipeM item)
         {
             Solution_recipe s = db.Solution_Recipes.GetItem(item.Id);
-            
+            SolutionRezipeM back = new SolutionRezipeM(s);
             item.updDal(s);
             db.Solution_Recipes.Update(s);
-            Save();
+            var ex1 = Save();
+            if (ex1 != null)
+            {
+                back.updDal(s);
+                db.Solution_Recipes.Update(s);
+                var ex2 = Save();
+                if (ex2 != null) return new AddEditExeption("При изменении рецепта произошла ошибка, которую не удалось исправить.", ex2);
+                else return new AddEditExeption("Не удалось изменить рецепт", ex1);
+            }
+            return null;
         }
 
-        int Save()
+        Exception Save()
         {
-            throw new NotImplementedException();
-            //return db.Save();
+            return db.Save();
         }
     }
 }

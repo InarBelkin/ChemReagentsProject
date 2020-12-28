@@ -50,7 +50,9 @@ namespace ChemReagentsProject.ViewModel
         private void Reag_PropCh(object sender, PropertyChangedEventArgs e)
         {
             ReagentM r = sender as ReagentM;
-            dbOp.Reagents.Update(r);
+
+            var ex = dbOp.Reagents.Update(r);
+            if (ex != null) MessageBox.Show(ex.Message);
         }
 
         private void Reagents_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -61,7 +63,8 @@ namespace ChemReagentsProject.ViewModel
                     ReagentM newreag = e.NewItems[0] as ReagentM;
                     if (newreag.Name == null) newreag.Name = "";
                     if (newreag.Units == null) newreag.Units = "";
-                    dbOp.Reagents.Create(newreag);
+                    var ex = dbOp.Reagents.Create(newreag);
+                    if (ex != null) MessageBox.Show(ex.Message);
                     OnPropertyChanged("ReagentList");
                     break;
                 case NotifyCollectionChangedAction.Remove:
@@ -183,14 +186,15 @@ namespace ChemReagentsProject.ViewModel
                             }
                             break;
                         //case "generate":
-                        //    //var a = DateTime.MinValue;
-                        //    //var ex = dbOp.Supplies.Create(new SupplyM() { Count = 10, ReagentId = 100, Date_Begin = new DateTime(1700,12,12), Date_End = new DateTime(1980,12,12) });
+                        //    var a = DateTime.MinValue;
+                        //    var ex = dbOp.Supplies.Create(new SupplyM() { Count = 10, ReagentId = 100, Date_Begin = new DateTime(1700, 12, 12), Date_End = new DateTime(1980, 12, 12) });
 
-                        //    //var ex2 = dbOp.Supplies.Create(new SupplyM() { Count = 10, Date_Begin = DateTime.Now, Date_End = DateTime.Now, ReagentId = 20, State = SupplStates.Active, SupplierId = 1 });
-                        //    var sup = dbOp.Supplies.GetItem(30);
-                        //    sup.Date_Begin = new DateTime(1300, 12, 12);
-                        //    var ex = dbOp.Supplies.Update(sup);
-                        //    break;
+                            //var ex2 = dbOp.Supplies.Create(new SupplyM() { Count = 10, Date_Begin = DateTime.Now, Date_End = DateTime.Now, ReagentId = 20, State = SupplStates.Active, SupplierId = 1 });
+                           
+                            //    var sup = dbOp.Supplies.GetItem(30);
+                            //    sup.Date_Begin = new DateTime(1300, 12, 12);
+                            //    var ex = dbOp.Supplies.Update(sup);
+                            //break;
                         default:
                             break;
                     }

@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ChemReagentsProject.Pages.PageSolutions
 {
@@ -60,7 +61,8 @@ namespace ChemReagentsProject.Pages.PageSolutions
                 WinEditRecInSuppl win = new WinEditRecInSuppl(dbOp, rep, selectSolution);
                 if (win.ShowDialog() == true)
                 {
-                    rep.AcceptRecipe(selectSolution.Id, DateTime.Now);
+                    var saveex=rep.AcceptRecipe(selectSolution.Id, DateTime.Now);
+                    if (saveex != null) MessageBox.Show(saveex.Message);
                     OnPropertyChanged("SolutionList");
 
                 }
@@ -117,7 +119,8 @@ namespace ChemReagentsProject.Pages.PageSolutions
             {
                 case NotifyCollectionChangedAction.Add:
                     SolutionM s = new SolutionM() { Date_Begin = DateTime.Now };
-                    dbOp.Solutions.Create(s);
+                    var ex = dbOp.Solutions.Create(s);
+                    if (ex != null) MessageBox.Show(ex.Message);
                     OnPropertyChanged("SolutionList");
                     break;
                 case NotifyCollectionChangedAction.Remove:
@@ -144,7 +147,9 @@ namespace ChemReagentsProject.Pages.PageSolutions
                 case "Date_Begin":
                 case "RecipeName":
                 case "ConcentrName":
-                    dbOp.Solutions.Update(s);
+
+                    var ex =dbOp.Solutions.Update(s);
+                    if (ex != null) MessageBox.Show(ex.Message);
                     break;
             }
 
@@ -235,12 +240,14 @@ namespace ChemReagentsProject.Pages.PageSolutions
                         case "SolutionId":
                         case "SupplyId":
                         case "NameOtherComp":
-                            dbOp.SolutLines.Update(sl);
+                            var ex =dbOp.SolutLines.Update(sl);
+                            if (ex != null) MessageBox.Show(ex.Message);
                             break;
                         case "Count":   //нужно смотреть, верная ли цифра введена
                             if (sl.SupplyId == null)
                             {
-                                dbOp.SolutLines.Update(sl);
+                                var ex2 =dbOp.SolutLines.Update(sl);
+                                if (ex2 != null) MessageBox.Show(ex2.Message);
                             }
                             else
                             {
@@ -252,7 +259,9 @@ namespace ChemReagentsProject.Pages.PageSolutions
                                         if(countwithoutline>=0)
                                         {
                                             sl.Count = countwithoutline;
-                                            dbOp.SolutLines.Update(sl);
+
+                                            var ex3=dbOp.SolutLines.Update(sl);
+                                            if (ex3 != null) MessageBox.Show(ex3.Message);
                                             OnPropertyChanged("SolutLineList");
                                         }
                                     }
@@ -263,7 +272,8 @@ namespace ChemReagentsProject.Pages.PageSolutions
                                 }
                                 else
                                 {
-                                    dbOp.SolutLines.Update(sl);
+                                    var ex4=dbOp.SolutLines.Update(sl);
+                                    if (ex4 != null) MessageBox.Show(ex4.Message);
                                 }
                             }
                             break;
@@ -285,7 +295,8 @@ namespace ChemReagentsProject.Pages.PageSolutions
                     if (SelectSolution != null)
                     {
                         SolutionLineM sl = new SolutionLineM() { SolutionId = SelectSolution.Id };
-                        dbOp.SolutLines.Create(sl);
+                        var ex =dbOp.SolutLines.Create(sl);
+                        if (ex != null) MessageBox.Show(ex.Message);
                         OnPropertyChanged("SolutLineList");
                     }
 
