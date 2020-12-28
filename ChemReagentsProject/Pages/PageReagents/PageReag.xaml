@@ -19,8 +19,9 @@
                 <DataGridTextColumn Header="№Реактива" Binding="{Binding Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Единицы измерения" Binding="{Binding Units}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Полка"></DataGridTextColumn>
-                <DataGridTextColumn Header="Синонимы"></DataGridTextColumn>
+                <DataGridTextColumn Header="!" IsReadOnly="True" Binding="{Binding Warn}" />
+                <!--<DataGridTextColumn Header="Полка"></DataGridTextColumn>
+                <DataGridTextColumn Header="Синонимы"></DataGridTextColumn>-->
             </DataGrid.Columns>
         </DataGrid>
 
@@ -58,10 +59,19 @@
             </DataGrid>
 
             <Grid  Grid.Row="1">
-                <Button x:Name="button" Content="Изменить/посмотреть" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="180" Height="39" Command="{Binding AddSuppl}" CommandParameter="Edit" />
-                <Button x:Name="button1" Content="Добавить" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Width="180" Height="36" Command="{Binding AddSuppl}" CommandParameter="Add" />
-                <Button x:Name="button2" Content="Button" HorizontalAlignment="Left" Margin="195,19,0,0" VerticalAlignment="Top" Width="60" Height="71" Command="{Binding AddSuppl}" CommandParameter="generate"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
+                <Button x:Name="button" Content="Изменить"  Command="{Binding AddSuppl}" CommandParameter="Edit" Margin="5"  />
+                <Button x:Name="button1" Content="Добавить" Grid.Row="1" Command="{Binding AddSuppl}" CommandParameter="Add"  Margin="5"/>
+                <!--<Button x:Name="button2" Content="Button" HorizontalAlignment="Left" Margin="195,19,0,0" VerticalAlignment="Top" Width="60" Height="71" Command="{Binding AddSuppl}" CommandParameter="generate"/>-->
+                <Button Grid.Column="1" Grid.Row="1" Margin="5" Content="Удалить" Command="{Binding OtherSuppl}" CommandParameter="Delete"/>
 
             </Grid>
         </Grid>

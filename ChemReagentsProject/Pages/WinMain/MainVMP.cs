@@ -9,6 +9,7 @@ using ChemReagentsProject.Pages.PageReagents;
 using ChemReagentsProject.Pages.PageReziepe;
 using ChemReagentsProject.Pages.PageSolutions;
 using ChemReagentsProject.Pages.PageReports;
+using ChemReagentsProject.Pages.PageSuppliers;
 
 namespace ChemReagentsProject.ViewModel
 {
@@ -51,6 +52,11 @@ namespace ChemReagentsProject.ViewModel
         public PageReports PReports
         {
             get => new PageReports(dbOp, rep);
+        }
+
+        public PageSuppliers PSuppliers
+        {
+            get => new PageSuppliers(dbOp, rep);
         }
     }
 }

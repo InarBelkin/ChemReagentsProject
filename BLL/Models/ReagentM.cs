@@ -14,7 +14,7 @@ namespace BLL.Models
         private int id;
         private string name;
         private string units;
-
+        private string warn;
         public int Id
         {
             get { return id; }
@@ -39,6 +39,16 @@ namespace BLL.Models
             set
             {
                 units = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Warn
+        {
+            get => warn;
+            set
+            {
+                warn = value;
                 OnPropertyChanged();
             }
         }

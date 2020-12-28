@@ -2,16 +2,20 @@
 using DAL.Tables;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    public class SupplierM :IModel<Supplier>
+    public class SupplierM :IModel<Supplier> , INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        private string name;
+        public string Name { get =>name; set { name = value;OnPropertyChanged(); } }
+
         public SupplierM() { }
         public SupplierM(Supplier s)
         {
@@ -31,6 +35,11 @@ namespace BLL.Models
         {
             s.Id = Id;
             s.Name = Name;
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 

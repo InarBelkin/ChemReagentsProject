@@ -69,6 +69,9 @@ namespace ChemReagentsProject.ViewModel //Типа изменил
                             NavService.Navigation.Navigate(ThisGuid, PReziepe);
                             //MainWin.ChangePage(PSolutRec);
                             break;
+                        case "Suppliers":
+                            Navigation.Navigate(ThisGuid, PSuppliers);
+                            break;
                         case "Solution":
                             // NavService.Navigation.Navigate(ThisGuid, new PageSolution(dbOp, rep));
                             NavService.Navigation.Navigate(ThisGuid, PSolution);

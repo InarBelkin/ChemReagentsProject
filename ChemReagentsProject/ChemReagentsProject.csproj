@@ -114,6 +114,10 @@
       <DependentUpon>WinEditRecInSuppl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageSolutions\WinEditRecInSupplVM.cs" />
+    <Compile Include="Pages\PageSuppliers\PageSuppliers.xaml.cs">
+      <DependentUpon>PageSuppliers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageSuppliers\SuppliersVM.cs" />
     <Compile Include="Pages\WinEditConsumption\EditConsumptionVM.cs" />
     <Compile Include="Pages\WinEditConsumption\WinEditConsumption.xaml.cs">
       <DependentUpon>WinEditConsumption.xaml</DependentUpon>
@@ -149,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PageSolutions\WinEditRecInSuppl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageSuppliers\PageSuppliers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

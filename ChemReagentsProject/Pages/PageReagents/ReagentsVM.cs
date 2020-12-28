@@ -2,6 +2,7 @@
 using BLL.Models;
 using ChemReagentsProject.Pages;
 using ChemReagentsProject.Pages.PageReagents;
+using ChemReagentsProject.Pages.WinQuestion;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -40,6 +41,27 @@ namespace ChemReagentsProject.ViewModel
                 foreach (ReagentM r in reagentlist)
                 {
                     r.PropertyChanged += Reag_PropCh;
+                    r.Warn = "";
+                    var a = rep.SupplyByReag(r.Id);
+                    if (a != null)
+                    {
+                        foreach (var s in a)
+                        {
+                            if (s.State == SupplStates.SoonToWriteOff && r.Warn == "")
+                            {
+                                r.Warn = "?";
+                            }
+                            else
+                            {
+                                if (s.State == SupplStates.ToWriteOff)
+                                {
+                                    r.Warn = "!";
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
                 }
 
                 return reagentlist;
@@ -189,12 +211,13 @@ namespace ChemReagentsProject.ViewModel
                         //    var a = DateTime.MinValue;
                         //    var ex = dbOp.Supplies.Create(new SupplyM() { Count = 10, ReagentId = 100, Date_Begin = new DateTime(1700, 12, 12), Date_End = new DateTime(1980, 12, 12) });
 
-                            //var ex2 = dbOp.Supplies.Create(new SupplyM() { Count = 10, Date_Begin = DateTime.Now, Date_End = DateTime.Now, ReagentId = 20, State = SupplStates.Active, SupplierId = 1 });
-                           
-                            //    var sup = dbOp.Supplies.GetItem(30);
-                            //    sup.Date_Begin = new DateTime(1300, 12, 12);
-                            //    var ex = dbOp.Supplies.Update(sup);
-                            //break;
+                        //var ex2 = dbOp.Supplies.Create(new SupplyM() { Count = 10, Date_Begin = DateTime.Now, Date_End = DateTime.Now, ReagentId = 20, State = SupplStates.Active, SupplierId = 1 });
+
+                        //    var sup = dbOp.Supplies.GetItem(30);
+                        //    sup.Date_Begin = new DateTime(1300, 12, 12);
+                        //    var ex = dbOp.Supplies.Update(sup);
+                        //break;
+                
                         default:
                             break;
                     }
@@ -207,5 +230,35 @@ namespace ChemReagentsProject.ViewModel
                 }));
             }
         }
+
+
+        private RelayCommand otherSuppl;
+        public RelayCommand OtherSuppl
+        {
+            get
+            {
+                return otherSuppl ?? (otherSuppl = new RelayCommand(obj =>
+                {
+                    switch(obj as string)
+                    {
+                        case "Delete":
+                            if (selectreag != null && selectSuppl!=null)
+                            {
+                                if (new QuestWin("Вообще-то удалять поставки нельзя, но если хочется, то можно").ShowDialog() == true)
+                                {
+                                    dbOp.Supplies.Delete(selectSuppl.Id);
+                                    OnPropertyChanged("SuppliesList");
+                                }
+                            }
+
+                            break;
+                    }
+                }));
+            }
+        }
+
+
+
+
     }
 }
