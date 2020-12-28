@@ -18,13 +18,15 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Header="Id"/>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Имя"/>
-           
+
             </DataGrid.Columns>
 
         </DataGrid>
 
-        <Image Grid.Column="2"/>
-        <Button x:Name="button" Content="Button" Grid.Column="2" HorizontalAlignment="Left" Margin="10,267,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddCommand}"/>
+        <Image Grid.Column="2" Source="Chumardos.jpg" />
+        <TextBlock Grid.Column="2" Text="Тут есть пустое место" VerticalAlignment="Top"  HorizontalAlignment="Center" Height="44" FontSize="20"  Foreground="White"/>
+        <TextBlock Grid.Column="2" Text="пусть его займёт Чуня" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="44" FontSize="20"  Foreground="White"/>
+        <!--<Button x:Name="button" Content="Button" Grid.Column="2" HorizontalAlignment="Left" Margin="10,267,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddCommand}"/>-->
 
 
     </Grid>
