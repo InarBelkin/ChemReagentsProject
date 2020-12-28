@@ -20,6 +20,7 @@
             <Button Content="Растворы"  Command="{Binding TabCommand}" CommandParameter="Solution"/>
             <Button Content="Отчёты" Command="{Binding TabCommand}" CommandParameter="Report"/>
         </StackPanel>
+        <Button Height="30" Content="!"/>
 
         <Frame x:Name="FrameRight" Grid.Column="1" NavigationUIVisibility="Hidden"  ></Frame>
         
