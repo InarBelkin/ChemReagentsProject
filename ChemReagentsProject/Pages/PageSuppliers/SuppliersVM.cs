@@ -1,5 +1,6 @@
 ﻿using BLL.Interfaces;
 using BLL.Models;
+using ChemReagentsProject.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -63,6 +64,37 @@ namespace ChemReagentsProject.Pages.PageSuppliers
                     OnPropertyChanged("SuppliersList");
                     break;
 
+            }
+        }
+
+        private SupplierM selectSuplr;
+        public SupplierM SelectSuplr
+        {
+            get => selectSuplr;
+            set
+            {
+                if(value is SupplierM sr)
+                {
+                    if(sr.Id!=0)
+                    {
+                        selectSuplr = sr;
+                    }
+                }
+            }
+        }
+
+
+        private RelayCommand addCommand;
+        public RelayCommand AddCommand
+        {
+            get
+            {
+                return addCommand ?? (addCommand = new RelayCommand(obj =>
+                {
+                    SupplierM suplr = new SupplierM() { Name = "" };
+                    dbOp.Suppliers.Create(suplr);
+                    OnPropertyChanged("SuppliersList");
+                }));
             }
         }
     }

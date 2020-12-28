@@ -12,7 +12,8 @@ namespace BLL.Models
 {
     public class SupplierM :IModel<Supplier> , INotifyPropertyChanged
     {
-        public int Id { get; set; }
+        private int id;
+        public int Id { get=>id; set=>id = value; }
         private string name;
         public string Name { get =>name; set { name = value;OnPropertyChanged(); } }
 

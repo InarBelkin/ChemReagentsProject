@@ -14,13 +14,18 @@
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Column="1" Width="8" Background="Black" ResizeBehavior="PreviousAndNext" />
 
-        <DataGrid ItemsSource="{Binding SuppliersList}" SelectedItem="{Binding SelectSuplr,Mode=OneWayToSource}">
-            
+        <DataGrid ItemsSource="{Binding SuppliersList}" SelectedItem="{Binding SelectSuplr,Mode=OneWayToSource}"  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}" Header="Id"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Имя"/>
+           
+            </DataGrid.Columns>
 
         </DataGrid>
 
         <Image Grid.Column="2"/>
-        
+        <Button x:Name="button" Content="Button" Grid.Column="2" HorizontalAlignment="Left" Margin="10,267,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddCommand}"/>
+
 
     </Grid>
 </UserControl>
