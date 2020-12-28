@@ -44,7 +44,8 @@
 
 
 
-            <Button    Content="Сохранить в Excel" Command="{Binding SaveCommand}" Grid.Row="3"  Grid.ColumnSpan="2" Margin="5"/>
+            <!--<Button    Content="Показать в exel" Command="{Binding SaveCommand}" CommandParameter="Show" Grid.Row="3"  Margin="5"/>-->
+            <Button    Content="Сохранить в exel" Command="{Binding SaveCommand}" CommandParameter="Save" Grid.Row="3"  Margin="5" Grid.ColumnSpan="2"/>
             <Button  Content="Списать" Command="{Binding WriteOff}" Grid.Row="4"  Grid.ColumnSpan="2" Margin="5"/>
             <!--<StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">

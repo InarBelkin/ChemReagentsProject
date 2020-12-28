@@ -9,6 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Excel = Microsoft.Office.Interop.Excel;
+using OfficeOpenXml;
+using System.IO;
+using Microsoft.Win32;
 //using Word = Microsoft.Office.Interop.Word;
 
 namespace ChemReagentsProject.Pages.PageReports
@@ -23,6 +26,8 @@ namespace ChemReagentsProject.Pages.PageReports
             dbOp = cr;
             rep = report;
             isSaved = false;
+            RepBeg = DateTime.Now.AddMonths(-1);
+            RepEnd = DateTime.Now;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -40,7 +45,7 @@ namespace ChemReagentsProject.Pages.PageReports
                 {
                     isSaved = false;
                     GenerateReport();
-                   
+
                 }));
             }
         }
@@ -57,10 +62,21 @@ namespace ChemReagentsProject.Pages.PageReports
             {
                 return saveCommand ?? (saveCommand = new RelayCommand(obj =>
                 {
+
                     if (ReportList == null) MessageBox.Show("Сначала сгенерируйте отчёт");
                     else
                     {
-                        DisplayInExcel(ReportList);
+                        switch (obj as string)
+                        {
+                            case "Show":
+                                DisplayInExcel(ReportList);
+                                break;
+                            case "Save":
+                                DisplayInExel2(ReportList);
+                                break;
+                        }
+
+
 
 
                     }
@@ -90,7 +106,7 @@ namespace ChemReagentsProject.Pages.PageReports
             workSheet.Cells[1, "C"] = "Списание или расход";
 
             int row = 1;
-            foreach(var str in accounts)
+            foreach (var str in accounts)
             {
                 row++;
                 workSheet.Cells[row, "A"] = str.ReagentName;
@@ -105,6 +121,63 @@ namespace ChemReagentsProject.Pages.PageReports
 
         }
 
+        private void DisplayInExel2(List<MonthReportM> accounts)
+        {
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            using (ExcelPackage p = new ExcelPackage())
+            {
+
+                var ws = p.Workbook.Worksheets.Add("Лист1");
+
+                
+                ws.Cells["A1:D1"].Merge = true;
+                ws.Cells["A1"].Style.Font.Size = 16;
+                ws.Cells["A1"].Value = "Акт списания за период с " + RepBeg.ToString("d") + " по " + RepEnd.ToString("d");
+                ws.Cells["A2"].Value = "Название реагента";
+                ws.Cells["B2"].Value = "Количество";
+                ws.Cells["C2"].Value = "Списание или расход";
+
+                ws.Column(1).AutoFit();
+                ws.Column(2).AutoFit();
+                ws.Column(3).AutoFit();
+                ws.Column(3).Width = 30;
+                int row = 2;
+                foreach (var str in accounts)
+                {
+                    row++;
+                    ws.Cells[row, 1].Value = str.ReagentName;
+                    ws.Cells[row, 2].Value = str.Count;
+                    ws.Cells[row, 3].Value = str.status;
+
+                }
+
+
+                SaveFileDialog d = new SaveFileDialog();
+                d.Title = "Сохранить отчёт";
+                d.Filter = "Документ Excel (*.xlsx)|*.xlsx";
+
+                if (d.ShowDialog() == true)
+                {
+                    string filename = d.FileName;
+                    try
+                    {
+                        p.SaveAs(new FileInfo(filename));
+                        isSaved = true;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Невозможно сохранить отчёт", "Ошибка");
+                    }
+
+                }
+            }
+         
+
+
+        }
+
+
+
 
         private RelayCommand writeOff;
         public RelayCommand WriteOff
@@ -113,32 +186,32 @@ namespace ChemReagentsProject.Pages.PageReports
             {
                 return writeOff ?? (writeOff = new RelayCommand(obj =>
                 {
-                    if(ReportList == null)
+                    if (ReportList == null)
                     {
                         MessageBox.Show("Сначала сгенерируйте отчёт");
                     }
-                    else if(!isSaved)
+                    else if (!isSaved)
                     {
                         MessageBox.Show("Сначала сохраните отчёт");
                     }
                     else
                     {
-                        foreach( var s in ReportList)
+                        foreach (var s in ReportList)
                         {
-                            if(s.isWrittenOff)
+                            if (s.isWrittenOff)
                             {
                                 var sup = dbOp.Supplies.GetItem(s.SupplyId);
                                 sup.State = BLL.Models.SupplStates.WriteOff;
                                 dbOp.Supplies.Update(sup);
                             }
-                            
-                         
+
+
                         }
                     }
 
 
 
-                  
+
 
 
                 }));

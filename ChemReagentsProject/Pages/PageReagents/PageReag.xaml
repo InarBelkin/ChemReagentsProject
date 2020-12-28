@@ -19,7 +19,7 @@
                 <DataGridTextColumn Header="№Реактива" Binding="{Binding Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Единицы измерения" Binding="{Binding Units}"></DataGridTextColumn>
-                <DataGridTextColumn Header="!" IsReadOnly="True" Binding="{Binding Warn}" />
+                <DataGridTextColumn Header="!" IsReadOnly="True" Binding="{Binding Warn}" FontWeight="Bold" />
                 <!--<DataGridTextColumn Header="Полка"></DataGridTextColumn>
                 <DataGridTextColumn Header="Синонимы"></DataGridTextColumn>-->
             </DataGrid.Columns>
