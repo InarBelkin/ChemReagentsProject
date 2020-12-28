@@ -307,7 +307,7 @@ namespace BLL.Services
                                     SupplyId = s.Id,
                                     ReagentName = s.Reagent.Name,
                                     status = "Расход",
-                                    isWrittenOff = false;
+                                    isWrittenOff = false,
                                 };
                                 ret.Add(a);
                             }
