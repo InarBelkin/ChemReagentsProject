@@ -16,6 +16,11 @@ namespace BLL.Models.OtherModels
         public float Count { get; set; }
         public string status { get; set; }
 
+        public bool isWrittenOff { get; set; }
+        public MonthReportM()
+        {
+            isWrittenOff = false;
+        }
         //public string ForWhat { get; set; }
     }
 }

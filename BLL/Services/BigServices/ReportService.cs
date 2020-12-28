@@ -261,6 +261,7 @@ namespace BLL.Services
                             SupplyId = s.Id,
                             ReagentName = s.Reagent.Name,
                             status = "Списание по сроку годности",
+                            isWrittenOff = true,
                         };
                         ret.Add(a);
 
@@ -284,6 +285,7 @@ namespace BLL.Services
                                 SupplyId = s.Id,
                                 ReagentName = s.Reagent.Name,
                                 status = "Списание из-за количества",
+                                isWrittenOff = true,
                             };
                             ret.Add(a);
                         }
@@ -305,6 +307,7 @@ namespace BLL.Services
                                     SupplyId = s.Id,
                                     ReagentName = s.Reagent.Name,
                                     status = "Расход",
+                                    isWrittenOff = false;
                                 };
                                 ret.Add(a);
                             }

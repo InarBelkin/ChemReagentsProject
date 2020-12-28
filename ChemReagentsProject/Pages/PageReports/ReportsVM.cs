@@ -125,8 +125,14 @@ namespace ChemReagentsProject.Pages.PageReports
                     {
                         foreach( var s in ReportList)
                         {
-                            dbOp.Supplies.GetItem(s.SupplyId);
-
+                            if(s.isWrittenOff)
+                            {
+                                var sup = dbOp.Supplies.GetItem(s.SupplyId);
+                                sup.State = BLL.Models.SupplStates.WriteOff;
+                                dbOp.Supplies.Update(sup);
+                            }
+                            
+                         
                         }
                     }
 
