@@ -16,7 +16,7 @@
 
         <DataGrid ItemsSource="{Binding SuppliersList}" SelectedItem="{Binding SelectSuplr,Mode=OneWayToSource}"  AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Id}" Header="Id"/>
+                <DataGridTextColumn Binding="{Binding Id}"  Header="Id"  Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Имя"/>
 
             </DataGrid.Columns>

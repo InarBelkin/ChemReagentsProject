@@ -26,7 +26,7 @@
 
             <DataGrid Grid.Row="1" x:Name="SolutionsDG" ItemsSource="{Binding SolutionList}"  SelectedItem="{Binding SelectSolution,Mode=OneWayToSource}"  AutoGenerateColumns="False"  >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"  Visibility="Hidden"/>
                     <DataGridTextColumn  Header="Рецепт" Binding="{Binding RecipeName}" IsReadOnly="True"/>
                     <DataGridTextColumn  Header="Концентрация"   Binding="{Binding ConcentrName}"  IsReadOnly="True"/>
                     <DataGridTextColumn Header="Дата изготовления" Binding="{Binding Date_Begin, StringFormat=dd.MM.yyyy}"/>
@@ -47,7 +47,7 @@
 
         <DataGrid Grid.Column ="2" ItemsSource="{Binding SolutLineList}"  SelectedItem="{Binding SelectLine,Mode=OneWayToSource}"  AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"  Visibility="Hidden"/>
                 <DataGridTemplateColumn Header="Реагент">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

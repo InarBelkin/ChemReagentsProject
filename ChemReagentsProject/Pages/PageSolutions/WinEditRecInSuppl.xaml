@@ -42,7 +42,7 @@
             </Grid.RowDefinitions>
             <DataGrid Grid.ColumnSpan="3"  ItemsSource="{Binding ListRecLine}" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"  Visibility="Hidden"></DataGridTextColumn>
                     <DataGridTextColumn Header="Реактив" Binding="{Binding ReactiveName}"></DataGridTextColumn>
                     <!--<DataGridComboBoxColumn x:Name="column"   SelectedValueBinding="{Binding ReagentId }" Header="Реактив" DisplayMemberPath="Name" SelectedValuePath="Id"/>-->
                     <DataGridTextColumn Header="Количество" Binding="{Binding Count}"></DataGridTextColumn>
