@@ -92,6 +92,21 @@ namespace ChemReagentsProject.ViewModel
             }
         }
 
+        private decimal costun;
+        public decimal Summ
+        {
+            get
+            {
+                if(selectreag!=null)
+                {
+                    return selectreag.CostUnit * (decimal)SupAmount;
+                }
+                return 0;
+            }
+
+
+        }
+
         private ObservableCollection<ReagentM> listReag;
         public ObservableCollection<ReagentM> ListReag
         {
@@ -113,7 +128,7 @@ namespace ChemReagentsProject.ViewModel
             {
                 selectreag = value;
                 EditSuppl.ReagentId = value.Id;
-
+                OnPropertyChanged("Summ");
             }
         }
 
@@ -137,6 +152,7 @@ namespace ChemReagentsProject.ViewModel
             {
                 selectSupplier = value;
                 EditSuppl.SupplierId = value.Id;
+              
             }
         }
 
@@ -155,7 +171,7 @@ namespace ChemReagentsProject.ViewModel
         public float SupAmount
         {
             get => EditSuppl.Count;
-            set { EditSuppl.Count = value; OnPropertyChanged("SupplyStringsList"); }
+            set { EditSuppl.Count = value; OnPropertyChanged("SupplyStringsList"); OnPropertyChanged("Summ"); }
         }
 
         private RelayCommand comButton;
@@ -190,7 +206,7 @@ namespace ChemReagentsProject.ViewModel
                                 }
                             }
                             else MessageBox.Show("Что-то неправильно введено");
-                       
+
 
 
 
@@ -246,7 +262,7 @@ namespace ChemReagentsProject.ViewModel
                         case "Change":
                             if (SelectString != null)
                             {
-                                if (SelectString.IsConsump==true)
+                                if (SelectString.IsConsump == true)
                                 {
                                     ConsumptionM cons2 = dbOp.Consumptions.GetItem(SelectString.Id);
                                     WinEditConsumption win2 = new WinEditConsumption(dbOp, rep, cons2);
@@ -264,7 +280,7 @@ namespace ChemReagentsProject.ViewModel
                             }
                             break;
                         case "Remove":
-                            if(SelectString!=null)
+                            if (SelectString != null)
                             {
                                 if (SelectString.IsConsump == true)
                                 {
@@ -276,7 +292,7 @@ namespace ChemReagentsProject.ViewModel
                                 }
                                 else MessageBox.Show("Нельзя отсюда удалять строки растворов");
                             }
-                            else MessageBox.Show("Сначала выделите строку сверху"); 
+                            else MessageBox.Show("Сначала выделите строку сверху");
                             break;
                     }
 

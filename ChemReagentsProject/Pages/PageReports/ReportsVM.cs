@@ -136,6 +136,7 @@ namespace ChemReagentsProject.Pages.PageReports
                 ws.Cells["A2"].Value = "Название реагента";
                 ws.Cells["B2"].Value = "Количество";
                 ws.Cells["C2"].Value = "Списание или расход";
+                ws.Cells["D2"].Value = "Стоимость(если есть)";
 
                 ws.Column(1).AutoFit();
                 ws.Column(2).AutoFit();
@@ -148,7 +149,7 @@ namespace ChemReagentsProject.Pages.PageReports
                     ws.Cells[row, 1].Value = str.ReagentName;
                     ws.Cells[row, 2].Value = str.Count;
                     ws.Cells[row, 3].Value = str.status;
-
+                    if (str.SummR > 0) ws.Cells[row, 4].Value = str.SummR;
                 }
 
 

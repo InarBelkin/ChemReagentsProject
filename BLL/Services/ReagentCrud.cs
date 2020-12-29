@@ -25,7 +25,9 @@ namespace BLL.Services
             {
                 Id = item.Id,
                 Name = item.Name,
-                units = item.Units
+                units = item.Units,
+                CostUnit = item.CostUnit
+                
             });
             Save();
             var ex1 = Save();
@@ -69,6 +71,7 @@ namespace BLL.Services
             r.Id = item.Id;
             r.Name = item.Name;
             r.units = item.Units;
+            r.CostUnit = item.CostUnit;
 
             var ex1 = Save();
             if (ex1 != null)

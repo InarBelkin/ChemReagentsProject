@@ -34,8 +34,8 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="id" VerticalAlignment="Center" Margin="90,11,89,10"   />
-            <TextBlock  Grid.Row="0" Grid.Column="2" Text="{Binding SupId}" Margin="36.562,11,98,10"/>
+            <TextBlock Text="Стоимость" VerticalAlignment="Center"    />
+            <TextBlock  Grid.Row="0" Grid.Column="2" Text="{Binding Summ}" HorizontalAlignment="Center" Height="25" Width="100"  />
 
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Номер реактива" Margin="15,12,14,10"/>
             <TextBlock Grid.Row="1" Grid.Column="2" Text="0" Margin="20.562,11,82,9" />

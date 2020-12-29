@@ -16,10 +16,13 @@ namespace BLL.Models.OtherModels
         public float Count { get; set; }
         public string status { get; set; }
 
+        public decimal SummR { get; set; }
+
         public bool isWrittenOff { get; set; }
         public MonthReportM()
         {
             isWrittenOff = false;
+            SummR = 0;
         }
         //public string ForWhat { get; set; }
     }

@@ -262,6 +262,7 @@ namespace BLL.Services
                             ReagentName = s.Reagent.Name,
                             status = "Списание по сроку годности",
                             isWrittenOff = true,
+                            SummR = (decimal)s.count * s.Reagent.CostUnit,
                         };
                         ret.Add(a);
 
@@ -286,6 +287,7 @@ namespace BLL.Services
                                 ReagentName = s.Reagent.Name,
                                 status = "Списание из-за количества",
                                 isWrittenOff = true,
+                                SummR = (decimal)s.count * s.Reagent.CostUnit,
                             };
                             ret.Add(a);
                         }

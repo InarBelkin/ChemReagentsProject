@@ -15,6 +15,7 @@ namespace BLL.Models
         private string name;
         private string units;
         private string warn;
+        private decimal costunit;
         public int Id
         {
             get { return id; }
@@ -53,12 +54,23 @@ namespace BLL.Models
             }
         }
 
+        public decimal CostUnit
+        {
+            get => costunit;
+            set
+            {
+                costunit = (value >= 0) ? value : -value;
+                OnPropertyChanged();
+            }
+        }
+
         public ReagentM() { }
         public ReagentM(Reagent r)
         {
             Id = r.Id;
             Name = r.Name;
             Units = r.units;
+            costunit = r.CostUnit;
 
             Console.WriteLine();
 
@@ -78,6 +90,7 @@ namespace BLL.Models
         public Reagent getDal()
         {
             Reagent ret = new Reagent();
+            ret.CostUnit = CostUnit;
             ret.Id = Id;
             ret.Name = name;
             ret.units = units;
@@ -89,6 +102,7 @@ namespace BLL.Models
             item.Id = Id;
             item.Name = name;
             item.units = units;
+            item.CostUnit = CostUnit;
         }
     }
 }

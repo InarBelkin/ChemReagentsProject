@@ -20,6 +20,7 @@
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Единицы измерения" Binding="{Binding Units}"></DataGridTextColumn>
                 <DataGridTextColumn Header="!" IsReadOnly="True" Binding="{Binding Warn}" FontWeight="Bold" />
+                <DataGridTextColumn  Header="Цена за ед." Binding="{Binding CostUnit}"/>
                 <!--<DataGridTextColumn Header="Полка"></DataGridTextColumn>
                 <DataGridTextColumn Header="Синонимы"></DataGridTextColumn>-->
             </DataGrid.Columns>
