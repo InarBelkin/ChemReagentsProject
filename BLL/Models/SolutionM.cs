@@ -101,7 +101,7 @@ namespace BLL.Models
             s.Id = Id;
             s.ConcentrationId = ConcentrationId;
             s.Date_Begin = Date_Begin;
-            if(s.ConcentrationId==null)
+            if (s.ConcentrationId == null)
             {
                 s.ConcentrName = ConcentrName;
                 s.RecipeName = RecipeName;
@@ -131,7 +131,14 @@ namespace BLL.Models
         private Visibility visibNoComb;
         public Visibility VisibNoComb { get => visibNoComb; set { visibNoComb = value; OnPropertyChanged(); } }
         private float count;
-        public float Count { get => count; set { count = value; OnPropertyChanged(); } }
+        public float Count
+        {
+            get => count; set
+            {
+                count = (value >= 0) ? value : -value;
+               OnPropertyChanged();
+            }
+        }
 
 
         private ReagentM selectReag;    //идея такая: раз уж бомбобокс это не сетит, сделать это самому, тут сработает событие
@@ -154,8 +161,8 @@ namespace BLL.Models
             get => selectSuppl;
             set
             {
-                selectSuppl = value; 
-                if(selectSuppl==null)
+                selectSuppl = value;
+                if (selectSuppl == null)
                 {
                     SupplyId = null;
                     VisibComb = Visibility.Collapsed;

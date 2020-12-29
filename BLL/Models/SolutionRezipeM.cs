@@ -84,17 +84,26 @@ namespace BLL.Models
         public float Count
         {
             get => сount;
-            set { сount = value; OnPropertyChanged(); }
+            set
+            {
+                if(value>=0)
+                сount = value; 
+                else
+                {
+                    сount = -value;
+                }
+                OnPropertyChanged();
+            }
         }
 
         private string units;
         public string Units
         {
             get => units;
-            set { units = value;OnPropertyChanged(); }
+            set { units = value; OnPropertyChanged(); }
         }
 
-       
+
 
         private string reactiveName;
         public string ReactiveName { get => reactiveName; set => reactiveName = value; }
