@@ -17,8 +17,14 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Column="1" Width="8" Background="Black" ResizeBehavior="PreviousAndNext" />
-        <DataGrid Grid.Column="2" ItemsSource="{Binding ReportList}">
+        <DataGrid Grid.Column="2" ItemsSource="{Binding ReportList}" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Реагент" Binding="{Binding ReagentName}"/>
+                <DataGridTextColumn Header="Количество" Binding="{Binding Count}"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding status}"/>
+                <DataGridTextColumn Header="Стоимость(если есть)" Binding="{Binding SummR}"/>
 
+            </DataGrid.Columns>
         </DataGrid>
 
         <Grid >
