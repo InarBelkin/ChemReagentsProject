@@ -168,24 +168,29 @@ namespace ChemReagentsProject.ViewModel
                     switch (obj as string)
                     {
                         case "Save":
-                            if (EditSuppl.Validate())
+                            if (SupAmount >= 0 && SupDTBeg < SupDTEnd)
                             {
-                                if (EditSuppl.Id == -1)    // если создаётся заново
+                                if (EditSuppl.Validate())
                                 {
-                                    var ex = dbOp.Supplies.Create(EditSuppl);
-                                    if (ex != null) MessageBox.Show(ex.Message);
+                                    if (EditSuppl.Id == -1)    // если создаётся заново
+                                    {
+                                        var ex = dbOp.Supplies.Create(EditSuppl);
+                                        if (ex != null) MessageBox.Show(ex.Message);
+                                    }
+                                    else
+                                    {
+                                        var ex = dbOp.Supplies.Update(EditSuppl);
+                                        if (ex != null) MessageBox.Show(ex.Message);
+                                    }
+                                    WindowService.CloseWindow(ThisGuid, true);
                                 }
                                 else
                                 {
-                                    var ex = dbOp.Supplies.Update(EditSuppl);
-                                    if (ex != null) MessageBox.Show(ex.Message);
+                                    MessageBox.Show("Что-то не довведено");
                                 }
-                                WindowService.CloseWindow(ThisGuid, true);
                             }
-                            else
-                            {
-                                MessageBox.Show("Что-то не довведено");
-                            }
+                            else MessageBox.Show("Что-то неправильно введено");
+                       
 
 
 

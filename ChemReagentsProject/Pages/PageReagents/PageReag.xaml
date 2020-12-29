@@ -15,8 +15,8 @@
         <GridSplitter Grid.Column="1" Width="5" Background="Black" ResizeBehavior="PreviousAndNext" />
 
         <DataGrid x:Name="ReagentDG" AutoGenerateColumns="False" ItemsSource="{Binding ReagentList}"  SelectedItem="{Binding SelectReag,Mode=OneWayToSource}" Grid.Column="0" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="№Реактива" Binding="{Binding Id}"></DataGridTextColumn>
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="№Реактива" Binding="{Binding Id}" ></DataGridTextColumn>
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Единицы измерения" Binding="{Binding Units}"></DataGridTextColumn>
                 <DataGridTextColumn Header="!" IsReadOnly="True" Binding="{Binding Warn}" FontWeight="Bold" />

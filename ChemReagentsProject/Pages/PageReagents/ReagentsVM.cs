@@ -257,6 +257,10 @@ namespace ChemReagentsProject.ViewModel
             }
         }
 
+        public Visibility Vis
+        {
+            get => Visibility.Hidden;
+        }
 
 
 
