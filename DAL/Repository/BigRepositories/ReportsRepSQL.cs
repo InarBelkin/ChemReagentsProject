@@ -84,25 +84,7 @@ namespace DAL.Repository
             }
             else return false; //свою часть мы выполнили, теперь надо   
 
-            //if (solut.ConcentrationId != null)      //если сменили на 0, рецепт очищен, всё готово
-            //{
-            //    Concentration contr = db.Concentration.Find(solut.ConcentrationId); //
-            //    if (contr != null && contr.LineList != null)
-            //    {
-            //        foreach (Solution_recipe_line srl in contr.LineList)
-            //        {
-            //            db.Solution_Lines.Add(new Solution_line
-            //            {
-            //                SolutionId = solut.Id,
-
-
-            //            });
-            //        }
-            //    }
-            //}
-            //else return true;
-            
-           
+    
 
 
 
