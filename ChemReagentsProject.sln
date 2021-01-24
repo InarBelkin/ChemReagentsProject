@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{59E0686D-20A0-46E5-A872-F9FBECDD198A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{106DFB47-B355-4A18-8849-7F7448A34682}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChemReagents", "ChemReagents\ChemReagents.csproj", "{DDFAD15A-E3BD-488B-B52D-2265DC1E562D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{59E0686D-20A0-46E5-A872-F9FBECDD198A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59E0686D-20A0-46E5-A872-F9FBECDD198A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59E0686D-20A0-46E5-A872-F9FBECDD198A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{106DFB47-B355-4A18-8849-7F7448A34682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{106DFB47-B355-4A18-8849-7F7448A34682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{106DFB47-B355-4A18-8849-7F7448A34682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{106DFB47-B355-4A18-8849-7F7448A34682}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDFAD15A-E3BD-488B-B52D-2265DC1E562D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDFAD15A-E3BD-488B-B52D-2265DC1E562D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDFAD15A-E3BD-488B-B52D-2265DC1E562D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDFAD15A-E3BD-488B-B52D-2265DC1E562D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

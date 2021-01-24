@@ -1,0 +1,28 @@
+﻿<Window x:Class="ChemReagents.Pages.MainWin.MainWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChemReagents.Pages.MainWin"
+        mc:Ignorable="d"
+        Title="MainWin" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel  Grid.Column="0">
+            <Button Content="Реактивы" Command="{Binding TabCommand}" CommandParameter="Reagent"  />
+            <Button Content="Рецепты" Command="{Binding TabCommand}" CommandParameter="Reziepe"  />
+            <Button Content="Поставщики"  Command="{Binding TabCommand}" CommandParameter="Suppliers" />
+            <!--<Button Content="Поставки"/>-->
+            <Button Content="Растворы"  Command="{Binding TabCommand}" CommandParameter="Solution"/>
+            <Button Content="Отчёты" Command="{Binding TabCommand}" CommandParameter="Report"/>
+        </StackPanel>
+
+        <Frame x:Name="FrameRight" Grid.Column="1" NavigationUIVisibility="Hidden"  ></Frame>
+        <ContentControl Grid.Column="1" > </ContentControl>
+
+    </Grid>
+</Window>

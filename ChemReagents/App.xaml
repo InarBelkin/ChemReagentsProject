@@ -1,0 +1,9 @@
+﻿<Application x:Class="ChemReagents.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ChemReagents"
+             StartupUri="/Pages/MainWin/MainWin.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
