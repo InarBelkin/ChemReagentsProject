@@ -22,7 +22,7 @@
         </StackPanel>
 
         <Frame x:Name="FrameRight" Grid.Column="1" NavigationUIVisibility="Hidden"  ></Frame>
-        <ContentControl Grid.Column="1" > </ContentControl>
+        <ContentControl Grid.Column="1" x:Name="ContContr"  DataContext="{Binding CurrentPage}"/>
 
     </Grid>
 </Window>
