@@ -68,10 +68,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AdditionalWins\SettingsWin\SettingsWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Additional\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="AdditionalWins\SettingsWin\SettingsWin.xaml.cs">
+      <DependentUpon>SettingsWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Additional\NinjectRegistrations.cs" />
     <Compile Include="Additional\RelayCommand.cs" />
     <Compile Include="App.xaml.cs">
@@ -83,6 +94,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\DialogWins\ErrorWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DialogWins\MyDialogWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -98,10 +113,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\SupplyWin\WinSupply.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\DialogWins\ErrorVM.cs" />
     <Compile Include="Pages\DialogWins\ErrorWin.xaml.cs">
       <DependentUpon>ErrorWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DialogWins\MyDialogWin.xaml.cs">
+      <DependentUpon>MyDialogWin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MainWin\IMainWin.cs" />
     <Compile Include="Pages\MainWin\MainVM.cs" />
@@ -114,6 +137,10 @@
     <Compile Include="Pages\ReagentsPage\ReagentVM.cs" />
     <Compile Include="Pages\SuppliersPage\PageSuppliers.xaml.cs">
       <DependentUpon>PageSuppliers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SupplyWin\SuppliesWinVM.cs" />
+    <Compile Include="Pages\SupplyWin\WinSupply.xaml.cs">
+      <DependentUpon>WinSupply.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

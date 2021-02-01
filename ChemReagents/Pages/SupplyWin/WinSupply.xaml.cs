@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BLL.Interfaces;
+using BLL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,23 +14,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ChemReagents.Pages.DialogWins
+namespace ChemReagents.Pages.SupplyWin
 {
     /// <summary>
-    /// Логика взаимодействия для ErrorWin.xaml
+    /// Логика взаимодействия для WinSupply.xaml
     /// </summary>
-    public partial class ErrorWin : Window
+    public partial class WinSupply : Window
     {
-        public ErrorWin(Exception ex)
+        public WinSupply(IDBCrud cr, IReportServ report, SupplyM suppl)
         {
             InitializeComponent();
-            TextRus.Text = ex.Message;
-            TextEng.Text = ex.InnerException.Message;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
+            DataContext = new SuppliesWinVM(cr, report, suppl);
         }
     }
 }

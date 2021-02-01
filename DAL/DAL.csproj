@@ -59,6 +59,14 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Interfaces\IDbRepos.cs" />
     <Compile Include="Interfaces\IReportRepos.cs" />
+    <Compile Include="Migrations\202101282109230_NewMigration.cs" />
+    <Compile Include="Migrations\202101282109230_NewMigration.designer.cs">
+      <DependentUpon>202101282109230_NewMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101300915374_SupplyMigration.cs" />
+    <Compile Include="Migrations\202101300915374_SupplyMigration.designer.cs">
+      <DependentUpon>202101300915374_SupplyMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repository\BigRepositories\IReposAbst.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Migrations\202012231605478_InitialCreate.cs" />
@@ -138,6 +146,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012290511063_AddBusiness.resx">
       <DependentUpon>202012290511063_AddBusiness.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101282109230_NewMigration.resx">
+      <DependentUpon>202101282109230_NewMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101300915374_SupplyMigration.resx">
+      <DependentUpon>202101300915374_SupplyMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

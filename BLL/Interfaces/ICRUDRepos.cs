@@ -9,7 +9,7 @@ namespace BLL.Interfaces
 {
     public interface ICrudRepos<T>
     {
-        ObservableCollection<T> GetList();
+        ObservableCollection<T> GetList(object filter=null);
         T GetItem(int id);
         Exception Create(T item);
         Exception Update(T item);

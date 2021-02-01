@@ -12,23 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ChemReagents.Pages.DialogWins
+namespace ChemReagents.AdditionalWins.SettingsWin
 {
     /// <summary>
-    /// Логика взаимодействия для ErrorWin.xaml
+    /// Логика взаимодействия для SettingsWin.xaml
     /// </summary>
-    public partial class ErrorWin : Window
+    public partial class SettingsWin : Window
     {
-        public ErrorWin(Exception ex)
+        public SettingsWin()
         {
             InitializeComponent();
-            TextRus.Text = ex.Message;
-            TextEng.Text = ex.InnerException.Message;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
         }
     }
 }

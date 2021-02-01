@@ -10,5 +10,6 @@ namespace BLL.Interfaces
     public interface IDBCrud
     {
         ICrudRepos<ReagentM> Reagents { get; }
+        ICrudRepos<SupplyM> Supplies { get; }
     }
 }

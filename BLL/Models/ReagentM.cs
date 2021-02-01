@@ -59,12 +59,12 @@ namespace BLL.Models
             Density = r.density;
         }
 
-        internal override Reagent getDal()
-        {
-            Reagent r = new Reagent();
-            updDal(r);
-            return r;
-        }
+        //internal override Reagent getDal()
+        //{
+        //    Reagent r = new Reagent();
+        //    updDal(r);
+        //    return r;
+        //}
 
         internal override void updDal(Reagent item)
         {
@@ -74,7 +74,7 @@ namespace BLL.Models
             item.density = Density;
         }
 
-
+        
         
 
     }

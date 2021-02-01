@@ -15,20 +15,24 @@ using System.Windows.Shapes;
 namespace ChemReagents.Pages.DialogWins
 {
     /// <summary>
-    /// Логика взаимодействия для ErrorWin.xaml
+    /// Логика взаимодействия для MyDialogWin.xaml
     /// </summary>
-    public partial class ErrorWin : Window
+    public partial class MyDialogWin : Window
     {
-        public ErrorWin(Exception ex)
+        public MyDialogWin(String TextQuest)
         {
             InitializeComponent();
-            TextRus.Text = ex.Message;
-            TextEng.Text = ex.InnerException.Message;
+            TextBl.Text = TextQuest;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void YesB_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
+        }
+
+        private void NoB_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
         }
     }
 }

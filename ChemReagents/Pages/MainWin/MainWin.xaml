@@ -21,6 +21,8 @@
             <Button Content="Отчёты" Command="{Binding TabCommand}" CommandParameter="Report"/>
         </StackPanel>
 
+        <Button Content="Настройки" Grid.Column="0" Height="30" VerticalAlignment="Bottom"  Command="{Binding SettingsCommand}" />
+
         <Frame x:Name="FrameRight" Grid.Column="1" NavigationUIVisibility="Hidden"  ></Frame>
         <ContentControl Grid.Column="1" x:Name="ContContr"  DataContext="{Binding CurrentPage}"/>
 

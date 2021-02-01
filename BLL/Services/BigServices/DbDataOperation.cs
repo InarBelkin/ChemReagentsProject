@@ -20,5 +20,7 @@ namespace BLL.Services.BigServices
 
         private ReagentCrud reagents;
         public ICrudRepos<ReagentM> Reagents => reagents ?? (reagents = new ReagentCrud(db));
+        private SupplyCrud supplies;
+        public ICrudRepos<SupplyM> Supplies => supplies ?? (supplies = new SupplyCrud(db));
     }
 }

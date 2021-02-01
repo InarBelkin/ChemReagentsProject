@@ -40,7 +40,7 @@ namespace ChemReagents.Pages.MainWin
                     switch (obj as string)
                     {
                         case "Reagent":
-                            mainpage.SetPage(new ReagentsPage.PageReag( dbOp, rep));
+                            mainpage.SetPage(new ReagentsPage.PageReag(dbOp, rep));
                             //CurrentPage = new ReagentsPage.PageReag();
                             break;
                         case "Suppliers":
@@ -65,5 +65,16 @@ namespace ChemReagents.Pages.MainWin
             }
         }
 
+        private RelayCommand settingsCommand;
+        public RelayCommand SettingsCommand
+        {
+            get
+            {
+                return settingsCommand ?? (settingsCommand = new RelayCommand(obj =>
+                {
+
+                }));
+            }
+        }
     }
 }

@@ -12,9 +12,9 @@
             <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <TextBlock/>
-        <TextBlock Grid.Row="1"/>
-        <Button Grid.Row="2"  Margin="10" Content="ОК"/>
+        <TextBlock  x:Name="TextRus"/>
+        <TextBlock Grid.Row="1"  x:Name="TextEng"/>
+        <Button Grid.Row="2"  Margin="10" Content="ОК" Click="Button_Click"/>
 
     </Grid>
 </Window>

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services.BigServices
 {
-    public abstract class IServCrudAbstr<M, DM> : ICrudRepos<M> where M : IModel<DM>, new() where DM : class
+    public abstract class IServCrudAbstr<M, DM> : ICrudRepos<M> where M : IModel<DM>, new() where DM : class, new()
     {
         protected IDbRepos db;
         protected IRepository<DM> dbIn;
@@ -32,10 +32,18 @@ namespace BLL.Services.BigServices
             {
                 dbIn.Delete(item.Id);
                 var ex2 = Save();
-                if (ex2 != null) return new AddEditExeption(GetExString(0), ex2);
+                if (ex2 != null)
+                {
+                    item.setfromDal(cl);
+                    return new AddEditExeption(GetExString(0), ex2);
+                }
                 else return new AddEditExeption(GetExString(1), ex1);
             }
-            else return null;
+            else
+            {
+                item.setfromDal(cl);
+                return null;
+            }
         }
 
         public virtual void Delete(int id)
@@ -51,7 +59,7 @@ namespace BLL.Services.BigServices
             return a;
         }
 
-        public virtual ObservableCollection<M> GetList()
+        public virtual ObservableCollection<M> GetList(object filter)
         {
             ObservableCollection<M> ret = new ObservableCollection<M>();
             foreach (DM d in dbIn.GetList())
@@ -70,8 +78,10 @@ namespace BLL.Services.BigServices
             DM d = dbIn.GetItem(item.Id);
             M back = new M();
             back.setfromDal(d);
+            item.updDal(d);
+            dbIn.Update(d);
             var ex1 = Save();
-            if(ex1!=null)
+            if (ex1 != null)
             {
                 back.updDal(d);
                 dbIn.Update(d);

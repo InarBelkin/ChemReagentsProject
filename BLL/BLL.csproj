@@ -61,10 +61,12 @@
     <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\IReportServ.cs" />
     <Compile Include="Models\ReagentM.cs" />
+    <Compile Include="Models\SupplyM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BigServices\DbDataOperation.cs" />
     <Compile Include="Services\BigServices\ReportService.cs" />
     <Compile Include="Services\BigServices\ServCrudAbstract.cs" />
+    <Compile Include="Services\FIlters\SupplyFilter.cs" />
     <Compile Include="Services\ReagentCrud.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +79,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

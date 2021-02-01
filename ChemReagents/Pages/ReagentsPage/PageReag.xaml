@@ -16,13 +16,11 @@
 
         <DataGrid x:Name="ReagentDG" AutoGenerateColumns="False" ItemsSource="{Binding ReagentList}"  SelectedItem="{Binding SelectReag,Mode=OneWayToSource}" Grid.Column="0" >
             <DataGrid.Columns >
-                <DataGridTextColumn Header="№Реактива" Binding="{Binding Id}" Visibility="Hidden" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Visibility="Visible" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Единицы измерения" Binding="{Binding Units}"></DataGridTextColumn>
-                <DataGridTextColumn Header="!" IsReadOnly="True" Binding="{Binding Warn}" FontWeight="Bold" />
-                <DataGridTextColumn  Header="Цена за ед." Binding="{Binding CostUnit}"/>
-                <!--<DataGridTextColumn Header="Полка"></DataGridTextColumn>
-                <DataGridTextColumn Header="Синонимы"></DataGridTextColumn>-->
+                <DataGridCheckBoxColumn Header="Жидкость?" Binding="{Binding IsWater}" />
+                <DataGridTextColumn Header="!" IsReadOnly="True" Binding="{Binding Warn}" FontWeight="Bold"  Visibility="Hidden"/>
+                <DataGridTextColumn Header="Плотность" Binding="{Binding Density}"/>
             </DataGrid.Columns>
         </DataGrid>
 
