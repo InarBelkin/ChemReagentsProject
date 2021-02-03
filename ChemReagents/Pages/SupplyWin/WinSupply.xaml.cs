@@ -25,6 +25,7 @@ namespace ChemReagents.Pages.SupplyWin
         {
             InitializeComponent();
             DataContext = new SuppliesWinVM(cr, report, suppl);
+            
         }
     }
 }

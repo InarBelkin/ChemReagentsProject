@@ -21,9 +21,11 @@ namespace DAL.Tables
 
         public DateTime Date_Begin { get; set; }
         public DateTime Date_End { get; set; }
+        public decimal Density { get; set; }
         public byte State { get; set; }
         public bool Unpacked { get; set; }
-        public float Count { get; set; }
+        public decimal Count { get; set; }
+
 
         public virtual List<Solution_line> Solution_Lines { get; set; }
         public virtual List<Supply_consumption> Consumptions { get; set; }

@@ -8,7 +8,7 @@ namespace BLL.Additional
 {
     public class AddEditExeption : Exception
     {
-        public AddEditExeption(string text, Exception InnerExeption) : base(text, InnerExeption) { }
+        public AddEditExeption(string text, Exception InnerExeption) : base(text, InnerExeption.InnerException) { }
     }
 
 }

@@ -20,6 +20,6 @@ namespace DAL.Tables
         public Supply Supply { get; set; }
 
         public string NameOtherComponent { get; set; }
-        public float Count { get; set; }
+        public decimal Count { get; set; }
     }
 }

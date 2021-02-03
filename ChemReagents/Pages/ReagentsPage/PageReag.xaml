@@ -13,16 +13,31 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Column="1" Width="5" Background="Black" ResizeBehavior="PreviousAndNext" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <!--<Button Width="200" Content="Неучитываемые реагенты"/>
+                <Button Width="200" Content="Режим редактирования"/>-->
+        
+                <CheckBox Content="Учитываемые/неучитываемые реактивы      "/>
+              
+                <CheckBox Content="Режим редактирования" IsChecked="{Binding EditMode}"/>
+            </StackPanel>
+            <DataGrid x:Name="ReagentDG" AutoGenerateColumns="False" ItemsSource="{Binding ReagentList}"  SelectedItem="{Binding SelectReag,Mode=OneWayToSource}" Grid.Row="1" IsReadOnly="{Binding IsRead}" >
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Visibility="Visible" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridCheckBoxColumn Header="Жидкость?" Binding="{Binding IsWater}" />
+                    <DataGridCheckBoxColumn Header="Всегда?" Binding="{Binding IsAlwaysWater}" />
+                    <DataGridTextColumn Header="!" IsReadOnly="True" Binding="{Binding Warn}" FontWeight="Bold"  Visibility="Hidden"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
 
-        <DataGrid x:Name="ReagentDG" AutoGenerateColumns="False" ItemsSource="{Binding ReagentList}"  SelectedItem="{Binding SelectReag,Mode=OneWayToSource}" Grid.Column="0" >
-            <DataGrid.Columns >
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Visibility="Visible" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridCheckBoxColumn Header="Жидкость?" Binding="{Binding IsWater}" />
-                <DataGridTextColumn Header="!" IsReadOnly="True" Binding="{Binding Warn}" FontWeight="Bold"  Visibility="Hidden"/>
-                <DataGridTextColumn Header="Плотность" Binding="{Binding Density}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+
 
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
@@ -30,7 +45,7 @@
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
 
-            <DataGrid x:Name="ShortSupplDG" ItemsSource="{Binding SuppliesList}" SelectedItem="{Binding SelectSuppl, Mode=OneWayToSource}" AutoGenerateColumns="False" >
+            <DataGrid x:Name="ShortSupplDG" ItemsSource="{Binding SuppliesList}" SelectedItem="{Binding SelectSuppl, Mode=OneWayToSource}" AutoGenerateColumns="False"  IsReadOnly="True">
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
@@ -54,6 +69,7 @@
                     <DataGridTextColumn Header="Дата поставки" Binding="{Binding Date_Begin, StringFormat=dd.MM.yyyy}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="Дата конца" Binding="{Binding Date_End, StringFormat=dd.MM.yyyy}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="Состояние" Binding="{Binding RusState}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridCheckBoxColumn Header="Открыт?" Binding="{Binding Unpacked}"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -70,7 +86,7 @@
                 <Button x:Name="button" Content="Изменить"  Command="{Binding AddSuppl}" CommandParameter="Edit" Margin="5"  />
                 <Button x:Name="button1" Content="Добавить" Grid.Row="1" Command="{Binding AddSuppl}" CommandParameter="Add"  Margin="5"/>
                 <!--<Button x:Name="button2" Content="Button" HorizontalAlignment="Left" Margin="195,19,0,0" VerticalAlignment="Top" Width="60" Height="71" Command="{Binding AddSuppl}" CommandParameter="generate"/>-->
-                <Button Grid.Column="1" Grid.Row="1" Margin="5" Content="Удалить" Command="{Binding OtherSuppl}" CommandParameter="Delete"/>
+                <!--<Button Grid.Column="1" Grid.Row="1" Margin="5" Content="Удалить" Command="{Binding OtherSuppl}" CommandParameter="Delete"/>-->
 
             </Grid>
         </Grid>

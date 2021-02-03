@@ -57,6 +57,21 @@ namespace BLL.Services
         }
     }
 
+    class SupplierCrud: IServCrudAbstr<SupplierM,Supplier>
+    {
+        public SupplierCrud(IDbRepos dbRepos) : base(dbRepos, dbRepos.Suppliers) { }
+        protected override string GetExString(int num)
+        {
+            switch (num)
+            {
+                case 0: return "При создании поставщика произошла ошибка, которую не удалось исправить.";
+                case 1: return "Не удалось создать поставщика";
+                case 2: return "При изменении поставщика произошла ошибка, которую не удалось исправить.";
+                case 3: return "Не удалось изменить поставщика";
+            }
+            return "Что-то странное происходит";
+        }
 
+    }
 
 }

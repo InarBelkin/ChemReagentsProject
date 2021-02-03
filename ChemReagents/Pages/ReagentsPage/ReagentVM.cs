@@ -24,6 +24,7 @@ namespace ChemReagents.Pages.ReagentsPage
         {
             dbOp = cr;
             rep = report;
+            EditMode = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -31,6 +32,10 @@ namespace ChemReagents.Pages.ReagentsPage
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        private bool editMode;
+        public bool EditMode { get => editMode; set { editMode = value; OnPropertyChanged("IsRead"); } }
+        public bool IsRead { get => !editMode; }
 
         private ObservableCollection<ReagentM> reagentlist;
         public ObservableCollection<ReagentM> ReagentList
@@ -65,8 +70,18 @@ namespace ChemReagents.Pages.ReagentsPage
         private void Reag_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             ReagentM r = sender as ReagentM;
-            var ex = dbOp.Reagents.Update(r);
-            if (ex != null) new ErrorWin(ex).ShowDialog();
+            if (r.Validate())
+            {
+                var ex = dbOp.Reagents.Update(r);
+                if (ex != null) new ErrorWin(ex).ShowDialog();
+            }
+            else
+            {
+                new MyDialogWin("Какие-то данные неверны, они не сохранены", false).ShowDialog();
+                OnPropertyChanged("ReagentList");
+            }
+
+
         }
 
         private void Reagentlist_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -75,20 +90,19 @@ namespace ChemReagents.Pages.ReagentsPage
             {
                 case NotifyCollectionChangedAction.Add:
                     ReagentM newreag = e.NewItems[0] as ReagentM;
-
                     var ex = dbOp.Reagents.Create(newreag);
                     if (ex != null)
                     {
                         new ErrorWin(ex).ShowDialog();
-                        newreag.PropertyChanged += Reag_PropertyChanged;
                     }
+                    else newreag.PropertyChanged += Reag_PropertyChanged;
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     ReagentM delreag = e.OldItems[0] as ReagentM;
                     if (dbOp.Supplies.GetList(new SupplyFilter() { ReagentId = delreag.Id }).Count > 0)
                     {
                         if (new MyDialogWin($"У этого реактива ({delreag.Name}) есть поставки. \n" +
-                            $"Вы точно хотите удалить его вместе со всеми этими поставками, рецептами и растворами, изготовленными из этих поставок?").ShowDialog() == true)
+                            $"Вы точно хотите удалить его вместе со всеми этими поставками, рецептами и растворами, изготовленными из этих поставок?", true).ShowDialog() == true)
                         {
                             dbOp.Supplies.Delete(delreag.Id);
                         }
@@ -133,14 +147,21 @@ namespace ChemReagents.Pages.ReagentsPage
                     switch (obj as string)
                     {
                         case "Edit":
-                            if(new WinSupply( dbOp, rep, SelectSuppl).ShowDialog()== true)
+                            if (SelectSuppl != null && new WinSupply(dbOp, rep, SelectSuppl).ShowDialog() == true)
                             {
-
+                                SuppliesList = dbOp.Supplies.GetList(new SupplyFilter() { ReagentId = selectReag.Id });
                             }
-
                             break;
                         case "Add":
-
+                            if (SelectReag != null )
+                            {
+                                SupplyM s = new SupplyM();
+                                s.ReagentId = SelectReag.Id;
+                                if (new WinSupply(dbOp, rep, s).ShowDialog() == true)
+                                {
+                                    SuppliesList = dbOp.Supplies.GetList(new SupplyFilter() { ReagentId = selectReag.Id });
+                                }
+                            }
                             break;
                     }
                 }));

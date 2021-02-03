@@ -15,7 +15,7 @@ namespace DAL.Tables
         public Supply Supply { get; set; }
         public string Name { get; set; }
         public DateTime DateBegin { get; set; }
-        public float Count { get; set; }
+        public decimal Count { get; set; }
 
     }
 }

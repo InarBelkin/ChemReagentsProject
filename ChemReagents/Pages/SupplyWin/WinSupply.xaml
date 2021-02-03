@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChemReagents.Pages.SupplyWin"
         mc:Ignorable="d"
-        Title="WinSupply" Height="450" Width="800">
+        Title="WinSupply" Height="550" Width="800">
     <Window.Resources>
         <Style    TargetType="TextBlock"   BasedOn="{StaticResource ColumnEdit}" />
         <Style    TargetType="TextBox"   BasedOn="{StaticResource BigText}" />
@@ -36,6 +36,10 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"  Text="ID" />
             <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SupplId}"/>
@@ -44,19 +48,28 @@
             <TextBlock Grid.Row="2"  Text="Номер реактива" />
             <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ReagNumb}"/>
             <TextBlock Grid.Row="3"  Text="Название реактива" />
-            <ComboBox Grid.Row="3" Grid.Column="1" Margin="5" ItemsSource="{Binding ReagentList}" SelectedItem="{Binding SelectReag}"/>
+            <!--<ComboBox Grid.Row="3" Grid.Column="1" Margin="5" ItemsSource="{Binding ReagentList}" SelectedItem="{Binding SelectReag}" DisplayMemberPath="Name" IsEnabled="False" />-->
+            <TextBlock Grid.Row="3" Grid.Column="1"  Text="{Binding ReagName}" />
             <TextBlock Grid.Row="4"  Text="Поставщик" />
-            <ComboBox Grid.Row="4" Grid.Column="1" Margin="5" ItemsSource="{Binding SuppliersList}" SelectedItem="{Binding SelectSupplier}"/>
+            <ComboBox Grid.Row="4" Grid.Column="1" Margin="5" ItemsSource="{Binding SuppliersList}" SelectedItem="{Binding SelectSupplier}" DisplayMemberPath="Name"/>
             <TextBlock Grid.Row="5"  Text="Дата поставки" />
             <DatePicker Grid.Row="5" Grid.Column="1" SelectedDate="{Binding DateBeg}"/>
             <TextBlock Grid.Row="6"  Text="Годен до" />
             <DatePicker Grid.Row="6" Grid.Column="1" SelectedDate="{Binding DateEnd}"/>
-            <TextBlock Grid.Row="7"  Text="Количество" />
-            <TextBox Grid.Row="7" Grid.Column="1" Margin="5" Text="{Binding Amount}"/>
-            <TextBlock Grid.Row="8"  Text="Остаток" />
-            <TextBlock Grid.Row="8"  Grid.Column="1" Text="{Binding Remaind}" />
-            <Button Grid.Row="9"   Margin="5" Content="Сохранить"/>
-            <Button Grid.Row="9" Grid.Column="1"  Margin="5" Content="Отмена"/>
+            <TextBlock Grid.Row="7"  Text="Количество в гр." />
+            <TextBox Grid.Row="7" Grid.Column="1" Margin="5" Text="{Binding AmountGr}"/>
+            <TextBlock Grid.Row="8"  Text="Остаток в гр." />
+            <TextBlock Grid.Row="8"  Grid.Column="1" Text="{Binding RemaindGr}" />
+            <TextBlock Grid.Row="9"  Text="Плотность" />
+            <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Density}" Margin="5" x:Name="box"/>
+            <TextBlock Grid.Row="10"  Text="Количество в мл." />
+            <TextBox Grid.Row="10" Grid.Column="1" Margin="5" Text="{Binding AmountMl}"/>
+            <TextBlock Grid.Row="11"  Text="Остаток в мл." />
+            <TextBlock Grid.Row="11"  Grid.Column="1" Text="{Binding RemaindMl}" />
+            <TextBlock Grid.Row="12" Text="Распаковано?"/>
+            <CheckBox Grid.Row="12" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding Unpacked}" />
+            <Button Grid.Row="13"   Margin="5" Content="Сохранить" Command="{Binding SaveCommand}" CommandParameter="Save"/>
+            <Button Grid.Row="13" Grid.Column="1"  Margin="5" Content="Отмена" Command="{Binding SaveCommand}" CommandParameter="Cacnel"/>
         </Grid>
     </Grid>
 </Window>

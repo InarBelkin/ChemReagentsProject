@@ -24,6 +24,7 @@ namespace ChemReagents.Pages.DialogWins
             InitializeComponent();
             TextRus.Text = ex.Message;
             TextEng.Text = ex.InnerException.Message;
+            TextEng2.Text = ex.InnerException.InnerException.Message;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

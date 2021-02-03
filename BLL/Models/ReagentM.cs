@@ -23,6 +23,15 @@ namespace BLL.Models
                 OnPropertyChanged();
             }
         }
+        private int number;
+        public int Number
+        {
+            get => number;
+            set
+            {
+                number = value; OnPropertyChanged();
+            }
+        }
 
         private bool isWater;
         public bool IsWater
@@ -31,17 +40,18 @@ namespace BLL.Models
             set
             {
                 isWater = value;
+                if (!isWater) IsAlwaysWater = false;
                 OnPropertyChanged();
             }
         }
 
-        private decimal density;
-        public decimal Density
+        private bool isAlwaysWater;
+        public bool IsAlwaysWater
         {
-            get => density;
-            set
+            get => isAlwaysWater; set
             {
-                density = value;
+                if (IsWater && value) isAlwaysWater = true;
+                else isAlwaysWater = false;
                 OnPropertyChanged();
             }
         }
@@ -55,27 +65,22 @@ namespace BLL.Models
         {
             Id = r.Id;
             Name = r.Name;
+            Number = r.Number;
             IsWater = r.isWater;
-            Density = r.density;
+            IsAlwaysWater = r.isAlwaysWater;
         }
-
-        //internal override Reagent getDal()
-        //{
-        //    Reagent r = new Reagent();
-        //    updDal(r);
-        //    return r;
-        //}
 
         internal override void updDal(Reagent item)
         {
             item.Id = Id;
             item.Name = Name;
+            item.Number = Number;
             item.isWater = isWater;
-            item.density = Density;
+            item.isAlwaysWater = IsAlwaysWater;
         }
 
-        
-        
+
+
 
     }
 }

@@ -10,11 +10,13 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <TextBlock  x:Name="TextRus"/>
         <TextBlock Grid.Row="1"  x:Name="TextEng"/>
-        <Button Grid.Row="2"  Margin="10" Content="ОК" Click="Button_Click"/>
+        <TextBlock Grid.Row="2"  x:Name="TextEng2"/>
+        <Button Grid.Row="3"  Margin="10" Content="ОК" Click="Button_Click"/>
 
     </Grid>
 </Window>

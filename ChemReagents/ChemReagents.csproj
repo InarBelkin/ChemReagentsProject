@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="Additional\NinjectRegistrations.cs" />
     <Compile Include="Additional\RelayCommand.cs" />
+    <Compile Include="Additional\WindowService.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>

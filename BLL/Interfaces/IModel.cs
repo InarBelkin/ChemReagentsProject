@@ -10,6 +10,9 @@ namespace BLL.Interfaces            //уровень костылей зашка
 {                                   // зачем оно так сделано?
     public abstract class IModel<T>  :IIModel where T:new()      //да просто основная программа не знает о DLL, из которой берётся этот класс T
     {
+        /// <summary>
+        /// Модель копирует свойтва из dal-модели(вместо конструктора)
+        /// </summary>
         internal abstract void setfromDal(T item);
         internal virtual T getDal()
         {
@@ -18,9 +21,7 @@ namespace BLL.Interfaces            //уровень костылей зашка
             return d;
         }
         internal abstract void updDal(T item);
-        /// <summary>
-        /// Модель копирует свойтва из dal-модели(вместо конструктора)
-        /// </summary>
+
 
     }
 
@@ -38,5 +39,11 @@ namespace BLL.Interfaces            //уровень костылей зашка
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public virtual bool Validate()
+        {
+            return true;
+        }
+    
     }
 }

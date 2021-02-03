@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Additional\ConnectionExcetionD.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Interfaces\IDbRepos.cs" />
     <Compile Include="Interfaces\IReportRepos.cs" />
     <Compile Include="Migrations\202101282109230_NewMigration.cs" />
@@ -66,6 +65,34 @@
     <Compile Include="Migrations\202101300915374_SupplyMigration.cs" />
     <Compile Include="Migrations\202101300915374_SupplyMigration.designer.cs">
       <DependentUpon>202101300915374_SupplyMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102012147219_DensityMigration.cs" />
+    <Compile Include="Migrations\202102012147219_DensityMigration.designer.cs">
+      <DependentUpon>202102012147219_DensityMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102020908157_Reagent.cs" />
+    <Compile Include="Migrations\202102020908157_Reagent.designer.cs">
+      <DependentUpon>202102020908157_Reagent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102021137006_Decimal.cs" />
+    <Compile Include="Migrations\202102021137006_Decimal.designer.cs">
+      <DependentUpon>202102021137006_Decimal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102021140517_Decimal2.cs" />
+    <Compile Include="Migrations\202102021140517_Decimal2.designer.cs">
+      <DependentUpon>202102021140517_Decimal2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102031655010_AddCompanyMigration.cs" />
+    <Compile Include="Migrations\202102031655010_AddCompanyMigration.designer.cs">
+      <DependentUpon>202102031655010_AddCompanyMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102032017428_AddCompanyMigration1.cs" />
+    <Compile Include="Migrations\202102032017428_AddCompanyMigration1.designer.cs">
+      <DependentUpon>202102032017428_AddCompanyMigration1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102032121263_AddCompanyMigration2.cs" />
+    <Compile Include="Migrations\202102032121263_AddCompanyMigration2.designer.cs">
+      <DependentUpon>202102032121263_AddCompanyMigration2.cs</DependentUpon>
     </Compile>
     <Compile Include="Repository\BigRepositories\IReposAbst.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
@@ -152,6 +179,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101300915374_SupplyMigration.resx">
       <DependentUpon>202101300915374_SupplyMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102012147219_DensityMigration.resx">
+      <DependentUpon>202102012147219_DensityMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102020908157_Reagent.resx">
+      <DependentUpon>202102020908157_Reagent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102021137006_Decimal.resx">
+      <DependentUpon>202102021137006_Decimal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102021140517_Decimal2.resx">
+      <DependentUpon>202102021140517_Decimal2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102031655010_AddCompanyMigration.resx">
+      <DependentUpon>202102031655010_AddCompanyMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102032017428_AddCompanyMigration1.resx">
+      <DependentUpon>202102032017428_AddCompanyMigration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102032121263_AddCompanyMigration2.resx">
+      <DependentUpon>202102032121263_AddCompanyMigration2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

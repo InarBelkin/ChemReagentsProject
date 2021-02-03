@@ -19,10 +19,16 @@ namespace ChemReagents.Pages.DialogWins
     /// </summary>
     public partial class MyDialogWin : Window
     {
-        public MyDialogWin(String TextQuest)
+        public MyDialogWin(string TextQuest, bool isquest )
         {
             InitializeComponent();
             TextBl.Text = TextQuest;
+            if(!isquest)
+            {
+                YesB.Visibility = Visibility.Hidden;
+                NoB.Visibility = Visibility.Hidden;
+                Accept.Visibility = Visibility.Visible;
+            }
         }
 
         private void YesB_Click(object sender, RoutedEventArgs e)
@@ -33,6 +39,11 @@ namespace ChemReagents.Pages.DialogWins
         private void NoB_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
+        }
+
+        private void Accept_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
         }
     }
 }
