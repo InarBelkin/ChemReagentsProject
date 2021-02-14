@@ -1,6 +1,7 @@
 ﻿using BLL.Interfaces;
 using BLL.Models;
 using ChemReagents.Additional;
+using ChemReagents.AdditionalWins.SettingsWin;
 using ChemReagents.Pages.DialogWins;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ChemReagents.Pages.SupplyWin
 {
@@ -22,7 +24,7 @@ namespace ChemReagents.Pages.SupplyWin
         {
             dbOp = cr;
             rep = report;
-           
+
             SuppliersList = dbOp.Suppliers.GetList();
             if (sup.Id == 0)
             {
@@ -52,6 +54,30 @@ namespace ChemReagents.Pages.SupplyWin
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public GridLength DevModeHeigh
+        {
+            get
+            {
+                if (Settings.DevMode)
+                {
+                    return GridLength.Auto;
+                }
+                else return new GridLength(0);
+            }
+        }
+
+        public GridLength IsWaterHeigh
+        {
+            get
+            {
+                if (SelectReag.IsWater)
+                {
+                    return GridLength.Auto;
+                }
+                else return new GridLength(0);
+            }
+        }
+
         private ReagentM selectReag;
         public ReagentM SelectReag { get => selectReag; set => selectReag = value; }
         public int SupplId => TempSuppl.Id;
@@ -78,12 +104,12 @@ namespace ChemReagents.Pages.SupplyWin
             {
                 return saveButton ?? (saveButton = new RelayCommand(obj =>
                 {
-                    switch(obj as string)
+                    switch (obj as string)
                     {
                         case "Save":
                             if (TempSuppl.Validate())
                             {
-                                if(TempSuppl.Id==0)
+                                if (TempSuppl.Id == 0)
                                 {
                                     var ex = dbOp.Supplies.Create(TempSuppl);
                                     if (ex != null) new ErrorWin(ex).ShowDialog();
@@ -95,7 +121,7 @@ namespace ChemReagents.Pages.SupplyWin
                                     if (ex != null) new ErrorWin(ex).ShowDialog();
                                     else WindowService.CloseWindow(this, true);
                                 }
-                              
+
                             }
                             else new MyDialogWin("Что-то не довведено", false).ShowDialog();
                             break;
@@ -103,7 +129,7 @@ namespace ChemReagents.Pages.SupplyWin
                             WindowService.CloseWindow(this, false);
 
                             break;
-                            
+
                     }
                 }));
             }

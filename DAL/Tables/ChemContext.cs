@@ -31,6 +31,7 @@ namespace DAL.Tables
             modelBuilder.Entity<Supply>().Property(p => p.Count).HasPrecision(18, 4);
             modelBuilder.Entity<Solution_recipe_line>().Property(p => p.Count).HasPrecision(18, 4);
             modelBuilder.Entity<Solution_line>().Property(p => p.Count).HasPrecision(18, 4);
+            modelBuilder.Entity<Concentration>().Property(p => p.Count).HasPrecision(18, 4);
         }
     }
 }

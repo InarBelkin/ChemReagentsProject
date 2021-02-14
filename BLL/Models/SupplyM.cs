@@ -41,6 +41,7 @@ namespace BLL.Models
                 OnPropertyChanged();
             }
         }
+
         private bool unpacked;
         public bool Unpacked { get => unpacked; set { unpacked = value; OnPropertyChanged(); } }
         private decimal countMas;

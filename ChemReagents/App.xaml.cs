@@ -13,5 +13,6 @@ namespace ChemReagents
     /// </summary>
     public partial class App : Application
     {
+        
     }
 }

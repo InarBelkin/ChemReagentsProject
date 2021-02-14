@@ -24,6 +24,14 @@ namespace BLL.Services
             }
             return "Что-то странное происходит";
         }
+        public override ObservableCollection<ReagentM> GetList(object filter)
+        {
+            if(filter is ReagentFilter f)
+            {
+                return new ObservableCollection<ReagentM>(db.Reagents.GetList().Where(i => i.IsAccounted == f.IsAccounting).Select(i=>new ReagentM(i)).ToList());
+            }
+            return base.GetList(filter);
+        }
     }
 
     class SupplyCrud : IServCrudAbstr<SupplyM, Supply>
@@ -36,7 +44,7 @@ namespace BLL.Services
             {
                 case 0: return "При создании поставки произошла ошибка, которую не удалось исправить.";
                 case 1: return "Не удалось создать поставку";
-                case 2: return "При изменении поставки произошла ошибка, которую не удалось исправить.";
+                case 2: return "При изменении поставки произошла ошибка, которую не удалось исп равить.";
                 case 3: return "Не удалось изменить поставку";
             }
             return "Что-то странное происходит";

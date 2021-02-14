@@ -15,7 +15,7 @@ namespace BLL.Services.BigServices
         public DbDataOperation(IDbRepos repos)
         {
             db = repos;
-           // DAL.Additional.ExceptionSystemD.ConnectLost += ExceptionSystemD_ConnectLost;
+            // DAL.Additional.ExceptionSystemD.ConnectLost += ExceptionSystemD_ConnectLost;
         }
 
         private ReagentCrud reagents;
@@ -23,6 +23,12 @@ namespace BLL.Services.BigServices
         private SupplyCrud supplies;
         public ICrudRepos<SupplyM> Supplies => supplies ?? (supplies = new SupplyCrud(db));
         private SupplierCrud suppliers;
-        public ICrudRepos<SupplierM> Suppliers  => suppliers ?? (suppliers = new SupplierCrud(db));
+        public ICrudRepos<SupplierM> Suppliers => suppliers ?? (suppliers = new SupplierCrud(db));
+        private RecipeCrud recipes;
+        public ICrudRepos<RecipeM> Recipes => recipes ?? (recipes = new RecipeCrud(db));
+        private ConcentrationCrud concentrations;
+        public ICrudRepos<ConcentrationM> Concentrations => concentrations ?? (concentrations = new ConcentrationCrud(db));
+        private RecipeLineCrud recipelines;
+        public ICrudRepos<RecipeLineM> Recipe_Lines => recipelines ??(recipelines = new RecipeLineCrud(db));
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BLL.Interfaces;
+using BLL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,14 +20,28 @@ namespace ChemReagents.Pages.ReagentsPage
     /// <summary>
     /// Логика взаимодействия для PageReag.xaml
     /// </summary>
-    public partial class PageReag : UserControl
+    public partial class PageReag : UserControl, IPageReag
     {
         public PageReag(IDBCrud cr, IReportServ report)
         {
             InitializeComponent();
-            DataContext = new ReagentVM(cr, report);
+            DataContext = new ReagentVM(cr, report, this);
+            
         }
 
+   
 
+        public void setDevMode(bool Mode)
+        {
+            if(Mode)
+            {
+                IdColumn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                IdColumn.Visibility = Visibility.Hidden;
+            }
+          
+        }
     }
 }

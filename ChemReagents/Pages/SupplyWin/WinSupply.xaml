@@ -26,18 +26,18 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition  Height="{Binding DevModeHeigh}"/>
+                <RowDefinition Height="{Binding DevModeHeigh}"/>
+                <RowDefinition />
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition  Height="{Binding IsWaterHeigh}"/>
+                <RowDefinition  Height="{Binding IsWaterHeigh}"/>
+                <RowDefinition Height="{Binding IsWaterHeigh}"/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -51,7 +51,7 @@
             <!--<ComboBox Grid.Row="3" Grid.Column="1" Margin="5" ItemsSource="{Binding ReagentList}" SelectedItem="{Binding SelectReag}" DisplayMemberPath="Name" IsEnabled="False" />-->
             <TextBlock Grid.Row="3" Grid.Column="1"  Text="{Binding ReagName}" />
             <TextBlock Grid.Row="4"  Text="Поставщик" />
-            <ComboBox Grid.Row="4" Grid.Column="1" Margin="5" ItemsSource="{Binding SuppliersList}" SelectedItem="{Binding SelectSupplier}" DisplayMemberPath="Name"/>
+            <ComboBox x:Name="Combo" Grid.Row="4" Grid.Column="1" Margin="5" ItemsSource="{Binding SuppliersList}" SelectedItem="{Binding SelectSupplier}" DisplayMemberPath="Name"/>
             <TextBlock Grid.Row="5"  Text="Дата поставки" />
             <DatePicker Grid.Row="5" Grid.Column="1" SelectedDate="{Binding DateBeg}"/>
             <TextBlock Grid.Row="6"  Text="Годен до" />

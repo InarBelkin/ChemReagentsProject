@@ -80,6 +80,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="AdditionalWins\SettingsWin\Settings.cs" />
+    <Compile Include="AdditionalWins\SettingsWin\SettingsVM.cs" />
     <Compile Include="AdditionalWins\SettingsWin\SettingsWin.xaml.cs">
       <DependentUpon>SettingsWin.xaml</DependentUpon>
     </Compile>
@@ -110,6 +112,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ReciepePage\PageReziepe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SolutionsPage\PageSolutions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\SuppliersPage\PageSuppliers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,10 +142,19 @@
     <Compile Include="Pages\MainWin\MainWin.xaml.cs">
       <DependentUpon>MainWin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ReagentsPage\IPageReag.cs" />
     <Compile Include="Pages\ReagentsPage\PageReag.xaml.cs">
       <DependentUpon>PageReag.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ReagentsPage\ReagentVM.cs" />
+    <Compile Include="Pages\ReciepePage\IPageRecipe.cs" />
+    <Compile Include="Pages\ReciepePage\PageReziepe.xaml.cs">
+      <DependentUpon>PageReziepe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReciepePage\ReziepeVM.cs" />
+    <Compile Include="Pages\SolutionsPage\PageSolutions.xaml.cs">
+      <DependentUpon>PageSolutions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SuppliersPage\PageSuppliers.xaml.cs">
       <DependentUpon>PageSuppliers.xaml</DependentUpon>
     </Compile>

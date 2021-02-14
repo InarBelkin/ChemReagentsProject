@@ -1,5 +1,7 @@
 ﻿using BLL.Interfaces;
 using ChemReagents.Additional;
+using ChemReagents.AdditionalWins.SettingsWin;
+using ChemReagents.Pages.ReciepePage;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +21,7 @@ namespace ChemReagents.Pages.MainWin
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            
         }
 
         public MainVM(IDBCrud cr, IReportServ repserv, IMainWin page)
@@ -26,7 +29,9 @@ namespace ChemReagents.Pages.MainWin
             dbOp = cr;
             rep = repserv;
             mainpage = page;
+            Settings.Load();
             mainpage.SetPage(new ReagentsPage.PageReag(dbOp, rep));
+          
         }
 
 
@@ -42,6 +47,9 @@ namespace ChemReagents.Pages.MainWin
                         case "Reagent":
                             mainpage.SetPage(new ReagentsPage.PageReag(dbOp, rep));
                             //CurrentPage = new ReagentsPage.PageReag();
+                            break;
+                        case "Reziepe":
+                            mainpage.SetPage(new PageReziepe(dbOp, rep));
                             break;
                         case "Suppliers":
                             mainpage.SetPage(new SuppliersPage.PageSuppliers());
@@ -72,7 +80,8 @@ namespace ChemReagents.Pages.MainWin
             {
                 return settingsCommand ?? (settingsCommand = new RelayCommand(obj =>
                 {
-
+                    SettingsWin win = new SettingsWin();
+                    win.ShowDialog();
                 }));
             }
         }

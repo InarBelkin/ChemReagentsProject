@@ -16,7 +16,7 @@ namespace DAL.Tables
         public Solution_recipe Solution_Recipe { get; set; }
 
         public string Name { get; set; }
-
+        public decimal Count { get; set; }
         public virtual List<Solution_recipe_line> LineList { get; set; }
     }
 }

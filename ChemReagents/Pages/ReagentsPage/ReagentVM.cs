@@ -2,6 +2,7 @@
 using BLL.Models;
 using BLL.Services.FIlters;
 using ChemReagents.Additional;
+using ChemReagents.AdditionalWins.SettingsWin;
 using ChemReagents.Pages.DialogWins;
 using ChemReagents.Pages.SupplyWin;
 using System;
@@ -12,6 +13,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ChemReagents.Pages.ReagentsPage
 {
@@ -19,12 +21,16 @@ namespace ChemReagents.Pages.ReagentsPage
     {
         IDBCrud dbOp;
         IReportServ rep;
+        IPageReag Page;
 
-        public ReagentVM(IDBCrud cr, IReportServ report)
+        public ReagentVM(IDBCrud cr, IReportServ report, IPageReag page)
         {
             dbOp = cr;
             rep = report;
             EditMode = false;
+            isAccounting = true;
+            Page = page;
+            Page.setDevMode(Settings.DevMode);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,12 +43,15 @@ namespace ChemReagents.Pages.ReagentsPage
         public bool EditMode { get => editMode; set { editMode = value; OnPropertyChanged("IsRead"); } }
         public bool IsRead { get => !editMode; }
 
+        private bool isAccounting;
+        public bool IsAccounting { get => isAccounting; set { isAccounting = value; OnPropertyChanged("ReagentList"); } }
+
         private ObservableCollection<ReagentM> reagentlist;
         public ObservableCollection<ReagentM> ReagentList
         {
             get
             {
-                reagentlist = dbOp.Reagents.GetList();
+                reagentlist = dbOp.Reagents.GetList(new ReagentFilter() { IsAccounting = IsAccounting }) ;
                 reagentlist.CollectionChanged += Reagentlist_CollectionChanged;
                 foreach (ReagentM reag in reagentlist)
                 {
@@ -90,6 +99,7 @@ namespace ChemReagents.Pages.ReagentsPage
             {
                 case NotifyCollectionChangedAction.Add:
                     ReagentM newreag = e.NewItems[0] as ReagentM;
+                    newreag.IsAccounted = IsAccounting;
                     var ex = dbOp.Reagents.Create(newreag);
                     if (ex != null)
                     {
@@ -104,7 +114,7 @@ namespace ChemReagents.Pages.ReagentsPage
                         if (new MyDialogWin($"У этого реактива ({delreag.Name}) есть поставки. \n" +
                             $"Вы точно хотите удалить его вместе со всеми этими поставками, рецептами и растворами, изготовленными из этих поставок?", true).ShowDialog() == true)
                         {
-                            dbOp.Supplies.Delete(delreag.Id);
+                            dbOp.Reagents.Delete(delreag.Id);
                         }
                         else
                         {

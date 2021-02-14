@@ -56,11 +56,14 @@ namespace BLL.Models
             }
         }
 
+        private bool isAccounted;
+        public bool IsAccounted { get => isAccounted; set { isAccounted = value;OnPropertyChanged(); } }
+
         public ReagentM() { }
-        //public ReagentM(Reagent r)
-        //{
-        //    setfromDal(r);
-        //}
+        public ReagentM(Reagent r)
+        {
+            setfromDal(r);
+        }
         internal override void setfromDal(Reagent r)
         {
             Id = r.Id;
@@ -68,6 +71,7 @@ namespace BLL.Models
             Number = r.Number;
             IsWater = r.isWater;
             IsAlwaysWater = r.isAlwaysWater;
+            IsAccounted = r.IsAccounted;
         }
 
         internal override void updDal(Reagent item)
@@ -77,6 +81,7 @@ namespace BLL.Models
             item.Number = Number;
             item.isWater = isWater;
             item.isAlwaysWater = IsAlwaysWater;
+            item.IsAccounted = IsAccounted;
         }
 
 

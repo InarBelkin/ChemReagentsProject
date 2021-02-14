@@ -10,21 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ChemReagents.AdditionalWins.SettingsWin
+namespace ChemReagents.Pages.SolutionsPage
 {
     /// <summary>
-    /// Логика взаимодействия для SettingsWin.xaml
+    /// Логика взаимодействия для PageSolutions.xaml
     /// </summary>
-    public partial class SettingsWin : Window
+    public partial class PageSolutions : UserControl
     {
-        public SettingsWin()
+        public PageSolutions()
         {
             InitializeComponent();
-            DataContext = new SettingsVM();
         }
-
-
     }
 }

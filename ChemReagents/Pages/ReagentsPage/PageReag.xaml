@@ -21,14 +21,14 @@
             <StackPanel Orientation="Horizontal">
                 <!--<Button Width="200" Content="Неучитываемые реагенты"/>
                 <Button Width="200" Content="Режим редактирования"/>-->
-        
-                <CheckBox Content="Учитываемые/неучитываемые реактивы      "/>
+
+                <CheckBox Content="Учитываемые/неучитываемые реактивы     " IsChecked="{Binding IsAccounting}"/>
               
                 <CheckBox Content="Режим редактирования" IsChecked="{Binding EditMode}"/>
             </StackPanel>
             <DataGrid x:Name="ReagentDG" AutoGenerateColumns="False" ItemsSource="{Binding ReagentList}"  SelectedItem="{Binding SelectReag,Mode=OneWayToSource}" Grid.Row="1" IsReadOnly="{Binding IsRead}" >
                 <DataGrid.Columns >
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Visibility="Visible" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn x:Name="IdColumn" Header="Id" Binding="{Binding Id}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
                     <DataGridCheckBoxColumn Header="Жидкость?" Binding="{Binding IsWater}" />
                     <DataGridCheckBoxColumn Header="Всегда?" Binding="{Binding IsAlwaysWater}" />
