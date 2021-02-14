@@ -64,6 +64,8 @@
     <Compile Include="Models\ReagentM.cs" />
     <Compile Include="Models\RecipeM.cs" />
     <Compile Include="Models\RecipeLineM.cs" />
+    <Compile Include="Models\SolutionLineM.cs" />
+    <Compile Include="Models\SolutionM.cs" />
     <Compile Include="Models\SupplierM.cs" />
     <Compile Include="Models\SupplyM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="Services\FIlters\ReagentFilter.cs" />
     <Compile Include="Services\ReagentCrud.cs" />
     <Compile Include="Services\RecipeCrud.cs" />
+    <Compile Include="Services\SolutionCrud.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

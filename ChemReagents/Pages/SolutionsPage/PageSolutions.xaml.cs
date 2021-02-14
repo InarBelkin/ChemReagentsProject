@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,15 @@ namespace ChemReagents.Pages.SolutionsPage
     /// </summary>
     public partial class PageSolutions : UserControl
     {
-        public PageSolutions()
+        public PageSolutions(IDBCrud cr, IReportServ report)
         {
             InitializeComponent();
+            DataContext = new SolutionVM(cr, report);
+        }
+
+        private void ReagComb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

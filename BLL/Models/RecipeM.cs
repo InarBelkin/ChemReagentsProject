@@ -12,14 +12,14 @@ namespace BLL.Models
     {
         private string name;
         public string Name { get => name; set { name = value;OnPropertyChanged(); } }
+        public RecipeM() { }
+        public RecipeM(Solution_recipe r) { setfromDal(r); }
+
         internal override void setfromDal(Solution_recipe item)
         {
             Id = item.Id;
             Name = item.Name;
         }
-
-        public RecipeM() { }
-        public RecipeM(Solution_recipe r) { setfromDal(r); }
 
         internal override void updDal(Solution_recipe item)
         {

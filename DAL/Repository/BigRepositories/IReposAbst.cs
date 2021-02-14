@@ -59,10 +59,7 @@ namespace DAL.Interfaces
             }
             return a;
         }
-
-        /// <summary>
-        /// Переопредели эту фигню!
-        /// </summary>
+  
         public virtual void Update(T item)
         {
             db.Entry(item).State = EntityState.Modified;

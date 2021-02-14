@@ -30,5 +30,9 @@ namespace BLL.Services.BigServices
         public ICrudRepos<ConcentrationM> Concentrations => concentrations ?? (concentrations = new ConcentrationCrud(db));
         private RecipeLineCrud recipelines;
         public ICrudRepos<RecipeLineM> Recipe_Lines => recipelines ??(recipelines = new RecipeLineCrud(db));
+        private SolutionCrud solutions;
+        public ICrudRepos<SolutionM> Solutions => solutions ?? (solutions = new SolutionCrud(db));
+        private SolutionLineCrud solutlines;
+        public ICrudRepos<SolutionLineM> SolutionLines => solutlines ?? (solutlines = new SolutionLineCrud(db));
     }
 }

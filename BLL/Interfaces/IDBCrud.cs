@@ -15,5 +15,7 @@ namespace BLL.Interfaces
         ICrudRepos<RecipeM> Recipes { get; }
         ICrudRepos<ConcentrationM> Concentrations { get; }
         ICrudRepos<RecipeLineM> Recipe_Lines { get; }
+        ICrudRepos<SolutionM> Solutions { get; }
+        ICrudRepos<SolutionLineM> SolutionLines { get; }
     }
 }

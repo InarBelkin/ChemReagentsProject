@@ -2,6 +2,7 @@
 using ChemReagents.Additional;
 using ChemReagents.AdditionalWins.SettingsWin;
 using ChemReagents.Pages.ReciepePage;
+using ChemReagents.Pages.SolutionsPage;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -54,6 +55,9 @@ namespace ChemReagents.Pages.MainWin
                         case "Suppliers":
                             mainpage.SetPage(new SuppliersPage.PageSuppliers());
                             //CurrentPage = new SuppliersPage.PageSuppliers();
+                            break;
+                        case "Solution":
+                            mainpage.SetPage(new PageSolutions(dbOp, rep));
                             break;
                         default:
                             break;
