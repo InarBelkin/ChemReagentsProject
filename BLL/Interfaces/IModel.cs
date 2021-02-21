@@ -31,7 +31,7 @@ namespace BLL.Interfaces            //уровень костылей зашка
         public int Id
         {
             get => id;
-            protected set => id = value;
+            set => id = value;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -46,12 +46,13 @@ namespace ChemReagents.Pages.ReagentsPage
         private bool isAccounting;
         public bool IsAccounting { get => isAccounting; set { isAccounting = value; OnPropertyChanged("ReagentList"); } }
 
+        public Visibility EditModeVis { get => Settings.DevMode ? Visibility.Visible : Visibility.Hidden; }
         private ObservableCollection<ReagentM> reagentlist;
         public ObservableCollection<ReagentM> ReagentList
         {
             get
             {
-                reagentlist = dbOp.Reagents.GetList(new ReagentFilter() { IsAccounting = IsAccounting }) ;
+                reagentlist = dbOp.Reagents.GetList(new ReagentFilter() { IsAccounting = IsAccounting });
                 reagentlist.CollectionChanged += Reagentlist_CollectionChanged;
                 foreach (ReagentM reag in reagentlist)
                 {
@@ -68,10 +69,7 @@ namespace ChemReagents.Pages.ReagentsPage
             {
                 selectReag = value;
                 OnPropertyChanged("SelectReag");
-                if (value != null && value.Id != 0)
-                {
-                    SuppliesList = dbOp.Supplies.GetList(new SupplyFilter() { ReagentId = selectReag.Id });
-                }
+                OnPropertyChanged("SuppliesList");
 
             }
         }
@@ -125,20 +123,22 @@ namespace ChemReagents.Pages.ReagentsPage
                     {
                         dbOp.Reagents.Delete(delreag.Id);
                     }
-
                     break;
             }
         }
 
-
-        private ObservableCollection<SupplyM> suppliesList;
         public ObservableCollection<SupplyM> SuppliesList
         {
-            get => suppliesList;
-            set
+            get
             {
-                suppliesList = value; SelectSuppl = null; OnPropertyChanged("SuppliesList");
+                SelectSuppl = null;
+                if (SelectReag != null && SelectReag.Id != 0)
+                {
+                    return dbOp.Supplies.GetList(new SupplyFilter() { ReagentId = selectReag.Id });
+                }
+                else return new ObservableCollection<SupplyM>();
             }
+
         }
         private SupplyM selectSuppl;
         public SupplyM SelectSuppl
@@ -159,18 +159,44 @@ namespace ChemReagents.Pages.ReagentsPage
                         case "Edit":
                             if (SelectSuppl != null && new WinSupply(dbOp, rep, SelectSuppl).ShowDialog() == true)
                             {
-                                SuppliesList = dbOp.Supplies.GetList(new SupplyFilter() { ReagentId = selectReag.Id });
+                                OnPropertyChanged("SuppliesList");
                             }
                             break;
                         case "Add":
-                            if (SelectReag != null )
+                            if (SelectReag != null)
                             {
                                 SupplyM s = new SupplyM();
                                 s.ReagentId = SelectReag.Id;
                                 if (new WinSupply(dbOp, rep, s).ShowDialog() == true)
                                 {
-                                    SuppliesList = dbOp.Supplies.GetList(new SupplyFilter() { ReagentId = selectReag.Id });
+                                    OnPropertyChanged("SuppliesList");
                                 }
+                            }
+                            break;
+                        case "Delete":
+                            if (SelectReag != null && SelectSuppl != null)
+                            {
+                                if (new MyDialogWin("Вообще-то удалять поставки нельзя, но если очень хочется то можно. Удалить?", true).ShowDialog() == true)
+                                {
+                                    dbOp.Supplies.Delete(SelectSuppl.Id);
+                                }
+                                OnPropertyChanged("SuppliesList");
+                            }
+                            break;
+                        case "UnWrite":
+                            if (SelectSuppl != null && SelectSuppl.Active == false && new MyDialogWin("Точно убрать из списанных?", true).ShowDialog() == true)
+                            {
+                                SelectSuppl.Active = true;
+                                dbOp.Supplies.Update(SelectSuppl);
+                                OnPropertyChanged("SuppliesList");
+                            }
+                            break;
+                        case "Write":
+                            if (SelectSuppl != null && SelectSuppl.Active && new MyDialogWin("Точно списать? Обычно это делается в отчёте", true).ShowDialog() == true)
+                            {
+                                SelectSuppl.Active = false;
+                                dbOp.Supplies.Update(SelectSuppl);
+                                OnPropertyChanged("SuppliesList");
                             }
                             break;
                     }

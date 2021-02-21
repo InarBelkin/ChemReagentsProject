@@ -1,5 +1,6 @@
 ﻿using BLL.Interfaces;
 using BLL.Models;
+using BLL.Services.FIlters;
 using ChemReagents.Additional;
 using ChemReagents.AdditionalWins.SettingsWin;
 using ChemReagents.Pages.DialogWins;
@@ -31,8 +32,10 @@ namespace ChemReagents.Pages.SupplyWin
                 TempSuppl = new SupplyM();
                 TempSuppl.ReagentId = sup.ReagentId;
                 TempSuppl.Density = sup.Density;
-                TempSuppl.Date_Begin = DateTime.Today;
-                TempSuppl.Date_End = DateTime.Today.AddYears(1);
+                TempSuppl.DateProduction = DateTime.Today;
+                TempSuppl.DateStartUse = DateTime.Today;
+                TempSuppl.DateExpiration = DateTime.Today.AddYears(1);
+                TempSuppl.DateUnWrite = new DateTime(2100, 1, 1);
             }
             else
             {
@@ -78,6 +81,18 @@ namespace ChemReagents.Pages.SupplyWin
             }
         }
 
+        public GridLength UnWriteHeigh
+        {
+            get
+            {
+                if (TempSuppl.Active)
+                {
+                    return GridLength.Auto;
+                }
+                else return new GridLength(0);
+            }
+        }
+
         private ReagentM selectReag;
         public ReagentM SelectReag { get => selectReag; set => selectReag = value; }
         public int SupplId => TempSuppl.Id;
@@ -91,11 +106,16 @@ namespace ChemReagents.Pages.SupplyWin
         public ObservableCollection<SupplierM> SuppliersList { get => suppliersList; set => suppliersList = value; }
         private SupplierM selectSupplier;
         public SupplierM SelectSupplier { get => selectSupplier; set { selectSupplier = value; TempSuppl.SupplierId = value.Id; } }
-        public DateTime DateBeg { get => TempSuppl.Date_Begin; set { TempSuppl.Date_Begin = value; OnPropertyChanged("DateBeg"); } }
-        public DateTime DateEnd { get => TempSuppl.Date_End; set { TempSuppl.Date_End = value; OnPropertyChanged("DateEnd"); } }
+        //public DateTime DateBeg { get => TempSuppl.Date_Begin; set { TempSuppl.Date_Begin = value; OnPropertyChanged("DateBeg"); } }
+        //public DateTime DateEnd { get => TempSuppl.Date_End; set { TempSuppl.Date_End = value; OnPropertyChanged("DateEnd"); } }
+        public DateTime DateProduction { get => TempSuppl.DateProduction; set { TempSuppl.DateProduction = value; OnPropertyChanged("DateProduction"); } }
+        public DateTime DateStartUse { get => TempSuppl.DateStartUse; set { TempSuppl.DateStartUse = value; OnPropertyChanged("DateStartUse"); } }
+        public DateTime DateExpiration { get => TempSuppl.DateExpiration; set { TempSuppl.DateExpiration = value; OnPropertyChanged("DateExpiration"); } }
+        public DateTime DateUnWrite { get => TempSuppl.DateUnWrite; set { TempSuppl.DateUnWrite = value; OnPropertyChanged("DateUnWrite"); } }
+
+
         public decimal AmountGr { get => TempSuppl.CountMas; set { TempSuppl.CountMas = value; OnPropertyChanged("AmountGr"); OnPropertyChanged("AmountMl"); } }
         public decimal AmountMl { get => TempSuppl.CountVolum; set { TempSuppl.CountVolum = value; OnPropertyChanged("AmountMl"); OnPropertyChanged("AmountGr"); } }
-        public bool Unpacked { get => TempSuppl.Unpacked; set => TempSuppl.Unpacked = value; }
 
         private RelayCommand saveButton;
         public RelayCommand SaveCommand
@@ -130,6 +150,73 @@ namespace ChemReagents.Pages.SupplyWin
 
                             break;
 
+                    }
+                }));
+            }
+        }
+
+        public ObservableCollection<SupplyStingM> ConsumpList
+        {
+            get
+            {
+                if (TempSuppl.Id > 0)
+                {
+                    var ret = dbOp.SupplConsump.GetList(new SupplyStringsFilter() { SupplyId = TempSuppl.Id });
+                    return ret;
+                }
+                else return new ObservableCollection<SupplyStingM>();
+            }
+        }
+
+        private SupplyStingM selectSupstr;
+        public SupplyStingM SelectSupString
+        {
+            get => selectSupstr;
+            set
+            {
+                selectSupstr = value;
+                OnPropertyChanged("SelectSupString");
+            }
+        }
+
+        private RelayCommand editConsump;
+        public RelayCommand EditConsump
+        {
+            get
+            {
+                return editConsump ?? (editConsump = new RelayCommand(obj =>
+                {
+                    if(TempSuppl.Id>0)
+                    {
+                        switch (obj as string)
+                        {
+                            case "Add":
+                                var adv = new SupplyStingM() { SupplyId = TempSuppl.Id, DateBegin = DateTime.Now };
+                                if (new WinConsump(dbOp, rep, adv).ShowDialog() == true)
+                                {
+                                    var ex = dbOp.SupplConsump.Create(adv);
+                                    if (ex != null) new ErrorWin(ex).ShowDialog();
+                                }
+                                break;
+                            case "Edit":
+                                if (SelectSupString.IsConsump)
+                                {
+                                    if (new WinConsump(dbOp, rep, selectSupstr).ShowDialog() == true)
+                                    {
+                                        var ex = dbOp.SupplConsump.Update(selectSupstr);
+                                        if (ex != null) new ErrorWin(ex).ShowDialog();
+                                    }
+                                }
+                                else new MyDialogWin("Это не отдельное списание, его изменить отсюда нельзя", false).ShowDialog();
+                                break;
+                            case "Delete":
+                                if (SelectSupString.IsConsump)
+                                {
+                                    dbOp.SupplConsump.Delete(SelectSupString.Id);
+                                }
+                                else new MyDialogWin("Это не отдельное списание, его удалить отсюда нельзя", false).ShowDialog();
+                                break;
+                        }
                     }
                 }));
             }

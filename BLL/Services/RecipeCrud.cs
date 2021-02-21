@@ -46,10 +46,15 @@ namespace BLL.Services
         {
             if (filter is ConcentrationFilter f)
             {
-                var rec = db.Solution_Recipes.GetItem(f.RecipeId).Concentrations;
-                if (rec != null)
+                var sr = db.Solution_Recipes.GetItem(f.RecipeId);
+                if(sr!=null)
                 {
-                    return new ObservableCollection<ConcentrationM>(rec.Select(i => new ConcentrationM(i)).ToList());
+                    var rec = sr.Concentrations;
+                    if (rec != null)
+                    {
+                        return new ObservableCollection<ConcentrationM>(rec.Select(i => new ConcentrationM(i)).ToList());
+                    }
+                    else return new ObservableCollection<ConcentrationM>();
                 }
                 else return new ObservableCollection<ConcentrationM>();
 

@@ -85,6 +85,7 @@
     <Compile Include="AdditionalWins\SettingsWin\SettingsWin.xaml.cs">
       <DependentUpon>SettingsWin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Additional\DecimalConverter.cs" />
     <Compile Include="Additional\NinjectRegistrations.cs" />
     <Compile Include="Additional\RelayCommand.cs" />
     <Compile Include="Additional\WindowService.cs" />
@@ -120,7 +121,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\SolutionsPage\WinSupplEditRec.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\SuppliersPage\PageSuppliers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SupplyWin\WinConsump.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -152,14 +161,23 @@
       <DependentUpon>PageReziepe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ReciepePage\ReziepeVM.cs" />
+    <Compile Include="Pages\SolutionsPage\IPageSolution.cs" />
     <Compile Include="Pages\SolutionsPage\PageSolutions.xaml.cs">
       <DependentUpon>PageSolutions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SolutionsPage\SolutionVM.cs" />
+    <Compile Include="Pages\SolutionsPage\SupplEditRecVM.cs" />
+    <Compile Include="Pages\SolutionsPage\WinSupplEditRec.xaml.cs">
+      <DependentUpon>WinSupplEditRec.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SuppliersPage\PageSuppliers.xaml.cs">
       <DependentUpon>PageSuppliers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SupplyWin\EditConsumptionVM.cs" />
     <Compile Include="Pages\SupplyWin\SuppliesWinVM.cs" />
+    <Compile Include="Pages\SupplyWin\WinConsump.xaml.cs">
+      <DependentUpon>WinConsump.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SupplyWin\WinSupply.xaml.cs">
       <DependentUpon>WinSupply.xaml</DependentUpon>
     </Compile>

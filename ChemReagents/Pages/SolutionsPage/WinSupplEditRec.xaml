@@ -1,0 +1,76 @@
+﻿<Window x:Class="ChemReagents.Pages.SolutionsPage.WinSupplEditRec"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChemReagents.Pages.SolutionsPage"
+         xmlns:local2="clr-namespace:ChemReagents.Additional"
+        Name="WinSupplRec"
+        mc:Ignorable="d"
+        Title="WinSupplEditRec" Height="450" Width="500">
+    <Window.Resources>
+        <local2:DecimalConverter x:Key="decimalconverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Рецепт"/>
+            <TextBlock Grid.Column="1" Text="Концентрация"/>
+            <TextBlock Grid.Column="2" Text="Количество"/>
+            <ComboBox Grid.Row="1" ItemsSource="{Binding RecipeList}" SelectedValue="{Binding SelectRecipeId}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ConcentrList}" SelectedValue="{Binding SelectConcentrId}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
+            <TextBox x:Name="textb" Grid.Row="1" Grid.Column="2" Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}"  />
+            <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding RecipeName}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ConcentrName}"/>
+    
+
+        </Grid>
+        <DataGrid Grid.Row="1" IsReadOnly="True" ItemsSource="{Binding SolutLineList}" AutoGenerateColumns="False">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CanTakeRec}" Value="true">
+                            <Setter Property="Background" Value="White"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CanTakeRec}" Value="false">
+                            <Setter Property="Background" Value="#EF5D5D"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"  Visibility="Visible"></DataGridTextColumn>
+                <DataGridComboBoxColumn  x:Name="ReagentColumn" Header="Реактив"   SelectedValueBinding="{Binding ReagentId}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
+                <!--<DataGridTextColumn Header="Реактив" Binding="{Binding ReagentId}" IsReadOnly="True"  Visibility="Visible"></DataGridTextColumn>-->
+                <DataGridComboBoxColumn x:Name="SupplyColumn" Header="Поставка" ItemsSource="{Binding SupplList}" SelectedValueBinding="{Binding SupplyId}" SelectedValuePath="Id" DisplayMemberPath="ShortName"/>
+                <!--<DataGridTextColumn Header="Поставка" Binding="{Binding SupplyId}" IsReadOnly="True"  Visibility="Visible"></DataGridTextColumn>-->
+                <DataGridTextColumn Header="Остаток" Binding="{Binding CountBalance}" IsReadOnly="True"  Visibility="Visible"></DataGridTextColumn>
+                <DataGridTextColumn Header="Сколько надо" Binding="{Binding Count}" IsReadOnly="True"  Visibility="Visible"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ед.Изм." Binding="{Binding Units}" IsReadOnly="True"  Visibility="Visible"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Grid.Column="0" Content="Добавить" Command="{Binding AcceptCommand}" CommandParameter="Accept"/>
+            <Button Grid.Column="1" Content="Отмена" Command="{Binding AcceptCommand}" CommandParameter="Cancel"/>
+        </Grid>
+    </Grid>
+</Window>

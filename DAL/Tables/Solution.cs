@@ -15,10 +15,16 @@ namespace DAL.Tables
         public int? ConcentrationId { get; set; }
         [ForeignKey("ConcentrationId")]
         public Concentration Concentration { get; set; }
+        public int? RecipeId { get; set; }
+        [ForeignKey("RecipeId")]
+        public Solution_recipe Recipe;
 
         public string RecipeName {get;set;}
         public string ConcentrName {get;set;}
         public DateTime Date_Begin { get; set; }
+        public DateTime Date_End { get; set; }
+        public decimal Count { get; set; }
+
         public virtual List<Solution_line> Solution_Lines { get; set; }
     }
 }

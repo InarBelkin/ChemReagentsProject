@@ -32,7 +32,7 @@ namespace ChemReagents.Pages.MainWin
             mainpage = page;
             Settings.Load();
             mainpage.SetPage(new ReagentsPage.PageReag(dbOp, rep));
-          
+            rep.LoadAll();
         }
 
 

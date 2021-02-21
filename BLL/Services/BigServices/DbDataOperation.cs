@@ -34,5 +34,7 @@ namespace BLL.Services.BigServices
         public ICrudRepos<SolutionM> Solutions => solutions ?? (solutions = new SolutionCrud(db));
         private SolutionLineCrud solutlines;
         public ICrudRepos<SolutionLineM> SolutionLines => solutlines ?? (solutlines = new SolutionLineCrud(db));
+        private SupplConsumpCrud supplcons;
+        public ICrudRepos<SupplyStingM> SupplConsump => supplcons ?? (supplcons = new SupplConsumpCrud(db));
     }
 }

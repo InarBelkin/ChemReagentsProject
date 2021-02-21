@@ -16,10 +16,20 @@ namespace BLL.Models
         public int SupplierId { get => supplierId; set { supplierId = value; OnPropertyChanged(); } }
         //private int reagentNumber;
         //public int ReagentNumber { get => reagentNumber; set { reagentNumber = value;OnPropertyChanged(); } }
-        private DateTime date_Begin;
-        public DateTime Date_Begin { get => date_Begin; set { date_Begin = value; OnPropertyChanged(); } }
-        private DateTime date_End;
-        public DateTime Date_End { get => date_End; set { date_End = value; OnPropertyChanged(); } }
+        //private DateTime date_Begin;
+        //public DateTime Date_Begin { get => date_Begin; set { date_Begin = value; OnPropertyChanged(); } }
+        //private DateTime date_End;
+        //public DateTime Date_End { get => date_End; set { date_End = value; OnPropertyChanged(); } }
+        private DateTime date_Production;
+        public DateTime DateProduction { get=>date_Production; set { date_Production = value;OnPropertyChanged(); } }
+        private DateTime date_StartUse;
+        public DateTime DateStartUse { get=>date_StartUse; set { date_StartUse = value;OnPropertyChanged(); } }
+        private DateTime dateExpiration;
+        public DateTime DateExpiration { get => dateExpiration; set { dateExpiration = value; OnPropertyChanged(); } }
+        private DateTime dateUnWrite;
+        public DateTime DateUnWrite { get => dateUnWrite; set { dateUnWrite = value;OnPropertyChanged(); } }
+        private bool active;
+        public bool Active { get => active; set { active = value;OnPropertyChanged(); } }
         private SupplStates state;
         public SupplStates State
         {
@@ -36,14 +46,12 @@ namespace BLL.Models
                     default: str = "Ошибка"; break;
                 }
                 RusState = str;
-                ShortName = Date_End.ToString("dd.MM.yy ") + RusState;
+                ShortName = DateExpiration.ToString("dd.MM.yy ") + RusState;
 
                 OnPropertyChanged();
             }
         }
 
-        private bool unpacked;
-        public bool Unpacked { get => unpacked; set { unpacked = value; OnPropertyChanged(); } }
         private decimal countMas;
         public decimal CountMas { get => countMas; set { countMas = value; OnPropertyChanged(); OnPropertyChanged("CountVolum"); } }
         private decimal density;
@@ -52,7 +60,7 @@ namespace BLL.Models
         public string RusState { get; set; }
         public string ShortName { get; set; }
 
-        public SupplyM() { Density = 1; }
+        public SupplyM() { Density = 1; Active = true; }
         public SupplyM(Supply s)
         {
             setfromDal(s);
@@ -64,31 +72,24 @@ namespace BLL.Models
             Id = s.Id;
             ReagentId = s.ReagentId;
             SupplierId = s.SupplierId;
-            Date_Begin = s.Date_Begin;
-            Date_End = s.Date_End;
-            State = (SupplStates)s.State;
-            Unpacked = s.Unpacked;
+            DateProduction = s.Date_Production;
+            DateStartUse = s.Date_StartUse;
+            DateExpiration = s.Date_Expiration;
+            DateUnWrite = s.Date_UnWrite;
+            Active = s.Active;
+           //State = (SupplStates)s.State;
             CountMas = s.Count;
             Density = s.Density;
-            if (State != SupplStates.WriteOff)
+            if (Active)
             {
-                if (Date_End < DateTime.Today)
-                {
-                    State = SupplStates.ToWriteOff;
-                }
-                else
-                {
-                    if (Date_End < DateTime.Today.AddMonths(1))
-                    {
-                        State = SupplStates.SoonToWriteOff;
-                    }
-                    else
-                    {
-                        State = SupplStates.Active;
-                    }
-                }
-
+                if (DateTime.Today < DateExpiration.AddMonths(-1))
+                    State = SupplStates.Active;
+                else if (DateTime.Today <= DateExpiration)
+                    State = SupplStates.SoonToWriteOff;
+                else State = SupplStates.ToWriteOff;
             }
+            else State = SupplStates.WriteOff;
+
         }
 
         internal override void updDal(Supply item)
@@ -96,10 +97,12 @@ namespace BLL.Models
             item.Id = Id;
             item.ReagentId = ReagentId;
             item.SupplierId = SupplierId;
-            item.Date_Begin = Date_Begin;
-            item.Date_End = Date_End;
-            item.State = (byte)State;
-            item.Unpacked = Unpacked;
+            item.Date_Production = DateProduction;
+            item.Date_StartUse = DateStartUse;
+            item.Date_Expiration = DateExpiration;
+            item.Date_UnWrite = DateUnWrite;
+            item.Active = Active;
+            //item.State = (byte)State;
             item.Count = CountMas;
             item.Density = Density;
         }
