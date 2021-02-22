@@ -21,15 +21,15 @@ namespace BLL.Models
         //private DateTime date_End;
         //public DateTime Date_End { get => date_End; set { date_End = value; OnPropertyChanged(); } }
         private DateTime date_Production;
-        public DateTime DateProduction { get=>date_Production; set { date_Production = value;OnPropertyChanged(); } }
+        public DateTime DateProduction { get => date_Production; set { date_Production = value; OnPropertyChanged(); } }
         private DateTime date_StartUse;
-        public DateTime DateStartUse { get=>date_StartUse; set { date_StartUse = value;OnPropertyChanged(); } }
+        public DateTime DateStartUse { get => date_StartUse; set { date_StartUse = value; OnPropertyChanged(); } }
         private DateTime dateExpiration;
         public DateTime DateExpiration { get => dateExpiration; set { dateExpiration = value; OnPropertyChanged(); } }
         private DateTime dateUnWrite;
-        public DateTime DateUnWrite { get => dateUnWrite; set { dateUnWrite = value;OnPropertyChanged(); } }
+        public DateTime DateUnWrite { get => dateUnWrite; set { dateUnWrite = value; OnPropertyChanged(); } }
         private bool active;
-        public bool Active { get => active; set { active = value;OnPropertyChanged(); } }
+        public bool Active { get => active; set { active = value; OnPropertyChanged(); } }
         private SupplStates state;
         public SupplStates State
         {
@@ -55,7 +55,7 @@ namespace BLL.Models
         private decimal countMas;
         public decimal CountMas { get => countMas; set { countMas = value; OnPropertyChanged(); OnPropertyChanged("CountVolum"); } }
         private decimal density;
-        public decimal Density { get => density; set { density = value; OnPropertyChanged(); } }
+        public decimal Density { get => density; set { if (value > 0) { density = value; OnPropertyChanged(); } } }
         public decimal CountVolum { get => CountMas / Density; set { CountMas = value * Density; OnPropertyChanged(); OnPropertyChanged("CountMas"); } }
         public string RusState { get; set; }
         public string ShortName { get; set; }
@@ -77,7 +77,7 @@ namespace BLL.Models
             DateExpiration = s.Date_Expiration;
             DateUnWrite = s.Date_UnWrite;
             Active = s.Active;
-           //State = (SupplStates)s.State;
+            //State = (SupplStates)s.State;
             CountMas = s.Count;
             Density = s.Density;
             if (Active)

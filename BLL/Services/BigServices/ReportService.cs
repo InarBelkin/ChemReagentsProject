@@ -44,10 +44,10 @@ namespace BLL.Services.BigServices
                             SupplList.Sort(new SupplyDALComparer());
                             foreach (var sup in SupplList)
                             {
-                                if (GetRemains(sup.Id, solutId) >= SL.Count)
+                                if (GetRemains(sup.Id,new DateTime(), false, solutId) >= SL.Count)
                                 {
                                     SL.SupplyId = sup.Id;
-                                    SL.CountBalance = GetRemains(sup.Id, solutId);
+                                    SL.CountBalance = GetRemains(sup.Id,new DateTime(), false, solutId);
                                     break;
                                 }
                             }
@@ -55,7 +55,7 @@ namespace BLL.Services.BigServices
                             if (SL.SupplyId == null && SupplList.Count > 0)
                             {
                                 SL.SupplyId = SupplList[0].Id;
-                                SL.CountBalance = GetRemains(SupplList[0].Id, solutId);
+                                SL.CountBalance = GetRemains(SupplList[0].Id,new DateTime(), false ,solutId);
                             }
                         }
                        
@@ -83,7 +83,7 @@ namespace BLL.Services.BigServices
                                 if(SupplList.Count>0)
                                 {
                                     SL.SupplyId = SupplList[0].Id;
-                                    SL.CountBalance = GetRemains(SupplList[0].Id, solutId);
+                                    SL.CountBalance = GetRemains(SupplList[0].Id,new DateTime(), false, solutId);
                                 }
                             }
                             ret.Add(SL);
@@ -94,7 +94,7 @@ namespace BLL.Services.BigServices
             return ret;
         }
 
-        public decimal GetRemains(int supplId, int SolutionId = 0)  //дописать: исключить какой-то раствор, добавить учёт отдельных списаний
+        public decimal GetRemains(int supplId, DateTime dateEnd, bool OnDate, int SolutionId = 0)  //дописать: исключить какой-то раствор, добавить учёт отдельных списаний
         {
             Supply Sup = db.Supplies.GetItem(supplId);
             bool isWater = Sup.Reagent.isWater;

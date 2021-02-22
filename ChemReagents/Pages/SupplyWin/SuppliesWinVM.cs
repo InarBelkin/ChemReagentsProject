@@ -52,9 +52,12 @@ namespace ChemReagents.Pages.SupplyWin
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged(params string[] propertyNames)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            foreach (var s in propertyNames)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(s));
+            }
         }
 
         public GridLength DevModeHeigh
@@ -101,7 +104,6 @@ namespace ChemReagents.Pages.SupplyWin
         public string ReagName { get => SelectReag.Name; }
         //private ObservableCollection<ReagentM> reagentList;
         //public ObservableCollection<ReagentM> ReagentList { get => reagentList; set => reagentList = value; }
-        public decimal Density { get => TempSuppl.Density; set => TempSuppl.Density = value; }
         private ObservableCollection<SupplierM> suppliersList;
         public ObservableCollection<SupplierM> SuppliersList { get => suppliersList; set => suppliersList = value; }
         private SupplierM selectSupplier;
@@ -113,9 +115,13 @@ namespace ChemReagents.Pages.SupplyWin
         public DateTime DateExpiration { get => TempSuppl.DateExpiration; set { TempSuppl.DateExpiration = value; OnPropertyChanged("DateExpiration"); } }
         public DateTime DateUnWrite { get => TempSuppl.DateUnWrite; set { TempSuppl.DateUnWrite = value; OnPropertyChanged("DateUnWrite"); } }
 
+        public decimal Density { get => TempSuppl.Density; set { TempSuppl.Density = value;OnPropertyChanged("Density","AmountGr", "AmountMl"); } }
 
-        public decimal AmountGr { get => TempSuppl.CountMas; set { TempSuppl.CountMas = value; OnPropertyChanged("AmountGr"); OnPropertyChanged("AmountMl"); } }
-        public decimal AmountMl { get => TempSuppl.CountVolum; set { TempSuppl.CountVolum = value; OnPropertyChanged("AmountMl"); OnPropertyChanged("AmountGr"); } }
+        public uint AmountGr { get => (uint)TempSuppl.CountMas; set { TempSuppl.CountMas = value; OnPropertyChanged("AmountGr"); OnPropertyChanged("AmountMl"); } }
+        public uint AmountMl { get => (uint)TempSuppl.CountVolum; set { TempSuppl.CountVolum = value; OnPropertyChanged("AmountMl"); OnPropertyChanged("AmountGr"); } }
+
+        public decimal RemanGr;
+        public decimal RemainMl;
 
         private RelayCommand saveButton;
         public RelayCommand SaveCommand
@@ -186,7 +192,7 @@ namespace ChemReagents.Pages.SupplyWin
             {
                 return editConsump ?? (editConsump = new RelayCommand(obj =>
                 {
-                    if(TempSuppl.Id>0)
+                    if (TempSuppl.Id > 0)
                     {
                         switch (obj as string)
                         {

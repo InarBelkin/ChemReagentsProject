@@ -25,7 +25,17 @@ namespace ChemReagents.Pages.SupplyWin
         {
             InitializeComponent();
             DataContext = new SuppliesWinVM(cr, report, suppl);
-            
+
+            box.KeyDown += Box_KeyDown;
+        }
+
+        private void Box_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                BindingExpression bind = box.GetBindingExpression(TextBox.TextProperty);
+                bind.UpdateSource();
+            }
         }
     }
 }
