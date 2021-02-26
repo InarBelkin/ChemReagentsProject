@@ -14,7 +14,8 @@ namespace BLL.Interfaces
         /// <summary>
         /// Возвращает остаток в объёме для жидкостей
         /// </summary>
-        decimal GetRemains(int supplId, DateTime DateEnd, bool OnDate = false, int SolutionId = 0);
+        decimal GetRemains(int supplId, int SolutionId = 0);
+        (decimal mas, decimal vol) GetRemainsSW(int suplid, DateTime dateEnd, decimal Count, decimal Density, bool OnDate = false);
         void LoadAll();
         void DeleteSolutLines(int SolutId);
     }

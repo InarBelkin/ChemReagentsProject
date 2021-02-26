@@ -23,6 +23,8 @@ namespace DAL.Repository
             db.Solutions.ToList();
             db.Solution_Lines.ToList();
             db.Supplies.ToList();
+            //db.Solution_Recipes.ToList();
+            //db.Solution_Recipe_Lines.ToList();
         }
 
         public void DelSolutLines(int SolutId)

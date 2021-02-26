@@ -29,18 +29,18 @@ namespace BLL.Models
         public SupplyStingM(Solution_line sl)
         {
             Id = sl.Id;
-            if(sl.Solution.RecipeId==null)
-            {
-                Name = sl.Solution.RecipeName;
-            }
-            else
-            {
-                Name = sl.Solution.Recipe.Name;
-                if(sl.Solution.ConcentrationId!=null)
-                {
-                    Name = Name +" "+ sl.Solution.Concentration.Name;
-                }
-            }
+            //if(sl.Solution.RecipeId==null)
+            //{
+            //    Name = sl.Solution.RecipeName;
+            //}
+            //else
+            //{
+            //    Name = sl.Solution.Recipe.Name;
+            //    if(sl.Solution.ConcentrationId!=null)
+            //    {
+            //        Name = Name +" "+ sl.Solution.Concentration.Name;
+            //    }
+            //}
             DateBegin = sl.Solution.Date_Begin;
             Count = sl.Count;
             IsConsump = false;

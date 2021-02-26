@@ -28,7 +28,7 @@ namespace BLL.Services.BigServices
             if (conc != null)
             {
                 var conclist = conc.LineList;
-                if(conclist!=null)
+                if (conclist != null)
                 {
                     foreach (Solution_recipe_line l in conclist)
                     {
@@ -38,16 +38,16 @@ namespace BLL.Services.BigServices
                             SL.Count = l.Count * (Count / conc.Count);
                         else SL.Count = 0;
 
-                        if(l.Reagent.Supplies!=null)
+                        if (l.Reagent.Supplies != null)
                         {
                             var SupplList = l.Reagent.Supplies.Where(i => Date >= i.Date_StartUse && Date <= i.Date_UnWrite.AddDays(1)).ToList();
                             SupplList.Sort(new SupplyDALComparer());
                             foreach (var sup in SupplList)
                             {
-                                if (GetRemains(sup.Id,new DateTime(), false, solutId) >= SL.Count)
+                                if (GetRemains(sup.Id, solutId) >= SL.Count)
                                 {
                                     SL.SupplyId = sup.Id;
-                                    SL.CountBalance = GetRemains(sup.Id,new DateTime(), false, solutId);
+                                    SL.CountBalance = GetRemains(sup.Id, solutId);
                                     break;
                                 }
                             }
@@ -55,15 +55,15 @@ namespace BLL.Services.BigServices
                             if (SL.SupplyId == null && SupplList.Count > 0)
                             {
                                 SL.SupplyId = SupplList[0].Id;
-                                SL.CountBalance = GetRemains(SupplList[0].Id,new DateTime(), false ,solutId);
+                                SL.CountBalance = GetRemains(SupplList[0].Id, solutId);
                             }
                         }
-                       
+
                         ret.Add(SL);
                     }
                 }
             }
-            else if(recipeId>0)
+            else if (recipeId > 0)
             {
                 Solution_recipe sr = db.Solution_Recipes.GetItem(recipeId);
                 if (sr.Concentrations != null && sr.Concentrations.Count > 0)
@@ -76,14 +76,14 @@ namespace BLL.Services.BigServices
                             var SL = new SolutionLineM();
                             SL.Count = 0;
                             SL.ReagentId = l.ReagentId;
-                            if(l.Reagent.Supplies!=null)
+                            if (l.Reagent.Supplies != null)
                             {
                                 var SupplList = l.Reagent.Supplies.Where(i => Date >= i.Date_StartUse && Date <= i.Date_UnWrite.AddDays(1)).ToList();
                                 SupplList.Sort(new SupplyDALComparer());
-                                if(SupplList.Count>0)
+                                if (SupplList.Count > 0)
                                 {
                                     SL.SupplyId = SupplList[0].Id;
-                                    SL.CountBalance = GetRemains(SupplList[0].Id,new DateTime(), false, solutId);
+                                    SL.CountBalance = GetRemains(SupplList[0].Id, solutId);
                                 }
                             }
                             ret.Add(SL);
@@ -94,7 +94,7 @@ namespace BLL.Services.BigServices
             return ret;
         }
 
-        public decimal GetRemains(int supplId, DateTime dateEnd, bool OnDate, int SolutionId = 0)  //дописать: исключить какой-то раствор, добавить учёт отдельных списаний
+        public decimal GetRemains(int supplId,  int SolutionId = 0)  //дописать: исключить какой-то раствор, добавить учёт отдельных списаний
         {
             Supply Sup = db.Supplies.GetItem(supplId);
             bool isWater = Sup.Reagent.isWater;
@@ -103,23 +103,59 @@ namespace BLL.Services.BigServices
             {
                 foreach (var SL in Sup.Solution_Lines)
                 {
-                    if (SL.SolutionId != SolutionId)
+                    if (SL.SolutionId != SolutionId )
                     {
                         summ += SL.Count;
                     }
                 }
             }
-            if(Sup.Consumptions!=null)
+            if (Sup.Consumptions != null)
             {
-                foreach(var sc in Sup.Consumptions)
+                foreach (var sc in Sup.Consumptions)
                 {
-                    summ += sc.Count;
+                        summ += sc.Count;
                 }
             }
             decimal remain = 0;
             if (isWater) { remain = Sup.Count / Sup.Density - summ; }
             else
                 remain = Sup.Count - summ;
+            return remain;
+        }
+
+        public (decimal mas,decimal vol) GetRemainsSW(int suplid, DateTime dateEnd, decimal Count, decimal Density , bool OnDate = false)
+        {
+            Supply Sup = db.Supplies.GetItem(suplid);
+            bool isWater = Sup.Reagent.isWater;
+            decimal summ = 0;
+            if (Sup.Solution_Lines != null)
+            {
+                foreach (var SL in Sup.Solution_Lines)
+                {
+                    if (!OnDate || SL.Solution.Date_Begin <= dateEnd)
+                    {
+                        summ += SL.Count;
+                    }
+                }
+            }
+            if (Sup.Consumptions != null)
+            {
+                foreach (var sc in Sup.Consumptions)
+                {
+                    if (!OnDate || sc.DateBegin <= dateEnd)
+                        summ += sc.Count;
+                }
+            }
+            (decimal, decimal) remain = (0, 0);
+            if(isWater)
+            {
+                remain.Item1 = Count - (summ / Density);
+                remain.Item2 = Count / Density - summ;
+            }
+            else
+            {
+                remain.Item1 = Count - summ;
+            }
             return remain;
         }
 

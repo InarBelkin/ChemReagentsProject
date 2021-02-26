@@ -121,6 +121,24 @@ namespace BLL.Services
                     foreach (var sl in s.Solution_Lines)
                     {
                         var a = new SupplyStingM(sl);
+                        if (sl.Solution.RecipeId == null)
+                        {
+                            a.Name = sl.Solution.RecipeName + " " + sl.Solution.ConcentrName;
+                        }
+                        else
+                        {
+                            var recep = db.Solution_Recipes.GetItem((int)sl.Solution.RecipeId);
+                            a.Name = recep.Name;
+                            if(sl.Solution.ConcentrationId==null)
+                            {
+                                a.Name += " " + sl.Solution.ConcentrName;
+                            }
+                            else
+                            {
+                                var conc = db.Concentrations.GetItem((int)sl.Solution.ConcentrationId);
+                                a.Name += " " + conc.Name;
+                            }
+                        }
                         if (a.DateBegin <= f.DateTo)
                             ret.Add(a);
                     }

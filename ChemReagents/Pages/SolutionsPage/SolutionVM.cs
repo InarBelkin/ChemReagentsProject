@@ -145,7 +145,7 @@ namespace ChemReagents.Pages.SolutionsPage
                     {
                         sl.PropertyChanged += SolutLine_PropertyChanged;
                         SetSupplList(sl, SelectSolution.Date_Begin);
-                        if (sl.SupplyId != null) sl.CountBalance = rep.GetRemains((int)sl.SupplyId,new DateTime(), false, sl.SolutionId);
+                        if (sl.SupplyId != null) sl.CountBalance = rep.GetRemains((int)sl.SupplyId, sl.SolutionId);
                     }
                     ret.CollectionChanged += SolutLines_CollectionChanged;
                     return ret;
@@ -180,7 +180,7 @@ namespace ChemReagents.Pages.SolutionsPage
                 if (SelectSolutLine.SupplyList.Count > 0)
                 {
                     SelectSolutLine.SupplyId = SelectSolutLine.SupplyList[0].Id;
-                    SelectSolutLine.CountBalance = rep.GetRemains((int)SelectSolutLine.SupplyId,new DateTime(), false, SelectSolutLine.SolutionId);
+                    SelectSolutLine.CountBalance = rep.GetRemains((int)SelectSolutLine.SupplyId, SelectSolutLine.SolutionId);
                 }
                 else
                 {
@@ -201,7 +201,7 @@ namespace ChemReagents.Pages.SolutionsPage
             if (e != null && SelectSolutLine != null)
             {
                 SelectSolutLine.SupplyId = e.Id;
-                SelectSolutLine.CountBalance = rep.GetRemains((int)SelectSolutLine.SupplyId, new DateTime(), false, SelectSolutLine.SolutionId);
+                SelectSolutLine.CountBalance = rep.GetRemains((int)SelectSolutLine.SupplyId, SelectSolutLine.SolutionId);
             }
         }
 

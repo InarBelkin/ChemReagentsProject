@@ -49,6 +49,7 @@ namespace ChemReagents.Pages.SupplyWin
                 }
             }
             SelectReag = dbOp.Reagents.GetItem(sup.ReagentId);
+            OnDatePick = DateTime.Today;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -115,14 +116,43 @@ namespace ChemReagents.Pages.SupplyWin
         public DateTime DateExpiration { get => TempSuppl.DateExpiration; set { TempSuppl.DateExpiration = value; OnPropertyChanged("DateExpiration"); } }
         public DateTime DateUnWrite { get => TempSuppl.DateUnWrite; set { TempSuppl.DateUnWrite = value; OnPropertyChanged("DateUnWrite"); } }
 
-        public decimal Density { get => TempSuppl.Density; set { TempSuppl.Density = value;OnPropertyChanged("Density","AmountGr", "AmountMl"); } }
+        public decimal Density
+        {
+            get => TempSuppl.Density;
+            set
+            {
+                if (SelectReag.IsWater)
+                {
+                    decimal TAmountMl = AmountMl;
+                    TempSuppl.Density = value;
+                    TempSuppl.CountVolum = TAmountMl;
+                }
+                else
+                {
+                    TempSuppl.Density = value;
+                }
+                // TempSuppl.Density = value;
 
-        public uint AmountGr { get => (uint)TempSuppl.CountMas; set { TempSuppl.CountMas = value; OnPropertyChanged("AmountGr"); OnPropertyChanged("AmountMl"); } }
-        public uint AmountMl { get => (uint)TempSuppl.CountVolum; set { TempSuppl.CountVolum = value; OnPropertyChanged("AmountMl"); OnPropertyChanged("AmountGr"); } }
+                OnPropertyChanged("Density", "AmountGr", "AmountMl", "RemaindGr", "RemaindMl");
+            }
+        }
 
-        public decimal RemanGr;
-        public decimal RemainMl;
+        public uint AmountGr { get => (uint)TempSuppl.CountMas; set { TempSuppl.CountMas = value; OnPropertyChanged("AmountGr"); OnPropertyChanged("AmountMl", "RemaindGr", "RemaindMl"); } }
+        public uint AmountMl { get => (uint)TempSuppl.CountVolum; set { TempSuppl.CountVolum = value; OnPropertyChanged("AmountMl"); OnPropertyChanged("AmountGr", "RemaindGr", "RemaindMl"); } }
 
+        //public decimal RemaindGr { get { return rep.GetRemains(TempSuppl.Id, OnDatePick, TurnOnDate); } }
+        public decimal RemaindGr { get { return rep.GetRemainsSW(TempSuppl.Id, OnDatePick, TempSuppl.CountMas, TempSuppl.Density,TurnOnDate).mas; } }
+        public decimal RemaindMl { get => rep.GetRemainsSW(TempSuppl.Id, OnDatePick, TempSuppl.CountMas,TempSuppl.Density, TurnOnDate).vol; }
+
+        private bool turnOnDate;
+        public bool TurnOnDate
+        {
+            get => turnOnDate;
+            set { turnOnDate = value; OnPropertyChanged("TurnOnDate", "RemaindGr", "RemaindMl", "ConsumpList"); }
+        }
+
+        private DateTime onDatePick;
+        public DateTime OnDatePick { get => onDatePick; set { onDatePick = value; OnPropertyChanged("OnDatePick", "RemaindGr", "RemaindMl", "ConsumpList"); } }
         private RelayCommand saveButton;
         public RelayCommand SaveCommand
         {
@@ -167,7 +197,9 @@ namespace ChemReagents.Pages.SupplyWin
             {
                 if (TempSuppl.Id > 0)
                 {
-                    var ret = dbOp.SupplConsump.GetList(new SupplyStringsFilter() { SupplyId = TempSuppl.Id });
+                    SupplyStringsFilter f = new SupplyStringsFilter() { SupplyId = TempSuppl.Id };
+                    if (TurnOnDate) f.DateTo = OnDatePick;
+                    var ret = dbOp.SupplConsump.GetList(f);
                     return ret;
                 }
                 else return new ObservableCollection<SupplyStingM>();
