@@ -32,6 +32,8 @@ namespace BLL.Services
             }
             return base.GetList(filter);
         }
+
+       
     }
 
     class SupplyCrud : IServCrudAbstr<SupplyM, Supply>
@@ -70,6 +72,13 @@ namespace BLL.Services
                 if (reag.Supplies != null)
                 {
                     var slist = reag.Supplies.Where(i => f2.DateNow >= i.Date_StartUse && f2.DateNow <= i.Date_UnWrite.AddDays(1)).Select(i => new SupplyM(i)).ToList();
+                    if(!reag.IsAccounted)
+                    {
+                        foreach(var s in slist)
+                        {
+                            s.ShortName = "Не учитывается";
+                        }
+                    }
                     slist.Sort(new SupplyComparer());
                     return new ObservableCollection<SupplyM>(slist);
                 }

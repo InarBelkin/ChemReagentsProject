@@ -12,8 +12,8 @@ namespace BLL.Models
     {
         private int reagentId;
         public int ReagentId { get => reagentId; set { reagentId = value; OnPropertyChanged(); } }
-        private int supplierId;
-        public int SupplierId { get => supplierId; set { supplierId = value; OnPropertyChanged(); } }
+        private int? supplierId;
+        public int? SupplierId { get => supplierId; set { supplierId = value; OnPropertyChanged(); } }
         //private int reagentNumber;
         //public int ReagentNumber { get => reagentNumber; set { reagentNumber = value;OnPropertyChanged(); } }
         //private DateTime date_Begin;

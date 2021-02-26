@@ -97,30 +97,38 @@ namespace BLL.Services.BigServices
         public decimal GetRemains(int supplId,  int SolutionId = 0)  //дописать: исключить какой-то раствор, добавить учёт отдельных списаний
         {
             Supply Sup = db.Supplies.GetItem(supplId);
-            bool isWater = Sup.Reagent.isWater;
-            decimal summ = 0;
-            if (Sup.Solution_Lines != null)
+            if(Sup.Reagent.IsAccounted)
             {
-                foreach (var SL in Sup.Solution_Lines)
+                bool isWater = Sup.Reagent.isWater;
+                decimal summ = 0;
+                if (Sup.Solution_Lines != null)
                 {
-                    if (SL.SolutionId != SolutionId )
+                    foreach (var SL in Sup.Solution_Lines)
                     {
-                        summ += SL.Count;
+                        if (SL.SolutionId != SolutionId)
+                        {
+                            summ += SL.Count;
+                        }
                     }
                 }
-            }
-            if (Sup.Consumptions != null)
-            {
-                foreach (var sc in Sup.Consumptions)
+                if (Sup.Consumptions != null)
                 {
+                    foreach (var sc in Sup.Consumptions)
+                    {
                         summ += sc.Count;
+                    }
                 }
+                decimal remain = 0;
+                if (isWater) { remain = Sup.Count / Sup.Density - summ; }
+                else
+                    remain = Sup.Count - summ;
+                return remain;
             }
-            decimal remain = 0;
-            if (isWater) { remain = Sup.Count / Sup.Density - summ; }
             else
-                remain = Sup.Count - summ;
-            return remain;
+            {
+                return 9999;
+            }
+           
         }
 
         public (decimal mas,decimal vol) GetRemainsSW(int suplid, DateTime dateEnd, decimal Count, decimal Density , bool OnDate = false)

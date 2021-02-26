@@ -15,7 +15,7 @@ namespace DAL.Tables
         [ForeignKey("ReagentId")]
         public Reagent Reagent { get; set; }
 
-        public int SupplierId { get; set; }
+        public int? SupplierId { get; set; }
         [ForeignKey("SupplierId")]
         public Supplier Supplier { get; set; }
         public DateTime Date_Production { get; set; }

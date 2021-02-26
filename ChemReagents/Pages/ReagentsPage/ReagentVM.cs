@@ -98,12 +98,22 @@ namespace ChemReagents.Pages.ReagentsPage
                 case NotifyCollectionChangedAction.Add:
                     ReagentM newreag = e.NewItems[0] as ReagentM;
                     newreag.IsAccounted = IsAccounting;
+
                     var ex = dbOp.Reagents.Create(newreag);
                     if (ex != null)
                     {
                         new ErrorWin(ex).ShowDialog();
                     }
-                    else newreag.PropertyChanged += Reag_PropertyChanged;
+                    else
+                    {
+                        newreag.PropertyChanged += Reag_PropertyChanged;
+                        if (!newreag.IsAccounted)
+                        {
+                            var ex2 = dbOp.Supplies.Create(new SupplyM() { ReagentId = newreag.Id, DateStartUse = new DateTime(2000, 1, 1), DateUnWrite = new DateTime(2100, 1, 1),
+                                DateProduction = new DateTime(2000, 1, 1), DateExpiration = new DateTime(2100, 1, 1) }) ;
+                            if (ex2 != null) new ErrorWin(ex2).ShowDialog();
+                        }
+                    }
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     ReagentM delreag = e.OldItems[0] as ReagentM;

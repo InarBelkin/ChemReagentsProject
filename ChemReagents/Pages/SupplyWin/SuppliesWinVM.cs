@@ -141,8 +141,8 @@ namespace ChemReagents.Pages.SupplyWin
         public uint AmountMl { get => (uint)TempSuppl.CountVolum; set { TempSuppl.CountVolum = value; OnPropertyChanged("AmountMl"); OnPropertyChanged("AmountGr", "RemaindGr", "RemaindMl"); } }
 
         //public decimal RemaindGr { get { return rep.GetRemains(TempSuppl.Id, OnDatePick, TurnOnDate); } }
-        public decimal RemaindGr { get { return rep.GetRemainsSW(TempSuppl.Id, OnDatePick, TempSuppl.CountMas, TempSuppl.Density,TurnOnDate).mas; } }
-        public decimal RemaindMl { get => rep.GetRemainsSW(TempSuppl.Id, OnDatePick, TempSuppl.CountMas,TempSuppl.Density, TurnOnDate).vol; }
+        public decimal RemaindGr { get { return TempSuppl.Id>0 ? rep.GetRemainsSW(TempSuppl.Id, OnDatePick, TempSuppl.CountMas, TempSuppl.Density,TurnOnDate).mas:0; } }
+        public decimal RemaindMl { get => TempSuppl.Id>0? rep.GetRemainsSW(TempSuppl.Id, OnDatePick, TempSuppl.CountMas,TempSuppl.Density, TurnOnDate).vol:0; }
 
         private bool turnOnDate;
         public bool TurnOnDate
