@@ -62,6 +62,8 @@
     <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\IReportServ.cs" />
     <Compile Include="Models\ConcentrationM.cs" />
+    <Compile Include="Models\OtherModels\MonthM.cs" />
+    <Compile Include="Models\OtherModels\ReportM.cs" />
     <Compile Include="Models\OtherModels\SupplyStingM.cs" />
     <Compile Include="Models\ReagentM.cs" />
     <Compile Include="Models\RecipeM.cs" />

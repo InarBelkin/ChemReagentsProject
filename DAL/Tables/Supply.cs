@@ -18,6 +18,11 @@ namespace DAL.Tables
         public int? SupplierId { get; set; }
         [ForeignKey("SupplierId")]
         public Supplier Supplier { get; set; }
+
+        public int? ReportId { get; set; }
+        [ForeignKey("ReportId")]
+        public Report Report { get; set; }
+
         public DateTime Date_Production { get; set; }
         public DateTime Date_StartUse { get; set; }
         public DateTime Date_Expiration { get; set; }

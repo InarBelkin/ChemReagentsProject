@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.Interfaces;
 using BLL.Models;
+using BLL.Models.OtherModels;
 using BLL.Services.FIlters;
 using DAL.Interfaces;
 using DAL.Tables;
@@ -58,6 +59,8 @@ namespace BLL.Services.BigServices
                                 SL.CountBalance = GetRemains(SupplList[0].Id, solutId);
                             }
                         }
+                        if (l.Reagent.isWater) SL.Units = "мл.";
+                        else SL.Units = "гр.";
 
                         ret.Add(SL);
                     }
@@ -86,6 +89,8 @@ namespace BLL.Services.BigServices
                                     SL.CountBalance = GetRemains(SupplList[0].Id, solutId);
                                 }
                             }
+                            if (l.Reagent.isWater) SL.Units = "мл.";
+                            else SL.Units = "гр.";
                             ret.Add(SL);
                         }
                     }
@@ -94,10 +99,10 @@ namespace BLL.Services.BigServices
             return ret;
         }
 
-        public decimal GetRemains(int supplId,  int SolutionId = 0)  //дописать: исключить какой-то раствор, добавить учёт отдельных списаний
+        public decimal GetRemains(int supplId, int SolutionId = 0)  //дописать: исключить какой-то раствор, добавить учёт отдельных списаний
         {
             Supply Sup = db.Supplies.GetItem(supplId);
-            if(Sup.Reagent.IsAccounted)
+            if (Sup.Reagent.IsAccounted)
             {
                 bool isWater = Sup.Reagent.isWater;
                 decimal summ = 0;
@@ -128,10 +133,10 @@ namespace BLL.Services.BigServices
             {
                 return 9999;
             }
-           
+
         }
 
-        public (decimal mas,decimal vol) GetRemainsSW(int suplid, DateTime dateEnd, decimal Count, decimal Density , bool OnDate = false)
+        public (decimal mas, decimal vol) GetRemainsSW(int suplid, DateTime dateEnd, decimal Count, decimal Density, bool OnDate = false)
         {
             Supply Sup = db.Supplies.GetItem(suplid);
             bool isWater = Sup.Reagent.isWater;
@@ -155,7 +160,7 @@ namespace BLL.Services.BigServices
                 }
             }
             (decimal, decimal) remain = (0, 0);
-            if(isWater)
+            if (isWater)
             {
                 remain.Item1 = Count - (summ / Density);
                 remain.Item2 = Count / Density - summ;
@@ -175,6 +180,44 @@ namespace BLL.Services.BigServices
         public void DeleteSolutLines(int SolutId)
         {
             db.Reports.DelSolutLines(SolutId);
+        }
+
+        public MonthM[] GetMonths()
+        {
+            MonthM[] ret = new MonthM[12];
+            ret[0] = new MonthM() { num = 1, Name = "Январь" };
+            ret[1] = new MonthM() { num = 2, Name = "Февраль" };
+            ret[2] = new MonthM() { num = 3, Name = "Март" };
+            ret[3] = new MonthM() { num = 4, Name = "Апрель" };
+            ret[4] = new MonthM() { num = 5, Name = "Май" };
+            ret[5] = new MonthM() { num = 6, Name = "Июнь" };
+            ret[6] = new MonthM() { num = 7, Name = "Июль" };
+            ret[7] = new MonthM() { num = 8, Name = "Август" };
+            ret[8] = new MonthM() { num = 9, Name = "Сентябрь" };
+            ret[9] = new MonthM() { num = 10, Name = "Октябрь" };
+            ret[10] = new MonthM() { num = 11, Name = "Ноябрь" };
+            ret[11] = new MonthM() { num = 12, Name = "Декабрь" };
+            return ret;
+        }
+
+        public void CreateMonthRep(DateTime date)
+        {
+            Report r = new Report() { TimeRep = date };
+            db.PReports.Create(r);
+        }
+
+        public ReportM GetMonthRep(uint year, byte month)
+        {
+            ReportM ret = null;
+            foreach(var r in db.PReports.GetList())
+            {
+                if(r.TimeRep.Year == year && r.TimeRep.Month == month )
+                {
+                    ret = new ReportM(r);
+                    break;
+                }
+            }
+            return ret;
         }
     }
 

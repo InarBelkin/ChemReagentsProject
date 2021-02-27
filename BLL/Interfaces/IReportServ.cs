@@ -1,4 +1,5 @@
 ﻿using BLL.Models;
+using BLL.Models.OtherModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,5 +19,7 @@ namespace BLL.Interfaces
         (decimal mas, decimal vol) GetRemainsSW(int suplid, DateTime dateEnd, decimal Count, decimal Density, bool OnDate = false);
         void LoadAll();
         void DeleteSolutLines(int SolutId);
+        MonthM[] GetMonths();
+        ReportM GetMonthRep(uint year, byte month)
     }
 }

@@ -24,6 +24,8 @@ namespace DAL.Tables
         public DbSet<Solution_line> Solution_Lines { get; set; }
         public DbSet<Supply_consumption> Consumptions { get; set; }
 
+        public DbSet<Report> Reports { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Supply>().Property(p => p.Density).HasPrecision(18, 4);

@@ -23,6 +23,7 @@ namespace DAL.Repository
         private SolutionLineRepSQL solutionLine;
         private ConcentracionsRepSQL concentrations;
         private ConsumptionsRepSQL consump;
+        private ReportsRRepSQL rep;
         public DbReposSQL()
         {
             db = new ChemContext();
@@ -49,7 +50,8 @@ namespace DAL.Repository
 
         public IRepository<Supply_consumption> Consumptions => consump ?? (consump = new ConsumptionsRepSQL(db));
 
-      
+        public IRepository<Report> PReports => rep ?? (rep = new ReportsRRepSQL(db));
+
         public Exception Save()
         {
             try

@@ -2,6 +2,7 @@
 using ChemReagents.Additional;
 using ChemReagents.AdditionalWins.SettingsWin;
 using ChemReagents.Pages.ReciepePage;
+using ChemReagents.Pages.ReportPage;
 using ChemReagents.Pages.SolutionsPage;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,9 @@ namespace ChemReagents.Pages.MainWin
                             break;
                         case "Solution":
                             mainpage.SetPage(new PageSolutions(dbOp, rep));
+                            break;
+                        case "Report":
+                            mainpage.SetPage(new PageReports(dbOp, rep));
                             break;
                         default:
                             break;

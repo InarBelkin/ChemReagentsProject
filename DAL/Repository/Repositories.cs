@@ -48,4 +48,9 @@ namespace DAL.Repository
     {
         public SuppliesRepSQL(ChemContext dbcontext) : base(dbcontext.Supplies, dbcontext) { }
     }
+
+    public class ReportsRRepSQL : IReposAbstract<Report>
+    {
+        public ReportsRRepSQL(ChemContext dbcontext) : base(dbcontext.Reports, dbcontext) { }
+    }
 }
