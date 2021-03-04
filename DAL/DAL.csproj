@@ -138,6 +138,10 @@
     <Compile Include="Migrations\202102270756320_AddCompanyMigration12.designer.cs">
       <DependentUpon>202102270756320_AddCompanyMigration12.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102271950199_AddCompanyMigration13.cs" />
+    <Compile Include="Migrations\202102271950199_AddCompanyMigration13.designer.cs">
+      <DependentUpon>202102271950199_AddCompanyMigration13.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repository\BigRepositories\IReposAbst.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Migrations\202012231605478_InitialCreate.cs" />
@@ -278,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102270756320_AddCompanyMigration12.resx">
       <DependentUpon>202102270756320_AddCompanyMigration12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102271950199_AddCompanyMigration13.resx">
+      <DependentUpon>202102271950199_AddCompanyMigration13.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

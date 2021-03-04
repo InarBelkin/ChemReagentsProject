@@ -10,8 +10,9 @@ namespace BLL.Models.OtherModels
 {
     public  class ReportM : IModel<Report>
     {
-        public int Id { get; set; }
+       //public int Id { get; set; }
         public DateTime TimeRep { get; set; }
+        public DateTime RealDate { get; set; }
 
         public ReportM() { }
         public ReportM(Report r) { setfromDal(r); }
@@ -20,12 +21,14 @@ namespace BLL.Models.OtherModels
         {
             Id = item.Id;
             TimeRep = item.TimeRep;
+            RealDate = item.RealDate;
         }
 
         internal override void updDal(Report item)
         {
             item.Id = Id;
             item.TimeRep = TimeRep;
+            item.RealDate = RealDate;
         }
     }
 }

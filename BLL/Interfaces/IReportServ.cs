@@ -20,6 +20,10 @@ namespace BLL.Interfaces
         void LoadAll();
         void DeleteSolutLines(int SolutId);
         MonthM[] GetMonths();
-        ReportM GetMonthRep(uint year, byte month)
+        ReportM GetMonthRep(uint year, byte month);
+
+        (List<MonthReportLineM>, List<MonthReportLineM>) GetListReport(uint year, byte month);
+        ReportM CreateMonthRep(ReportM rep);
+        Exception AcceptWriteOff(MonthReportLineM m, ReportM r);
     }
 }

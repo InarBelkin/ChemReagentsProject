@@ -10,6 +10,6 @@ namespace DAL.Tables
     {
         public int Id { get; set; }
         public DateTime TimeRep { get; set; }
-
+        public DateTime RealDate { get; set; }
     }
 }

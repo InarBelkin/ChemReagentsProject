@@ -13,7 +13,7 @@ using DAL.Tables;
 
 namespace BLL.Services.BigServices
 {
-    public class ReportService : IReportServ
+    public partial class ReportService : IReportServ
     {
         IDbRepos db;
         public ReportService(IDbRepos repos)
@@ -162,7 +162,7 @@ namespace BLL.Services.BigServices
             (decimal, decimal) remain = (0, 0);
             if (isWater)
             {
-                remain.Item1 = Count - (summ / Density);
+                remain.Item1 = Count - (summ * Density);
                 remain.Item2 = Count / Density - summ;
             }
             else
@@ -200,24 +200,87 @@ namespace BLL.Services.BigServices
             return ret;
         }
 
-        public void CreateMonthRep(DateTime date)
-        {
-            Report r = new Report() { TimeRep = date };
-            db.PReports.Create(r);
-        }
 
-        public ReportM GetMonthRep(uint year, byte month)
+        public (List<MonthReportLineM>, List<MonthReportLineM>) GetListReport(uint year, byte month)
         {
-            ReportM ret = null;
-            foreach(var r in db.PReports.GetList())
+            List<MonthReportLineM> Ostatk = new List<MonthReportLineM>();
+            List<MonthReportLineM> Write = new List<MonthReportLineM>();
+            foreach (var s in db.Supplies.GetList())
             {
-                if(r.TimeRep.Year == year && r.TimeRep.Month == month )
+                if (s.Reagent.IsAccounted)
                 {
-                    ret = new ReportM(r);
-                    break;
+                    MonthReportLineM r = null;
+                    Report rep = null;
+                    if (s.ReportId != null) rep = db.PReports.GetItem((int)s.ReportId);
+                    if ((s.ReportId == null && s.Date_Expiration < new DateTime((int)year, month + 1, 1)) || (s.ReportId!=null && rep.TimeRep.Year == year && rep.TimeRep.Month == month))
+                    {
+                        r = new MonthReportLineM();
+                        Write.Add(r);
+                    }
+                    else 
+                    {
+                        decimal cons = GetConsSupplMonth(s.Id, year, month);
+                        if(cons>0)
+                        {
+                            r = new MonthReportLineM();
+                            Ostatk.Add(r);
+                        }
+                    }
+
+                    if(r!=null)
+                    {
+                        r.SupplyId = s.Id;
+                        r.ReagentName = s.Reagent.Name;
+                        r.CountMonth = GetConsSupplMonth(s.Id, year, month);
+
+                        (decimal, decimal) remain = GetRemainsSW(s.Id, new DateTime((int)year, month, DateTime.DaysInMonth((int)year, month)), s.Count, s.Density, true);
+                        r.RemainMonth = s.Reagent.isAlwaysWater ? remain.Item2 : remain.Item1;
+                        r.Units = s.Reagent.isAlwaysWater ? "мл." : "гр.";
+                        r.IsWrittenOff = s.ReportId == null ? false : true;
+                        r.AcceptWriteOff = r.IsWrittenOff;
+                    }
+
                 }
             }
-            return ret;
+            return (Ostatk, Write);
+
+
+
+        }
+
+        public decimal GetConsSupplMonth(int SupplId, uint year, byte month)
+        {
+            decimal rem = 0;
+            Supply s = db.Supplies.GetItem(SupplId);
+            if (s.Solution_Lines != null)
+            {
+                foreach (var sl in s.Solution_Lines)
+                {
+                    if (sl.Solution.Date_Begin.Year == year && sl.Solution.Date_Begin.Month == month)
+                    {
+                        rem += sl.Count;
+                    }
+                }
+            }
+            if (s.Consumptions != null)
+            {
+                foreach (var c in s.Consumptions)
+                {
+                    if (c.DateBegin.Year == year && c.DateBegin.Month == month)
+                    {
+                        rem += c.Count;
+                    }
+                }
+            }
+            if (s.Reagent.isWater == false) return rem; //твёрдое
+            else if (s.Reagent.isAlwaysWater)    //всегда жидкость
+            {
+                return rem;
+            }
+            else                //просто жидкость, надо граммы.
+            {
+                return rem * s.Density;
+            }
         }
     }
 

@@ -63,6 +63,7 @@
     <Compile Include="Interfaces\IReportServ.cs" />
     <Compile Include="Models\ConcentrationM.cs" />
     <Compile Include="Models\OtherModels\MonthM.cs" />
+    <Compile Include="Models\OtherModels\MonthReportLineM.cs" />
     <Compile Include="Models\OtherModels\ReportM.cs" />
     <Compile Include="Models\OtherModels\SupplyStingM.cs" />
     <Compile Include="Models\ReagentM.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BigServices\DbDataOperation.cs" />
     <Compile Include="Services\BigServices\ReportService.cs" />
+    <Compile Include="Services\BigServices\ReportService2.cs" />
     <Compile Include="Services\BigServices\ServCrudAbstract.cs" />
     <Compile Include="Services\FIlters\ReagentFilter.cs" />
     <Compile Include="Services\FIlters\SupplyComparer.cs" />
