@@ -2,9 +2,12 @@
 using BLL.Models.OtherModels;
 using ChemReagents.Additional;
 using ChemReagents.Pages.DialogWins;
+using Microsoft.Win32;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 
 namespace ChemReagents.Pages.ReportPage
 {
@@ -108,12 +111,61 @@ namespace ChemReagents.Pages.ReportPage
         {
             get => export ?? (export = new RelayCommand(obj =>
             {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                using (ExcelPackage p = new ExcelPackage())
+                {
+                    var ws = p.Workbook.Worksheets.Add("Лист1");
+
+                    ws.Cells["A2"].Value = "Название реагента";
+                    ws.Cells["B2"].Value = "Количество";
+                    ws.Cells["C2"].Value = "Ед.Изм.";
+                    ws.Cells["D2"].Value = "Списание или расход";
+
+                    ws.Column(1).AutoFit();
+                    ws.Column(2).AutoFit();
+                    ws.Column(3).AutoFit();
+                    ws.Column(4).AutoFit();
+                    int row = 2;
+                    foreach(var str in OstatkList)
+                    {
+                        row++;
+                        ws.Cells[row, 1].Value = str.ReagentName;
+                        ws.Cells[row, 2].Value = str.CountMonth;
+                        ws.Cells[row, 3].Value = str.Units;
+                        ws.Cells[row, 4].Value = "Расход";
+                    }
+                    foreach(var str in WriteList)
+                    {
+                        row++;
+                        ws.Cells[row, 1].Value = str.ReagentName;
+                        ws.Cells[row, 2].Value = str.CountMonth+str.RemainMonth;
+                        ws.Cells[row, 3].Value = str.Units;
+                        ws.Cells[row, 4].Value = "Списание";
+                    }
+
+                    SaveFileDialog d = new SaveFileDialog();
+                    d.Title = "Сохранить отчёт";
+                    d.Filter = "Документ Excel (*.xlsx)|*.xlsx";
+                    if (d.ShowDialog() == true)
+                    {
+                        string filename = d.FileName;
+                        try
+                        {
+                            p.SaveAs(new FileInfo(filename));
+                        }
+                        catch
+                        {
+                            new MyDialogWin("Не получилось сохранить", false);
+                        }
+
+                    }
 
 
-
-
+                }
             }));
         }
+
+
 
     }
 }

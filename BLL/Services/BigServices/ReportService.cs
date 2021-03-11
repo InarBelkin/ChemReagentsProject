@@ -211,15 +211,18 @@ namespace BLL.Services.BigServices
                 {
                     MonthReportLineM r = null;
                     Report rep = null;
+                 
+                    (decimal, decimal) remain = GetRemainsSW(s.Id, new DateTime((int)year, month, DateTime.DaysInMonth((int)year, month)), s.Count, s.Density, true);
+                    decimal cons = GetConsSupplMonth(s.Id, year, month);
+
                     if (s.ReportId != null) rep = db.PReports.GetItem((int)s.ReportId);
-                    if ((s.ReportId == null && s.Date_Expiration < new DateTime((int)year, month + 1, 1)) || (s.ReportId!=null && rep.TimeRep.Year == year && rep.TimeRep.Month == month))
+                    if ((s.ReportId == null && (s.Date_Expiration < new DateTime((int)year, month + 1, 1) || remain.Item1 == 0)) || (s.ReportId!=null && rep.TimeRep.Year == year && rep.TimeRep.Month == month))
                     {
                         r = new MonthReportLineM();
                         Write.Add(r);
                     }
                     else 
                     {
-                        decimal cons = GetConsSupplMonth(s.Id, year, month);
                         if(cons>0)
                         {
                             r = new MonthReportLineM();
@@ -231,9 +234,8 @@ namespace BLL.Services.BigServices
                     {
                         r.SupplyId = s.Id;
                         r.ReagentName = s.Reagent.Name;
-                        r.CountMonth = GetConsSupplMonth(s.Id, year, month);
+                        r.CountMonth = cons;
 
-                        (decimal, decimal) remain = GetRemainsSW(s.Id, new DateTime((int)year, month, DateTime.DaysInMonth((int)year, month)), s.Count, s.Density, true);
                         r.RemainMonth = s.Reagent.isAlwaysWater ? remain.Item2 : remain.Item1;
                         r.Units = s.Reagent.isAlwaysWater ? "мл." : "гр.";
                         r.IsWrittenOff = s.ReportId == null ? false : true;
@@ -247,7 +249,9 @@ namespace BLL.Services.BigServices
 
 
         }
-
+        /// <summary>
+        /// Расход за месяц этой поставки
+        /// </summary>
         public decimal GetConsSupplMonth(int SupplId, uint year, byte month)
         {
             decimal rem = 0;
