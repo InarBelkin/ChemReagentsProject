@@ -12,5 +12,6 @@ namespace ChemReagents.Pages.ReciepePage
     {
         void SetReagents(ObservableCollection<ReagentM> reagents);
         event EventHandler<ReagentM> ChangeReagent;
+        void SetPlusLocation(int Marg);
     }
 }

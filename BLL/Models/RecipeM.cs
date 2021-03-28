@@ -12,6 +12,8 @@ namespace BLL.Models
     {
         private string name;
         public string Name { get => name; set { name = value;OnPropertyChanged(); } }
+        private string gost;
+        public string GOST { get => gost; set { gost = value;OnPropertyChanged(); } }
         public RecipeM() { }
         public RecipeM(Solution_recipe r) { setfromDal(r); }
 
@@ -19,12 +21,14 @@ namespace BLL.Models
         {
             Id = item.Id;
             Name = item.Name;
+            GOST = item.GOST;
         }
 
         internal override void updDal(Solution_recipe item)
         {
             item.Id = Id;
             item.Name = Name;
+            item.GOST = GOST;
         }
     }
 }

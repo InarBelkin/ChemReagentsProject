@@ -6,13 +6,14 @@
         xmlns:local="clr-namespace:ChemReagents.Pages.SupplyWin"
         xmlns:local2="clr-namespace:ChemReagents.Additional"
         mc:Ignorable="d"
-        Title="WinSupply" Height="550" Width="800">
+        Title="Редактирование поставки" Height="600" Width="800">
     <Window.Resources>
         <Style    TargetType="TextBlock"   BasedOn="{StaticResource ColumnEdit}" />
         <Style    TargetType="TextBox"   BasedOn="{StaticResource BigText}" />
         <Style    TargetType="Button"   BasedOn="{StaticResource BigText}" />
         <Style    TargetType="DatePicker"   BasedOn="{StaticResource BigText}" />
         <Style    TargetType="ComboBox"   BasedOn="{StaticResource BigText}" />
+       
         <local2:DecimalConverter x:Key="decimalconverter"/>
     </Window.Resources>
     <Grid>
@@ -36,6 +37,9 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
                 <RowDefinition Height="{Binding UnWriteHeigh}"/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -51,30 +55,35 @@
             <TextBlock Grid.Row="2"  Text="Номер реактива" />
             <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ReagNumb}"/>
             <TextBlock Grid.Row="3"  Text="Название реактива" />
-            <!--<ComboBox Grid.Row="3" Grid.Column="1" Margin="5" ItemsSource="{Binding ReagentList}" SelectedItem="{Binding SelectReag}" DisplayMemberPath="Name" IsEnabled="False" />-->
             <TextBlock Grid.Row="3" Grid.Column="1"  Text="{Binding ReagName}" />
-            <TextBlock Grid.Row="4"  Text="Поставщик" />
-            <ComboBox x:Name="Combo" Grid.Row="4" Grid.Column="1" Margin="5" ItemsSource="{Binding SuppliersList}" SelectedItem="{Binding SelectSupplier}" DisplayMemberPath="Name"/>
-            <TextBlock Grid.Row="5"  Text="Дата производства" />
-            <DatePicker Grid.Row="5" Grid.Column="1" SelectedDate="{Binding DateProduction}"/>
-            <TextBlock Grid.Row="6"  Text="Дата поставки" />
-            <DatePicker Grid.Row="6" Grid.Column="1" SelectedDate="{Binding DateStartUse}"/>
-            <TextBlock Grid.Row="7"  Text="Годен до" />
-            <DatePicker Grid.Row="7" Grid.Column="1" SelectedDate="{Binding DateExpiration}"/>
-            <TextBlock Grid.Row="8"  Text="Дата списания" />
-            <DatePicker Grid.Row="8" Grid.Column="1" SelectedDate="{Binding DateUnWrite}"/>
-            <TextBlock Grid.Row="9"  Text="Количество в гр." />
-            <TextBox Grid.Row="9" Grid.Column="1" Margin="5" Text="{Binding AmountGr,UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Grid.Row="10"  Text="Остаток в гр." />
-            <TextBlock Grid.Row="10"  Grid.Column="1" Text="{Binding RemaindGr}" />
-            <TextBlock Grid.Row="11"  Text="Плотность" />
-            <TextBox Grid.Row="11" Grid.Column="1" Text="{Binding Density, Converter={StaticResource decimalconverter}}" Margin="5" x:Name="box"/>
-            <TextBlock Grid.Row="12"  Text="Количество в мл." />
-            <TextBox Grid.Row="12" Grid.Column="1" Margin="5" Text="{Binding AmountMl, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Grid.Row="13"  Text="Остаток в мл." />
-            <TextBlock Grid.Row="13"  Grid.Column="1" Text="{Binding RemaindMl}" />
-            <Button Grid.Row="14"   Margin="5" Content="Сохранить" Command="{Binding SaveCommand}" CommandParameter="Save"/>
-            <Button Grid.Row="14" Grid.Column="1"  Margin="5" Content="Отмена" Command="{Binding SaveCommand}" CommandParameter="Cacnel"/>
+            <TextBlock Grid.Row="4"  Text="Входной контроль" />
+            <TextBox Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding IncomContr}"/>
+            <TextBlock Grid.Row="5"  Text="Квалификация" />
+            <TextBox Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding Qualification}"/>
+            <TextBlock Grid.Row="6"  Text="Производитель" />
+            <TextBox Grid.Row="6" Grid.Column="1" Margin="5" Text="{Binding Manufacturer}"/>
+            <TextBlock Grid.Row="7"  Text="Дата производства" />
+            <DatePicker Grid.Row="7" Grid.Column="1" SelectedDate="{Binding DateProduction}"/>
+            <TextBlock Grid.Row="8"  Text="Поставщик" />
+            <ComboBox x:Name="Combo" Grid.Row="8" Grid.Column="1" Margin="5" ItemsSource="{Binding SuppliersList}" SelectedItem="{Binding SelectSupplier}" DisplayMemberPath="Name"/>
+            <TextBlock Grid.Row="9"  Text="Дата поставки" />
+            <DatePicker Grid.Row="9" Grid.Column="1" SelectedDate="{Binding DateStartUse}"/>
+            <TextBlock Grid.Row="10"  Text="Годен до" />
+            <DatePicker Grid.Row="10" Grid.Column="1" SelectedDate="{Binding DateExpiration}"/>
+            <TextBlock Grid.Row="11"  Text="Дата списания" />
+            <DatePicker Grid.Row="11" Grid.Column="1" SelectedDate="{Binding DateUnWrite}"/>
+            <TextBlock Grid.Row="12"  Text="Количество в гр." />
+            <TextBox Grid.Row="12" Grid.Column="1" Margin="5" Text="{Binding AmountGr,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="13"  Text="Остаток в гр." />
+            <TextBlock Grid.Row="13"  Grid.Column="1" Text="{Binding RemaindGr}" />
+            <TextBlock Grid.Row="14"  Text="Плотность" />
+            <TextBox Grid.Row="14" Grid.Column="1" Text="{Binding Density, Converter={StaticResource decimalconverter}}" Margin="5" x:Name="box"/>
+            <TextBlock Grid.Row="15"  Text="Количество в мл." />
+            <TextBox Grid.Row="15" Grid.Column="1" Margin="5" Text="{Binding AmountMl, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="16"  Text="Остаток в мл." />
+            <TextBlock Grid.Row="16"  Grid.Column="1" Text="{Binding RemaindMl}" />
+            <Button Grid.Row="17"   Margin="5" Content="Сохранить" Command="{Binding SaveCommand}" CommandParameter="Save"/>
+            <Button Grid.Row="17" Grid.Column="1"  Margin="5" Content="Отмена" Command="{Binding SaveCommand}" CommandParameter="Cacnel"/>
         </Grid>
         <Grid  Grid.Column="2" >
             <Grid.ColumnDefinitions>

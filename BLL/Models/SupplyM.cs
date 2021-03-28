@@ -14,12 +14,15 @@ namespace BLL.Models
         public int ReagentId { get => reagentId; set { reagentId = value; OnPropertyChanged(); } }
         private int? supplierId;
         public int? SupplierId { get => supplierId; set { supplierId = value; OnPropertyChanged(); } }
-        //private int reagentNumber;
-        //public int ReagentNumber { get => reagentNumber; set { reagentNumber = value;OnPropertyChanged(); } }
-        //private DateTime date_Begin;
-        //public DateTime Date_Begin { get => date_Begin; set { date_Begin = value; OnPropertyChanged(); } }
-        //private DateTime date_End;
-        //public DateTime Date_End { get => date_End; set { date_End = value; OnPropertyChanged(); } }
+        private string manufacturer;
+        public string Manufacturer { get => manufacturer; set { manufacturer = value; OnPropertyChanged(); } }
+        public int? ReportId { get; set; }
+
+        private string incomcontr;
+        public string IncomContr { get=>incomcontr; set { incomcontr = value;OnPropertyChanged(); } }
+        private string qualification;
+        public string Qualification { get => qualification; set { qualification = value; OnPropertyChanged(); } }
+
         private DateTime date_Production;
         public DateTime DateProduction { get => date_Production; set { date_Production = value; OnPropertyChanged(); } }
         private DateTime date_StartUse;
@@ -72,12 +75,16 @@ namespace BLL.Models
             Id = s.Id;
             ReagentId = s.ReagentId;
             SupplierId = s.SupplierId;
+            Manufacturer = s.Manufacturer;
+            ReportId = s.ReportId;
+            IncomContr = s.IncomContr;
+            Qualification = s.Qualification;
+
             DateProduction = s.Date_Production;
             DateStartUse = s.Date_StartUse;
             DateExpiration = s.Date_Expiration;
             DateUnWrite = s.Date_UnWrite;
             Active = s.Active;
-            //State = (SupplStates)s.State;
             CountMas = s.Count;
             Density = s.Density;
             if (Active)
@@ -97,19 +104,23 @@ namespace BLL.Models
             item.Id = Id;
             item.ReagentId = ReagentId;
             item.SupplierId = SupplierId;
+            item.Manufacturer = Manufacturer;
+            item.ReportId = ReportId;
+
+            item.IncomContr = IncomContr;
+            item.Qualification = Qualification;
             item.Date_Production = DateProduction;
             item.Date_StartUse = DateStartUse;
             item.Date_Expiration = DateExpiration;
             item.Date_UnWrite = DateUnWrite;
             item.Active = Active;
-            //item.State = (byte)State;
             item.Count = CountMas;
             item.Density = Density;
         }
 
         public override bool Validate()
         {
-            return (ReagentId > 0 && SupplierId > 0);
+            return (ReagentId > 0);
         }
     }
 

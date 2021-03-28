@@ -12,8 +12,13 @@ namespace DAL.Tables
         public int Id { get; set; }
         public int Number { get; set; }
         public string Name { get; set; }
+        public string Formula { get; set; }
 
-      
+        public string Synonyms { get; set; }
+        public string GOST { get; set; }
+        public string Location { get; set; }
+
+
         public bool isWater { get; set; }
         public bool isAlwaysWater { get; set; }
         public bool IsAccounted { get; set; }

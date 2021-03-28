@@ -74,8 +74,17 @@ namespace ChemReagents.Pages.ReciepePage
 
         private void ReagComb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             ChangeReagent.Invoke(sender, e.AddedItems[0] as ReagentM);
+        }
+
+        public void SetPlusLocation(int Marg)
+        {
+            //double heigh = ReactiveDG.ColumnHeaderHeight + Marg * ReactiveDG.RowHeight;
+            //if (double.IsNaN(heigh))
+            //    
+            //else PlusButton.Margin = new Thickness(0, heigh, 0, 0);
+            double heigh = 30 + 30 * Marg;
+            PlusButton.Margin = new Thickness(0, heigh, 0, 0);
         }
     }
 }

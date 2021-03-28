@@ -19,9 +19,15 @@ namespace DAL.Tables
         [ForeignKey("SupplierId")]
         public Supplier Supplier { get; set; }
 
+        public string Manufacturer { get; set; }
+
         public int? ReportId { get; set; }
         [ForeignKey("ReportId")]
         public Report Report { get; set; }
+
+        public string IncomContr { get; set; }
+        public string Qualification { get; set; }
+
 
         public DateTime Date_Production { get; set; }
         public DateTime Date_StartUse { get; set; }
@@ -30,7 +36,6 @@ namespace DAL.Tables
 
         public decimal Density { get; set; }
         public bool Active { get; set; }
-        //public bool Unpacked { get; set; }
         public decimal Count { get; set; }
 
 

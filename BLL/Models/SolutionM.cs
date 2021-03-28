@@ -20,14 +20,18 @@ namespace BLL.Models
         public int? ConcentrationId { get => concentrationId; set { concentrationId = value; if (concentrationId != null) ConcentrName = ""; OnPropertyChanged(); } }
         private string concentrName;
         public string ConcentrName { get => concentrName; set { concentrName = value; OnPropertyChanged(); } }
+        private string gost;
+        public string GOST { get => gost; set { gost = value; OnPropertyChanged(); } }
+        private decimal coefCorrect;
+        public decimal CoefCorrect { get => coefCorrect; set { coefCorrect = value; OnPropertyChanged(); } }
 
         private DateTime dateBegin;
         public DateTime Date_Begin { get => dateBegin; set { dateBegin = value; OnPropertyChanged(); } }
         private DateTime dateEnd;
-        public DateTime Date_End { get=>dateEnd; set { dateEnd = value; OnPropertyChanged(); } }
+        public DateTime Date_End { get => dateEnd; set { dateEnd = value; OnPropertyChanged(); } }
 
         private decimal count;
-        public decimal Count { get => count; set { count = value;OnPropertyChanged(); } }
+        public decimal Count { get => count; set { count = value; OnPropertyChanged(); } }
 
         public SolutionM() { }
         public SolutionM(Solution s) { setfromDal(s); }
@@ -39,6 +43,8 @@ namespace BLL.Models
             ConcentrationId = item.ConcentrationId;
             RecipeName = item.RecipeName;
             ConcentrName = item.ConcentrName;
+            GOST = item.GOST;
+            CoefCorrect = item.CoefCorrect;
             Date_Begin = item.Date_Begin;
             Date_End = item.Date_End;
             Count = item.Count;
@@ -51,6 +57,8 @@ namespace BLL.Models
             item.RecipeId = RecipeId;
             item.RecipeName = RecipeName;
             item.ConcentrName = ConcentrName;
+            item.GOST = GOST;
+            item.CoefCorrect = CoefCorrect;
             item.Date_Begin = Date_Begin;
             item.Date_End = Date_End;
             item.Count = Count;

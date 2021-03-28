@@ -142,6 +142,26 @@
     <Compile Include="Migrations\202102271950199_AddCompanyMigration13.designer.cs">
       <DependentUpon>202102271950199_AddCompanyMigration13.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103271615198_newmigration1.cs" />
+    <Compile Include="Migrations\202103271615198_newmigration1.designer.cs">
+      <DependentUpon>202103271615198_newmigration1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103271747081_newmigration2.cs" />
+    <Compile Include="Migrations\202103271747081_newmigration2.designer.cs">
+      <DependentUpon>202103271747081_newmigration2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103271843296_newmigration3.cs" />
+    <Compile Include="Migrations\202103271843296_newmigration3.designer.cs">
+      <DependentUpon>202103271843296_newmigration3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103271959034_newmigration4.cs" />
+    <Compile Include="Migrations\202103271959034_newmigration4.designer.cs">
+      <DependentUpon>202103271959034_newmigration4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103272011154_newmigration5.cs" />
+    <Compile Include="Migrations\202103272011154_newmigration5.designer.cs">
+      <DependentUpon>202103272011154_newmigration5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repository\BigRepositories\IReposAbst.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Migrations\202012231605478_InitialCreate.cs" />
@@ -285,6 +305,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102271950199_AddCompanyMigration13.resx">
       <DependentUpon>202102271950199_AddCompanyMigration13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103271615198_newmigration1.resx">
+      <DependentUpon>202103271615198_newmigration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103271747081_newmigration2.resx">
+      <DependentUpon>202103271747081_newmigration2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103271843296_newmigration3.resx">
+      <DependentUpon>202103271843296_newmigration3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103271959034_newmigration4.resx">
+      <DependentUpon>202103271959034_newmigration4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103272011154_newmigration5.resx">
+      <DependentUpon>202103272011154_newmigration5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

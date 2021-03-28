@@ -12,6 +12,7 @@ using ChemReagents.Pages.DialogWins;
 using BLL.Services.FIlters;
 using System.Windows;
 using ChemReagents.AdditionalWins.SettingsWin;
+using ChemReagents.Additional;
 
 namespace ChemReagents.Pages.ReciepePage
 {
@@ -128,8 +129,8 @@ namespace ChemReagents.Pages.ReciepePage
                 case NotifyCollectionChangedAction.Add:
                     if (SelectRecipe != null)
                     {
-                        ConcentrationM fromconc=null;   //сохраняем сюда другую концентрацию
-                        if(ConcentrList.Count >0)
+                        ConcentrationM fromconc = null;   //сохраняем сюда другую концентрацию
+                        if (ConcentrList.Count > 0)
                         {
                             fromconc = ConcentrList[0];
                         }
@@ -151,7 +152,7 @@ namespace ChemReagents.Pages.ReciepePage
                                 }
                             }
                         }
-                       
+
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
@@ -198,34 +199,57 @@ namespace ChemReagents.Pages.ReciepePage
                         r.PropertyChanged += RecipeLine_PropertyChanged;
                     }
                     ret.CollectionChanged += RecipeLine_CollectionChanged;
+                    page.SetPlusLocation(ret.Count);
                     return ret;
                 }
-                else return null;
+                else { page.SetPlusLocation(0); return null; }
             }
+        }
+        private RelayCommand addRecipLine;
+        public RelayCommand AddRecipLine
+        {
+            get => addRecipLine ?? (addRecipLine = new RelayCommand(obj =>
+            {
+                if(SelectConcentr!=null)
+                {
+                    var reagents = dbOp.Reagents.GetList();
+                    if (reagents.Count > 0)
+                    {
+                        RecipeLineM newrecline = new RecipeLineM()
+                        {
+                            ReagentId = reagents[0].Id,
+                            ConcentracionId = SelectConcentr.Id,
+                        };
+                        var ex = dbOp.Recipe_Lines.Create(newrecline);
+                        if(ex!=null) new ErrorWin(ex).ShowDialog();
+                        OnPropertyChanged("RecipeLineList");
+                    }
+                }
+            }));
         }
 
         private void RecipeLine_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
-                case NotifyCollectionChangedAction.Add:
-                    if (SelectConcentr != null)
-                    {
-                        var reagents = dbOp.Reagents.GetList();
-                        if (reagents.Count > 0)
-                        {
-                            RecipeLineM newrecline = e.NewItems[0] as RecipeLineM;
-                            newrecline.ConcentracionId = SelectConcentr.Id;
-                            newrecline.ReagentId = reagents[0].Id;
-                            var ex = dbOp.Recipe_Lines.Create(newrecline);
-                            if (ex != null) new ErrorWin(ex).ShowDialog();
-                            else
-                            {
-                                newrecline.PropertyChanged += RecipeLine_PropertyChanged;
-                            }
-                        }
-                    }
-                    break;
+                //case NotifyCollectionChangedAction.Add:
+                //    if (SelectConcentr != null)
+                //    {
+                //        var reagents = dbOp.Reagents.GetList();
+                //        if (reagents.Count > 0)
+                //        {
+                //            RecipeLineM newrecline = e.NewItems[0] as RecipeLineM;
+                //            newrecline.ConcentracionId = SelectConcentr.Id;
+                //            newrecline.ReagentId = reagents[0].Id;
+                //            var ex = dbOp.Recipe_Lines.Create(newrecline);
+                //            if (ex != null) new ErrorWin(ex).ShowDialog();
+                //            else
+                //            {
+                //                newrecline.PropertyChanged += RecipeLine_PropertyChanged;
+                //            }
+                //        }
+                //    }
+                //    break;
                 case NotifyCollectionChangedAction.Remove:
                     RecipeLineM delrec = e.OldItems[0] as RecipeLineM;
                     dbOp.Recipe_Lines.Delete(delrec.Id);
@@ -251,7 +275,7 @@ namespace ChemReagents.Pages.ReciepePage
 
         private void Page_ChangeReagent(object sender, ReagentM e)
         {
-            if (e != null && SelectRezLine!=null)
+            if (e != null && SelectRezLine != null)
             {
                 SelectRezLine.SetReagent(e);
             }

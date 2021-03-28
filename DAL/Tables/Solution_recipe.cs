@@ -10,6 +10,7 @@ namespace DAL.Tables
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string GOST { get; set; }
         public virtual List<Concentration> Concentrations { get; set; }
     }
 }

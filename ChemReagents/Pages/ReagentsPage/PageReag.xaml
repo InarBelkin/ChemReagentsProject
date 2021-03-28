@@ -29,9 +29,14 @@
             <DataGrid x:Name="ReagentDG" AutoGenerateColumns="False" ItemsSource="{Binding ReagentList}"  SelectedItem="{Binding SelectReag,Mode=OneWayToSource}" Grid.Row="1" IsReadOnly="{Binding IsRead}" >
                 <DataGrid.Columns >
                     <DataGridTextColumn x:Name="IdColumn" Header="Id" Binding="{Binding Id}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="№" Binding="{Binding Number}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Формула" Binding="{Binding Formula}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Синонимы" Binding="{Binding Synonyms}"></DataGridTextColumn>
                     <DataGridCheckBoxColumn Header="Жидкость?" Binding="{Binding IsWater}" />
                     <DataGridCheckBoxColumn Header="Всегда?" Binding="{Binding IsAlwaysWater}" />
+                    <DataGridTextColumn Header="ГОСТ" Binding="{Binding GOST}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Где находится" Binding="{Binding Location}"></DataGridTextColumn>
                     <DataGridTextColumn Header="!" IsReadOnly="True" Binding="{Binding Warn}" FontWeight="Bold"  Visibility="Hidden"/>
                 </DataGrid.Columns>
             </DataGrid>

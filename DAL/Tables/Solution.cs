@@ -19,8 +19,12 @@ namespace DAL.Tables
         [ForeignKey("RecipeId")]
         public Solution_recipe Recipe;
 
+
         public string RecipeName {get;set;}
         public string ConcentrName {get;set;}
+
+        public string GOST { get; set; }
+        public decimal CoefCorrect { get; set; }
         public DateTime Date_Begin { get; set; }
         public DateTime Date_End { get; set; }
         public decimal Count { get; set; }

@@ -89,7 +89,7 @@ namespace ChemReagents.Pages.SupplyWin
         {
             get
             {
-                if (TempSuppl.Active)
+                if (!TempSuppl.Active)
                 {
                     return GridLength.Auto;
                 }
@@ -103,15 +103,15 @@ namespace ChemReagents.Pages.SupplyWin
         public int ReagId => TempSuppl.ReagentId;
         public int ReagNumb => SelectReag.Number;
         public string ReagName { get => SelectReag.Name; }
-        //private ObservableCollection<ReagentM> reagentList;
-        //public ObservableCollection<ReagentM> ReagentList { get => reagentList; set => reagentList = value; }
+       
+        public string IncomContr { get => TempSuppl.IncomContr; set => TempSuppl.IncomContr = value; }
+        public string Qualification { get => TempSuppl.Qualification; set => TempSuppl.Qualification=value; }
+        public string Manufacturer { get => TempSuppl.Manufacturer; set => TempSuppl.Manufacturer = value; }
+        public DateTime DateProduction { get => TempSuppl.DateProduction; set { TempSuppl.DateProduction = value; OnPropertyChanged("DateProduction"); } }
         private ObservableCollection<SupplierM> suppliersList;
         public ObservableCollection<SupplierM> SuppliersList { get => suppliersList; set => suppliersList = value; }
         private SupplierM selectSupplier;
         public SupplierM SelectSupplier { get => selectSupplier; set { selectSupplier = value; TempSuppl.SupplierId = value.Id; } }
-        //public DateTime DateBeg { get => TempSuppl.Date_Begin; set { TempSuppl.Date_Begin = value; OnPropertyChanged("DateBeg"); } }
-        //public DateTime DateEnd { get => TempSuppl.Date_End; set { TempSuppl.Date_End = value; OnPropertyChanged("DateEnd"); } }
-        public DateTime DateProduction { get => TempSuppl.DateProduction; set { TempSuppl.DateProduction = value; OnPropertyChanged("DateProduction"); } }
         public DateTime DateStartUse { get => TempSuppl.DateStartUse; set { TempSuppl.DateStartUse = value; OnPropertyChanged("DateStartUse"); } }
         public DateTime DateExpiration { get => TempSuppl.DateExpiration; set { TempSuppl.DateExpiration = value; OnPropertyChanged("DateExpiration"); } }
         public DateTime DateUnWrite { get => TempSuppl.DateUnWrite; set { TempSuppl.DateUnWrite = value; OnPropertyChanged("DateUnWrite"); } }

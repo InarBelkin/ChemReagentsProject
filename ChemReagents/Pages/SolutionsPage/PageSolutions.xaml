@@ -8,7 +8,7 @@
              
                Name="SolutPage"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="900">
+             d:DesignHeight="500" d:DesignWidth="1000">
     <UserControl.Resources>
         <local2:DecimalConverter x:Key="decimalconverter"/>
     </UserControl.Resources>
@@ -59,7 +59,8 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-
+                    <DataGridTextColumn Header="ГОСТ" Binding="{Binding GOST}"/>
+                    <DataGridTextColumn Header="Коэфф.П-ки" Binding="{Binding CoefCorrect}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
