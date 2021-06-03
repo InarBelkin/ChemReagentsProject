@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Tables
 {
-    class BaseDBModel : INotifyPropertyChanged
+    public class BaseDBModel : INotifyPropertyChanged
     {
         public int Id { get; set; }
 

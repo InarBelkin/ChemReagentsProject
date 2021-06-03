@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using BLL.Interfaces;
+using ChemReagentsProject.IoC;
 namespace ChemReagentsProject
 {
     /// <summary>
@@ -22,6 +23,8 @@ namespace ChemReagentsProject
     {
         public MainWindow()
         {
+            IUnitOfWork db = IoC.IoC.Get<IUnitOfWork>();
+            db.Reagents.GetList();
             InitializeComponent();
         }
     }
