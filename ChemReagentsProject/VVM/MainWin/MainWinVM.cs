@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using BLL.Interfaces;
 using ChemReagentsProject.VVM.Additional;
-using ChemReagentsProject.VVM.Reagent;
 
 namespace ChemReagentsProject.VVM.MainWin
 {

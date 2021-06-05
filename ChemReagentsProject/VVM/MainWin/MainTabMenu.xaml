@@ -26,14 +26,22 @@
                              CommandParameter="Reagent"
                     Style="{StaticResource MaterialDesignTabRadioButton}"
                     Margin="4"
-                    IsChecked="True"
-                    Content="Реактивы" />
+                    IsChecked="True">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="TestTube"  />
+                        <TextBlock>Реактивы</TextBlock>
+                    </StackPanel>
+                </RadioButton>
                 <RadioButton Command="{Binding SelectPageComm}"
                              CommandParameter="Recipe"
                     Style="{StaticResource MaterialDesignTabRadioButton}"
                     Margin="4"
-                    IsChecked="False"
-                    Content="Рецепты" />
+                    IsChecked="False">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ViewListOutline" />
+                        <TextBlock>Рецепты</TextBlock>
+                    </StackPanel>
+                </RadioButton>
                 <RadioButton
                     Style="{StaticResource MaterialDesignTabRadioButton}"
                     Margin="4"
@@ -52,7 +60,7 @@
                 <RadioButton
                     Content="C"
                     Style="{StaticResource MaterialDesignActionLightToggleButton}"
-                    IsChecked="True"
+                    IsChecked="False"
                     ToolTip="MaterialDesignActionLightToggleButton" />
             </StackPanel>
         </materialDesign:ColorZone>

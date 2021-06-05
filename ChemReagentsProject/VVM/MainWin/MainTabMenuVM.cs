@@ -1,14 +1,14 @@
 ﻿using System.Windows.Controls;
 using ChemReagentsProject.VVM.Additional;
-using ChemReagentsProject.VVM.Reagent;
+using ChemReagentsProject.VVM.ReagentP;
 using ChemReagentsProject.VVM.Recipes;
-
 namespace ChemReagentsProject.VVM.MainWin
 {
     public class MainTabMenuVM : BaseVM
     {
         public MainTabMenuVM()
         {
+            CurrentPage = new ReagentPage();
         }
 
         private ContentControl _currentPage;

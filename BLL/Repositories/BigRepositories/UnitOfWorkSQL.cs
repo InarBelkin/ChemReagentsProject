@@ -33,5 +33,10 @@ namespace BLL.Repositories.BigRepositories
         {
             return db.SaveChanges();
         }
+
+        public void TestChanges()
+        {
+            
+        }
     }
 }
