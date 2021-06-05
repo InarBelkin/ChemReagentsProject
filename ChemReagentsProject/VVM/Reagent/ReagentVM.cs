@@ -1,6 +1,8 @@
-﻿namespace ChemReagentsProject.VVM.Reagent
+﻿using ChemReagentsProject.VVM.Additional;
+
+namespace ChemReagentsProject.VVM.Reagent
 {
-    public class ReagentVM
+    public class ReagentVM : BaseVM
     {
         
     }
