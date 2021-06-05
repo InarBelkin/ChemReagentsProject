@@ -6,13 +6,12 @@
         xmlns:viewmodels="clr-namespace:ChemReagentsProject.VVM.MainWin"
         xmlns:local="clr-namespace:ChemReagentsProject.VVM.MainWin"
         mc:Ignorable="d"
-        Title="MainWin" Height="450" Width="800">
+        Title="Учёт химреагентов" Height="450" Width="800">
     <Window.DataContext>
         <viewmodels:MainWinVM></viewmodels:MainWinVM>
     </Window.DataContext>
-    
-    
+
     <Grid>
-        <ContentControl DataContext="{Binding CurrentPage}"/>
+        <ContentControl Content="{Binding CurrentPage}"/>
     </Grid>
 </Window>

@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using BLL.Interfaces;
 using ChemReagentsProject.VVM.Additional;
+using ChemReagentsProject.VVM.Reagent;
 
 namespace ChemReagentsProject.VVM.MainWin
 {
@@ -11,9 +12,17 @@ namespace ChemReagentsProject.VVM.MainWin
         public MainWinVM()
         {
             //db = IoC.IoC.Get<IUnitOfWork>();
-            
+            CurrentPage = new MainTabMenu();
         }
-        
-        public UserControl CurrentPage { get; set; }
+        private UserControl currentPage;
+        public UserControl CurrentPage
+        {
+            get => currentPage;
+            set
+            {
+                currentPage = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }
