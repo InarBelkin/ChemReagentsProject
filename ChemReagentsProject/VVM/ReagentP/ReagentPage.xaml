@@ -23,12 +23,13 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBlock>Учитываемые</TextBlock>
+                <TextBlock VerticalAlignment="Center">Учитываемые</TextBlock>
                 <ToggleButton
+                    Margin="20 0 20 0"
                     Style="{StaticResource MaterialDesignSwitchLightToggleButton}"
                     ToolTip="MaterialDesignSwitchLightToggleButton"
                     IsChecked="True" />
-                <TextBlock>Неучитываемые</TextBlock>
+                <TextBlock VerticalAlignment="Center">Неучитываемые</TextBlock>
                 <Button Height="25" Command="{Binding SaveAll}"
                     ToolTip="Save"
                     Content="{materialDesign:PackIcon Kind=ContentSave}" />
