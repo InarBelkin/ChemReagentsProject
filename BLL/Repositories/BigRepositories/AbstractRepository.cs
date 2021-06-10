@@ -20,7 +20,14 @@ namespace BLL.Repositories.BigRepositories
 
         public virtual T GetItem(int id) => dbSet.Find(id);
 
-        public virtual List<T> GetList() => dbSet.ToList();
+        public virtual List<T> GetList()
+        {
+            
+            var ret = dbSet.ToList();
+            int c = db.ChangeTracker.Entries().Count();
+
+            return ret;
+        }
 
         public virtual void Create(T item)
         {

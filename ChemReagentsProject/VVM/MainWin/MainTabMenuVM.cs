@@ -30,7 +30,8 @@ namespace ChemReagentsProject.VVM.MainWin
                 switch (obj as string)
                 {
                     case "Reagent":
-                        CurrentPage = new ReagentPage();
+                        var contentControl = new ReagentPage();
+                        CurrentPage = contentControl;
                         break;
                     case "Recipe":
                         CurrentPage = new RecipePage();

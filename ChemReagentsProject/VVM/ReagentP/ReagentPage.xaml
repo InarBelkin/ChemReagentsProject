@@ -33,6 +33,7 @@
                 <Button Height="25" Command="{Binding SaveAll}"
                     ToolTip="Save"
                     Content="{materialDesign:PackIcon Kind=ContentSave}" />
+                <TextBlock Text="{Binding CountChanges, StringFormat={}Изменений:{0} }"/>
             </StackPanel>
           
             <DataGrid Grid.Row="1" ItemsSource="{Binding ReagentList}" AutoGenerateColumns="False"

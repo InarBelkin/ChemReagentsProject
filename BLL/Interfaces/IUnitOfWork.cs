@@ -7,5 +7,6 @@ namespace BLL.Interfaces
         IRepository<Reagent> Reagents { get; }
 
         public int Save();
+        public int CountChanges();
     }
 }

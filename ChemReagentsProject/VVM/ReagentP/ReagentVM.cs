@@ -14,6 +14,7 @@ namespace ChemReagentsProject.VVM.ReagentP
         public ReagentVM()
         {
             db = IoC.IoC.Get<IUnitOfWork>();
+            OnPropertyChanged("CountChanges");
         }
 
         public ObservableCollection<Reagent> ReagentList
@@ -21,9 +22,18 @@ namespace ChemReagentsProject.VVM.ReagentP
             get
             {
                 var l = new ObservableCollection<Reagent>(db.Reagents.GetList());
+                foreach(var r in l)
+                {
+                    r.PropertyChanged += ReagPC;
+                }
                 l.CollectionChanged += ReagListChanged;
                 return l;
             }
+        }
+
+        private void ReagPC(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged("CountChanges");
         }
 
         private void ReagListChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -33,16 +43,20 @@ namespace ChemReagentsProject.VVM.ReagentP
                 case NotifyCollectionChangedAction.Add:
                     Reagent newreag  = e.NewItems[0] as Reagent;
                     db.Reagents.Create(newreag);
+                    OnPropertyChanged("CountChanges");
                     break;
 
             }
         }
-        
+
+        public int CountChanges => db.CountChanges();
+
         private RelayCommand _saveAll;
 
         public RelayCommand SaveAll => _saveAll ??= new RelayCommand(obj =>
         {
             int a = db.Save();
+            OnPropertyChanged("CountChanges");  
         });
     }
 }
