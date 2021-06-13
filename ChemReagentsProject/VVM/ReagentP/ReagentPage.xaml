@@ -38,9 +38,11 @@
           
             <DataGrid Grid.Row="1" ItemsSource="{Binding ReagentList}" AutoGenerateColumns="False"
                 materialDesign:DataGridAssist.CellPadding="2 2 2 2"
-                materialDesign:DataGridAssist.ColumnHeaderPadding="2 2 2 2" >
+                materialDesign:DataGridAssist.ColumnHeaderPadding="2 2 2 2"
+                      SelectedItem="{Binding SelectReag, Mode=OneWayToSource}"
+                     Select >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
                     <DataGridTextColumn Header="№" Binding="{Binding Number}"/>
                     <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Формула" Binding="{Binding Formula}"></DataGridTextColumn>

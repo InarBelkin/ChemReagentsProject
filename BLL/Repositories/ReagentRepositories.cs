@@ -12,4 +12,12 @@ namespace BLL.Repositories
         {
         }
     }
+
+    public class SupplyRep: AbstractRepository<Supply>
+    {
+        public SupplyRep(ChemContext db) : base(db, db.Supplies)
+        {
+           
+        }
+    }
 }

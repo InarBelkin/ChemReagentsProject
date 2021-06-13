@@ -48,11 +48,17 @@ namespace ChemReagentsProject.VVM.ReagentP
 
             }
         }
+        
+        private Reagent selectReag;
+        public Reagent SelectReag
+        {
+            get => selectReag;
+            set => selectReag = value;
+        }
 
         public int CountChanges => db.CountChanges();
 
         private RelayCommand _saveAll;
-
         public RelayCommand SaveAll => _saveAll ??= new RelayCommand(obj =>
         {
             int a = db.Save();

@@ -31,7 +31,7 @@ namespace BLL.Repositories.BigRepositories
 
         public virtual void Create(T item)
         {
-            dbSet.Add(item);
+            var entity = dbSet.Add(item);
         }
 
         public virtual void Update(T item)

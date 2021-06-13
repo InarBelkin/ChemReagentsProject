@@ -34,6 +34,7 @@
                 </RadioButton>
                 <RadioButton Command="{Binding SelectPageComm}"
                              CommandParameter="Recipe"
+                             Checked="RadioButton_Checked"
                     Style="{StaticResource MaterialDesignTabRadioButton}"
                     Margin="4"
                     IsChecked="False">
