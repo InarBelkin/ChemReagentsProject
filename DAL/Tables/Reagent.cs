@@ -11,8 +11,8 @@ namespace DAL.Tables
     {
         public int Id { get; set; }
         public int Number { get; set; }
-        public string Name { get; set; }
-        public string Formula { get; set; }
+        public string Name { get; set; }  = string.Empty;
+        public string Formula { get; set; } = string.Empty;
 
         public string Synonyms { get; set; }
         public string GOST { get; set; }
@@ -24,7 +24,7 @@ namespace DAL.Tables
         public bool IsAccounted { get; set; }
 
 
-        public virtual List<Supply> Supplies { get; set; }
+        public virtual List<Supply> Supplies { get; set; } = new List<Supply>();
         //public virtual List<Solution_recipe_line> SolutRecipeLines { get; set; }
 
     }

@@ -59,6 +59,7 @@
     <Compile Include="Additional\ServiceModule.cs" />
     <Compile Include="Interfaces\ICRUDRepos.cs" />
     <Compile Include="Interfaces\IDBCrud.cs" />
+    <Compile Include="Interfaces\IJsonDb.cs" />
     <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\IReportServ.cs" />
     <Compile Include="Models\ConcentrationM.cs" />
