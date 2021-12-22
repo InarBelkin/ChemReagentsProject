@@ -24,6 +24,6 @@ namespace BLL.Interfaces
 
         (List<MonthReportLineM>, List<MonthReportLineM>) GetListReport(uint year, byte month);
         ReportM CreateMonthRep(ReportM rep);
-        Exception AcceptWriteOff(MonthReportLineM m, ReportM r);
+        void AcceptWriteOff(MonthReportLineM m, ReportM r);
     }
 }

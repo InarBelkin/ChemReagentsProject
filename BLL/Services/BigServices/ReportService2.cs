@@ -10,24 +10,25 @@ namespace BLL.Services.BigServices
 {
     public partial class ReportService
     {
-        public Exception AcceptWriteOff(MonthReportLineM m, ReportM r)
+        public void AcceptWriteOff(MonthReportLineM m, ReportM r)
         {
-            Supply s = db.Supplies.GetItem(m.SupplyId);
-            if(m.AcceptWriteOff)
+            Supply s = db.Supplies.GetItem(m.SupplyId); //1
+            if (m.AcceptWriteOff) //2
             {
-                s.Active = false;
+                s.Active = false; //3
                 s.Date_UnWrite = r.RealDate;
                 s.ReportId = r.Id;
             }
             else
             {
+                //4
                 s.Active = true;
                 s.Date_UnWrite = new DateTime(2100, 1, 1);
                 s.ReportId = null;
             }
-            db.Supplies.Update(s);
-            db.Save();
-            return null;
+
+            db.Supplies.Update(s);  //5
+            db.Save();  
         }
 
         public ReportM CreateMonthRep(ReportM rep)
@@ -48,8 +49,8 @@ namespace BLL.Services.BigServices
                     break;
                 }
             }
+
             return ret;
         }
-
     }
 }
